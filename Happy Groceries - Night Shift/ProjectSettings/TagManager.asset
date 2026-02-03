@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags:
+  - Audio
+  - Carpet
+  - Tiles
+  - NPCs
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Floor
+  - SolidObjects
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Collisions
+    uniqueID: 3775203291
+    locked: 0
+  - name: Background
+    uniqueID: 1683363767
+    locked: 0
+  - name: Floor
+    uniqueID: 3270652257
+    locked: 0
+  - name: Walls
+    uniqueID: 2117765855
+    locked: 0
+  - name: Doors
+    uniqueID: 2154898379
+    locked: 0
+  - name: Objects
+    uniqueID: 289268225
+    locked: 0
+  - name: Roof
+    uniqueID: 1816364301
+    locked: 0
+  - name: Entities
+    uniqueID: 4096058485
+    locked: 0
+  - name: OverEntities
+    uniqueID: 3332827459
+    locked: 0
+  m_RenderingLayers:
+  - Default
