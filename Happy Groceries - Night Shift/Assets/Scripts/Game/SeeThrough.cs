@@ -10,10 +10,17 @@ public class SeeThrough : MonoBehaviour
     private SpriteRenderer spriteRend;
     private float targetAlpha = 1f;
 
+    private int entitiesBehind = 0;
+
     void Awake()
     {
         // Obtem o SpriteRenderer do objeto
         spriteRend = GetComponent<SpriteRenderer>();
+
+        if (spriteRend == null)
+        {
+            spriteRend = GetComponentInParent<SpriteRenderer>();
+        }
     }
 
     void Update()
@@ -33,6 +40,7 @@ public class SeeThrough : MonoBehaviour
         // Ativa apenas se o objeto for o Player
         if (collision.CompareTag("Player"))
         {
+            entitiesBehind++;
             targetAlpha = transparency;
         }
     }
@@ -42,7 +50,8 @@ public class SeeThrough : MonoBehaviour
         // Volta ao alpha normal quando o Player sai
         if (collision.CompareTag("Player"))
         {
-            targetAlpha = 1f;
+                entitiesBehind = 0;
+                targetAlpha = 1f;
         }
     }
 }

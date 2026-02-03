@@ -2219,7 +2219,7 @@ AudioSource:
   m_GameObject: {fileID: 1658746683}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8182079229883127791, guid: d0984b43c634f3c4faf97dd993c2d0af, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 9b011b261451448059f85fb2648a1655, type: 3}
   m_PlayOnAwake: 1
@@ -2316,7 +2316,7 @@ Transform:
   m_GameObject: {fileID: 1658746683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 913.7304, y: 561.0737, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2348,7 +2348,7 @@ AudioSource:
   m_GameObject: {fileID: 1880828594}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 1148471866473347335, guid: d0984b43c634f3c4faf97dd993c2d0af, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -2445,7 +2445,7 @@ Transform:
   m_GameObject: {fileID: 1880828594}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1023.44, y: 517.26154, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2466,7 +2466,7 @@ GameObject:
   - component: {fileID: 1916479837}
   - component: {fileID: 1916479838}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: ButtonsSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
