@@ -3001,7 +3001,6 @@ GameObject:
   - component: {fileID: 106406330}
   - component: {fileID: 106406329}
   - component: {fileID: 106406328}
-  - component: {fileID: 106406332}
   - component: {fileID: 106406331}
   m_Layer: 5
   m_Name: Home
@@ -3145,23 +3144,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &106406332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 106406326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af56fdb562bbeeb41a9a85406d4733fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
-  clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
-  hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
-  sceneToLoad: 
-  myButton: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!1 &108258029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3253,7 +3235,6 @@ GameObject:
   - component: {fileID: 114433699}
   - component: {fileID: 114433698}
   - component: {fileID: 114433697}
-  - component: {fileID: 114433701}
   - component: {fileID: 114433700}
   m_Layer: 5
   m_Name: Resume
@@ -3397,23 +3378,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &114433701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 114433695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af56fdb562bbeeb41a9a85406d4733fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
-  clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
-  hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
-  sceneToLoad: 
-  myButton: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!1 &167906615
 GameObject:
   m_ObjectHideFlags: 0
@@ -6640,7 +6604,6 @@ GameObject:
   - component: {fileID: 777201387}
   - component: {fileID: 777201386}
   - component: {fileID: 777201385}
-  - component: {fileID: 777201384}
   - component: {fileID: 777201383}
   m_Layer: 5
   m_Name: Back
@@ -6690,23 +6653,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &777201384
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 777201381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af56fdb562bbeeb41a9a85406d4733fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
-  clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
-  hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
-  sceneToLoad: 
-  myButton: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!114 &777201385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8565,7 +8511,6 @@ GameObject:
   - component: {fileID: 1435891968}
   - component: {fileID: 1435891967}
   - component: {fileID: 1435891966}
-  - component: {fileID: 1435891970}
   - component: {fileID: 1435891969}
   m_Layer: 5
   m_Name: Settings
@@ -8709,23 +8654,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1435891970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1435891964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af56fdb562bbeeb41a9a85406d4733fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
-  clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
-  hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
-  sceneToLoad: 
-  myButton: {fileID: 0}
-  audioSource: {fileID: 0}
 --- !u!1 &1463715224
 GameObject:
   m_ObjectHideFlags: 0
