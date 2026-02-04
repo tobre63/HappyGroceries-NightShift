@@ -60,14 +60,14 @@ TagManager:
   - name: Doors
     uniqueID: 2154898379
     locked: 0
-  - name: Objects
-    uniqueID: 289268225
-    locked: 0
   - name: Roof
     uniqueID: 1816364301
     locked: 0
   - name: Entities
     uniqueID: 4096058485
+    locked: 0
+  - name: Objects
+    uniqueID: 289268225
     locked: 0
   - name: OverEntities
     uniqueID: 3332827459
