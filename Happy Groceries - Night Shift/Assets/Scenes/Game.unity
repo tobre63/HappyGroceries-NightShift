@@ -3160,6 +3160,8 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
   hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
   sceneToLoad: 
+  myButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &108258029
 GameObject:
   m_ObjectHideFlags: 0
@@ -3410,6 +3412,8 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
   hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
   sceneToLoad: 
+  myButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &167906615
 GameObject:
   m_ObjectHideFlags: 0
@@ -3568,7 +3572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &215692953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,6 +3713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenu: {fileID: 1212203283}
   settingsMenu: {fileID: 1544402884}
+  settingsButton: {fileID: 1435891964}
 --- !u!4 &229679165
 Transform:
   m_ObjectHideFlags: 0
@@ -4828,7 +4833,7 @@ Camera:
   far clip plane: 1000
   field of view: 35
   orthographic: 1
-  orthographic size: 3.25
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -5567,7 +5572,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &619394801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6700,6 +6705,8 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
   hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
   sceneToLoad: 
+  myButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!114 &777201385
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8717,6 +8724,8 @@ MonoBehaviour:
   clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
   hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
   sceneToLoad: 
+  myButton: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!1 &1463715224
 GameObject:
   m_ObjectHideFlags: 0
@@ -10070,7 +10079,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1809048718
 Transform:
   m_ObjectHideFlags: 0
