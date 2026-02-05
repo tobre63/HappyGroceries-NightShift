@@ -12,7 +12,7 @@ public class NPCScheduleManager : MonoBehaviour
     void Start()
     {
         if (nightTimer == null)
-            nightTimer = FindObjectOfType<NightTimer>();
+            nightTimer = FindFirstObjectByType<NightTimer>();
 
         // Desativa o NPC no início se ainda não for hora
         if (nightTimer != null && nightTimer.currentTime < activationHour)
