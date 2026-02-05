@@ -10,8 +10,8 @@ public class NightTimer : MonoBehaviour
     [SerializeField] private float nightDurationInSeconds = 60f; // Quanto tempo dura a noite na vida real
 
     [Header("Time Control")]
-    [Range(21f, 30f)] // Slider para facilitar testes
-    public float currentTime = 21f; // Hora atual (21 = 21:00, 24 = 00:00, 25 = 01:00, 30 = 06:00)
+    [Range(22f, 30f)] // Slider para facilitar testes
+    public float currentTime = 22f; // Hora atual (22 = 22:00, 24 = 00:00, 25 = 01:00, 30 = 06:00)
 
     private float timeMultiplier;
     private const float END_TIME = 30f; // 30 representa 06:00 da manha (24 + 6)
@@ -19,8 +19,8 @@ public class NightTimer : MonoBehaviour
     void Start()
     {
         // Calcula a velocidade do tempo com base na duracao escolhida
-        // Noite vai das 21h as 30h (9 horas de jogo)
-        timeMultiplier = 9f / nightDurationInSeconds;
+        // Noite vai das 22h as 30h (8 horas de jogo)
+        timeMultiplier = 8f / nightDurationInSeconds;
     }
 
     void Update()
