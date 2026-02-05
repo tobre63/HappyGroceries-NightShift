@@ -52,7 +52,7 @@ public class NpcWaypointController : MonoBehaviour
     {
         // Encontrar o NightTimer se não estiver atribuído
         if (nightTimer == null)
-            nightTimer = FindObjectOfType<NightTimer>();
+            nightTimer = Object.FindFirstObjectByType<NightTimer>();
 
         // Inicializar Waypoints
         if (waypointsParent != null)
