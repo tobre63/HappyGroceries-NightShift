@@ -5664,14 +5664,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a959535a46d4c4040878f63b33cfe11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-<<<<<<< HEAD
   eButtonPrompt: {fileID: 1488099853}
   settingsMenu: {fileID: 1544402884}
-=======
-  eButtonPrompt: {fileID: 1049462641}
-  settingsMenu: {fileID: 427240328}
->>>>>>> 63510c5731117213f715a1cfa33a4829c1f1b452
---- !u!1 &561996992
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
