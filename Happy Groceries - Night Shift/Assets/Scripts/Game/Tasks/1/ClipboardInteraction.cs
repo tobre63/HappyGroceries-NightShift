@@ -13,14 +13,13 @@ public class ClipboardInteraction : MonoBehaviour
 
     void Start()
     {
-        // Começa com tudo escondido para evitar bugs visuais ao iniciar o jogo
+        // Começa com tudo escondido
         if (eButtonPrompt != null) eButtonPrompt.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
     }
 
     void Update()
     {
-        // Se o player estiver no alcance e apertar a tecla E
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             ToggleMenu();
@@ -31,11 +30,10 @@ public class ClipboardInteraction : MonoBehaviour
     {
         if (settingsMenu != null)
         {
-            // Inverte o estado atual do menu (se aberto, fecha; se fechado, abre)
             bool isActive = settingsMenu.activeSelf;
             settingsMenu.SetActive(!isActive);
 
-            // Se o menu abriu, esconde o prompt do botão "E" para não poluir a tela
+            // Opcional: Se o menu abriu, esconde o botão "E". Se fechou, mostra de novo.
             if (eButtonPrompt != null)
             {
                 eButtonPrompt.SetActive(isActive);
@@ -47,7 +45,7 @@ public class ClipboardInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Verifica se o objeto que entrou no Trigger tem a Tag "Player"
+        // Verifica se foi o Player que encostou
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = true;
@@ -57,7 +55,7 @@ public class ClipboardInteraction : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Quando o Player sai de perto, resetamos o estado e fechamos o menu
+        // Verifica se foi o Player que saiu
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = false;
