@@ -2269,7 +2269,6 @@ MonoBehaviour:
   mainMenuPanel: {fileID: 1937946381}
   settingsPanel: {fileID: 834385100}
   fadePanel: {fileID: 40006240}
-  fadeImage: {fileID: 0}
   loadingText: {fileID: 601805806}
   fullText: 'June 16th, 1972
 
@@ -2287,7 +2286,7 @@ MonoBehaviour:
 
 
     Julian Frost'
-  typingSpeed: 0.05
+  typingSpeed: 0.085
   waitAfterText: 2
   audioSource: {fileID: 1880828595}
   typeSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
