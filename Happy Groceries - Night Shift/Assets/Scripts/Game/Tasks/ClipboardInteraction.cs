@@ -3,24 +3,23 @@ using UnityEngine;
 public class ClipboardInteraction : MonoBehaviour
 {
     [Header("UI References")]
-    [Tooltip("Arraste aqui o objeto/imagem da tecla 'E' que deve aparecer")]
+    [Tooltip("Arraste aqui o Canvas (ou Painel) que contém o botão 'E', que deve flutuar sobre a mesa")]
     public GameObject eButtonPrompt;
 
-    [Tooltip("Arraste aqui o menu de Settings (ou Tasks) que deve abrir")]
+    [Tooltip("Arraste aqui o menu/imagem que deve abrir ao clicar")]
     public GameObject settingsMenu;
 
     private bool isPlayerInRange;
 
     void Start()
     {
-        // Garante que o prompt e o menu começam desativados
+        // Começa com tudo escondido
         if (eButtonPrompt != null) eButtonPrompt.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
     }
 
     void Update()
     {
-        // Se o jogador estiver na área e pressionar 'E'
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             ToggleMenu();
@@ -31,15 +30,22 @@ public class ClipboardInteraction : MonoBehaviour
     {
         if (settingsMenu != null)
         {
-            // Inverte o estado atual do menu (se aberto fecha, se fechado abre)
             bool isActive = settingsMenu.activeSelf;
             settingsMenu.SetActive(!isActive);
+
+            // Opcional: Se o menu abriu, esconde o botão "E". Se fechou, mostra de novo.
+            if (eButtonPrompt != null)
+            {
+                eButtonPrompt.SetActive(isActive);
+            }
         }
     }
 
+    // --- FÍSICA 2D ---
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Verifica se foi o Player que entrou na area
+        // Verifica se foi o Player que encostou
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = true;
@@ -49,13 +55,11 @@ public class ClipboardInteraction : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Verifica se foi o Player que saiu da area
+        // Verifica se foi o Player que saiu
         if (collision.CompareTag("Player"))
         {
             isPlayerInRange = false;
             if (eButtonPrompt != null) eButtonPrompt.SetActive(false);
-
-            // Opcional: Fechar o menu se o jogador se afastar demais
             if (settingsMenu != null) settingsMenu.SetActive(false);
         }
     }
