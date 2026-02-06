@@ -3,22 +3,57 @@ using UnityEngine;
 public class TaskToggleController : MonoBehaviour
 {
     [Header("UI References")]
-    [Tooltip("Arraste aqui o objeto 'Task' que fica no canto superior esquerdo")]
     public GameObject taskObject;
+
+    [Header("Settings")]
+    public KeyCode toggleKey = KeyCode.Tab;
+
+    public bool holdToShow = true;
+
+    private bool isToggled = false;
 
     void Update()
     {
+        if (taskObject == null) return;
+
+        if (holdToShow)
+        {
+            // Modo HOLD: Mostra apenas enquanto a tecla está pressionada (comportamento atual)
+            bool isKeyPressed = Input.GetKey(toggleKey);
+
+            if (taskObject.activeSelf != isKeyPressed)
+            {
+                taskObject.SetActive(isKeyPressed);
+            }
+        }
+        else
+        {
+            // Modo TOGGLE: Clica uma vez para mostrar, clica de novo para esconder
+            if (Input.GetKeyDown(toggleKey))
+            {
+                isToggled = !isToggled;
+                taskObject.SetActive(isToggled);
+            }
+        }
+    }
+
+    // Função pública para outros scripts controlarem (opcional)
+    public void ShowTasks(bool show)
+    {
         if (taskObject != null)
         {
-            // Define o estado do objeto diretamente baseado se a tecla TAB está sendo segurada
-            // Input.GetKey retorna true enquanto a tecla está pressionada e false caso contrário
-            bool isTabPressed = Input.GetKey(KeyCode.Tab);
+            taskObject.SetActive(show);
+            if (!holdToShow) isToggled = show;
+        }
+    }
 
-            // Só atualiza se o estado for diferente para evitar chamadas desnecessárias
-            if (taskObject.activeSelf != isTabPressed)
-            {
-                taskObject.SetActive(isTabPressed);
-            }
+    // Fecha as tasks se o jogador sair do alcance de algo, por exemplo
+    public void ForceClose()
+    {
+        if (taskObject != null)
+        {
+            taskObject.SetActive(false);
+            isToggled = false;
         }
     }
 }
