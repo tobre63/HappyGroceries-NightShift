@@ -5144,7 +5144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 492774541}
   - component: {fileID: 492774542}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Blur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5566,7 +5566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 526985262}
   - component: {fileID: 526985263}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Blur
   m_TagString: Untagged
   m_Icon: {fileID: 0}

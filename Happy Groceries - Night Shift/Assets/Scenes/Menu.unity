@@ -230,7 +230,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 40006235}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -419,37 +419,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &219147748
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 219147750}
-  m_Layer: 0
-  m_Name: MainMenu
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &219147750
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 219147748}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 959.01733, y: 557.6706, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &515878312
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,7 +2107,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 9b011b261451448059f85fb2648a1655, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.015
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2269,6 +2238,8 @@ MonoBehaviour:
   mainMenuPanel: {fileID: 1937946381}
   settingsPanel: {fileID: 834385100}
   fadePanel: {fileID: 40006240}
+  buttonsPanel: {fileID: 1916479831}
+  backgroundPanel: {fileID: 519074741}
   loadingText: {fileID: 601805806}
   fullText: 'June 16th, 1972
 
@@ -2289,6 +2260,7 @@ MonoBehaviour:
   typingSpeed: 0.085
   waitAfterText: 2
   audioSource: {fileID: 1880828595}
+  musicSource: {fileID: 1658746684}
   typeSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   hoverSound: {fileID: 8300000, guid: c5dfda905c9326b46b6723e5e0004676, type: 3}
   clickSound: {fileID: 8300000, guid: 15095d2ef11d2ac43b9ab540945eb4c0, type: 3}
@@ -2301,7 +2273,7 @@ Transform:
   m_GameObject: {fileID: 1719717557}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1064.1447, y: 581.1829, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2337,7 +2309,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1.15
   Loop: 0
   Mute: 0
@@ -2451,7 +2423,7 @@ GameObject:
   - component: {fileID: 1916479837}
   - component: {fileID: 1916479838}
   m_Layer: 5
-  m_Name: ButtonsSettings
+  m_Name: Buttons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2890,7 +2862,6 @@ SceneRoots:
   - {fileID: 1916479835}
   - {fileID: 519074745}
   - {fileID: 515878315}
-  - {fileID: 219147750}
   - {fileID: 1658746685}
   - {fileID: 1880828596}
   - {fileID: 1356570325}
