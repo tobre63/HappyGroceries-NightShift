@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: DoorOutside
+  m_Controller: {fileID: 9100000, guid: 010a3bb4ca32aef4c9b609b19f426032, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 7c008bcd0f26a274a9ca5ecb65ebd54f, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2f23fe2beffddad498e8f426d99f6f37, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 44f83f95b2e4afd42807aa4f0666e6df, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 82b5dcb0ba99d3c4d8317a774421032f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 95150eaeb83cd454b9438cff00c29c73, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 301155891a0e0e345bebcb77a2d4a943, type: 2}
