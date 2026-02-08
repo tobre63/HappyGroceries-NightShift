@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a51c76b1f8ee31642a18f45dd67a97b7
+guid: 5eecbfc3de290c04da17d22a25b761c3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5084088964473773480
-    second: StoreShelve3_0
+      213: -442242481127767151
+    second: StoreShelf2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StoreShelve3_0
+      name: StoreShelf2_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
-        height: 80
+        width: 64
+        height: 48
       alignment: 9
-      pivot: {x: 0.5, y: 0.1}
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 852ae020600b179b0800000000000000
-      internalID: -5084088964473773480
+      spriteID: 193cac77ec6dcd9f0800000000000000
+      internalID: -442242481127767151
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 1c746ae5656353b45a3834e11e3994c3
+    spriteID: c0a2cbd34cfe4194ca0c8c9bc79fabe9
     internalID: 0
     vertices: []
     indices: 
@@ -135,9 +135,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.10000000149011612},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":48.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.20000000298023225},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      StoreShelve3_0: -5084088964473773480
+      StoreShelf2_0: -442242481127767151
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
