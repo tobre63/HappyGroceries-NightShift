@@ -227,4 +227,11 @@ public class NpcWaypointController : MonoBehaviour
             Gizmos.DrawSphere(waypointsParent.GetChild(waypointsParent.childCount - 1).position, 0.2f);
         }
     }
+
+    public int CurrentWaypointIndex => currentWaypointIndex;
+
+    public bool IsAtWaypoint(int index)
+    {
+        return currentWaypointIndex == index && isWaiting;
+    }
 }
