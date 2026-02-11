@@ -1,1 +1,85 @@
-// DialogueManager.cs - Updated on 2026-02-11 20:47:20\n\nusing UnityEngine;\nusing System.Collections.Generic;\n\npublic class DialogueManager : MonoBehaviour {\n    private Queue<string> sentences;\n\n    void Start() {\n        sentences = new Queue<string>();\n    }\n\n    public void StartDialogue(Dialogue dialogue) {\n        sentences.Clear();\n\n        foreach (string sentence in dialogue.sentences) {\n            sentences.Enqueue(sentence);\n        }\n\n        DisplayNextSentence();\n    }\n\n    public void DisplayNextSentence() {\n        if (sentences.Count == 0) {\n            EndDialogue();\n            return;\n        }\n\n        string sentence = sentences.Dequeue();\n        Debug.Log(sentence); // Display sentence on the screen.\n    }\n\n    void EndDialogue() {\n        Debug.Log("End of dialogue");\n    }\n}
+// DialogueManager.cs - Updated on 2026-02-11 20:47:20
+
+using UnityEngine;
+using TMPro;
+using System.Collections;
+
+public class DialogueManager : MonoBehaviour {
+    [SerializeField] private NPCDialogue dialogueData;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private TextMeshProUGUI dialogueText;
+    
+    private int currentLineIndex = 0;
+
+    void Start() {
+        InitializeDialogue();
+    }
+
+    private void InitializeDialogue() {
+        if (dialogueData == null) {
+            dialogueData = ScriptableObject.CreateInstance<NPCDialogue>();
+            dialogueData.npcName = "NPC";
+            dialogueData.dialogueLines = new string[] {
+                "Olá jovem, espero que esteja a ter uma boa noite.",
+                "Era só isto, obrigado."
+            };
+            dialogueData.autoProgressLines = new bool[] { true, false };
+            dialogueData.autoProgressDelay = 2.0f;
+            dialogueData.TypingSpeed = 0.05f;
+        }
+    }
+
+    public void StartDialogue() {
+        if (dialogueData == null) return;
+        
+        currentLineIndex = 0;
+        if (nameText != null) {
+            nameText.SetText(dialogueData.npcName);
+        }
+        DisplayLine();
+    }
+
+    private void DisplayLine() {
+        if (currentLineIndex >= dialogueData.dialogueLines.Length) {
+            EndDialogue();
+            return;
+        }
+
+        string line = dialogueData.dialogueLines[currentLineIndex];
+        StopAllCoroutines();
+        StartCoroutine(TypeLine(line));
+    }
+
+    private IEnumerator TypeLine(string line) {
+        if (dialogueText != null) {
+            dialogueText.text = "";
+            foreach (char c in line) {
+                dialogueText.text += c;
+                yield return new WaitForSeconds(dialogueData.TypingSpeed);
+            }
+        }
+
+        // Check if this line should auto-progress
+        if (currentLineIndex < dialogueData.autoProgressLines.Length && 
+            dialogueData.autoProgressLines[currentLineIndex]) {
+            yield return new WaitForSeconds(dialogueData.autoProgressDelay);
+            NextLine();
+        }
+    }
+
+    public void NextLine() {
+        StopAllCoroutines();
+        
+        // Display the complete current line before advancing
+        if (dialogueData != null && currentLineIndex < dialogueData.dialogueLines.Length && dialogueText != null) {
+            dialogueText.text = dialogueData.dialogueLines[currentLineIndex];
+        }
+        
+        currentLineIndex++;
+        DisplayLine();
+    }
+
+    void EndDialogue() {
+        Debug.Log("End of dialogue");
+    }
+}
