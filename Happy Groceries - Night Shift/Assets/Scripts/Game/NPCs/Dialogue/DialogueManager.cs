@@ -44,7 +44,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIndex = 0;
 
         if (nameText != null)
-            nameText.SetText(dialogueData.name);
+            nameText.SetText(dialogueData.npcName);
 
         if (dialoguePanel != null)
             dialoguePanel.SetActive(true);
