@@ -71,7 +71,7 @@ public class DialogueManager : MonoBehaviour {
         StopAllCoroutines();
         
         // Display the complete current line before advancing
-        if (currentLineIndex < dialogueData.dialogueLines.Length && dialogueText != null) {
+        if (dialogueData != null && currentLineIndex < dialogueData.dialogueLines.Length && dialogueText != null) {
             dialogueText.text = dialogueData.dialogueLines[currentLineIndex];
         }
         
