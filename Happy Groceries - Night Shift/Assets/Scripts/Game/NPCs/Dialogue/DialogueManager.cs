@@ -23,6 +23,26 @@ public class DialogueManager : MonoBehaviour
     {
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
+
+        // Set up the specific dialogue sequence
+        if (dialogueData == null)
+        {
+            dialogueData = ScriptableObject.CreateInstance<NPCDialogue>();
+        }
+
+        dialogueData.npcName = "NPC";
+        dialogueData.dialogueLines = new string[]
+        {
+            "Olá jovem, espero que esteja a ter uma boa noite.",
+            "Era só isto, obrigado."
+        };
+        dialogueData.autoProgressLines = new bool[]
+        {
+            true,  // Line 0: auto-progress
+            false  // Line 1: wait for player interaction
+        };
+        dialogueData.autoProgressDelay = 1.5f;
+        dialogueData.TypingSpeed = 0.05f;
     }
 
     void Update()
@@ -44,7 +64,7 @@ public class DialogueManager : MonoBehaviour
         dialogueIndex = 0;
 
         if (nameText != null)
-            nameText.SetText(dialogueData.name);
+            nameText.SetText(dialogueData.npcName);
 
         if (dialoguePanel != null)
             dialoguePanel.SetActive(true);
