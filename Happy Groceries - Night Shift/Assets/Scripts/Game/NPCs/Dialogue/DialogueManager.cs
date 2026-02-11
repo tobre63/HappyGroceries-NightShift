@@ -24,12 +24,14 @@ public class DialogueManager : MonoBehaviour
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
 
-        // Set up the specific dialogue sequence
+        // Set up the specific dialogue sequence if not already configured
+        // This ensures the dialogue always has the expected Portuguese lines
         if (dialogueData == null)
         {
             dialogueData = ScriptableObject.CreateInstance<NPCDialogue>();
         }
 
+        // Force the specific dialogue sequence as requested
         dialogueData.npcName = "NPC";
         dialogueData.dialogueLines = new string[]
         {
