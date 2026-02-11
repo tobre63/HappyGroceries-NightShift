@@ -39,7 +39,9 @@ public class DialogueManager : MonoBehaviour {
 
     public void StartDialogue(Dialogue dialogue) {
         // Fix the property access bug: use npcName instead of name
-        nameText.SetText(dialogueData.npcName);
+        if (nameText != null) {
+            nameText.SetText(dialogueData.npcName);
+        }
         
         sentences.Clear();
 
