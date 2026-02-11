@@ -69,6 +69,12 @@ public class DialogueManager : MonoBehaviour {
 
     public void NextLine() {
         StopAllCoroutines();
+        
+        // Display the complete current line before advancing
+        if (currentLineIndex < dialogueData.dialogueLines.Length && dialogueText != null) {
+            dialogueText.text = dialogueData.dialogueLines[currentLineIndex];
+        }
+        
         currentLineIndex++;
         DisplayLine();
     }
