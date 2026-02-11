@@ -11,6 +11,8 @@ public class DialogueManager : MonoBehaviour {
 
     void Start() {
         // Create and configure the dialogue data programmatically
+        // Note: This runtime creation is intentional per requirements, though typically
+        // ScriptableObjects should be created as assets in the Unity Editor
         dialogueData = ScriptableObject.CreateInstance<NPCDialogue>();
         dialogueData.npcName = "NPC";
         dialogueData.dialogueLines = new string[] {
