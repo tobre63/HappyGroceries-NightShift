@@ -15734,6 +15734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   talkParent: {fileID: 750613529}
   clientNameText: {fileID: 576075658}
   clientTalkText: {fileID: 1746481623}
@@ -15741,6 +15742,11 @@ MonoBehaviour:
   playerKind: {fileID: 167906615}
   playerAfraid: {fileID: 1558380663}
   dialogueData: {fileID: 11400000, guid: 6e9ef17b079eb7d4fab91854879f9b02, type: 2}
+=======
+  nameText: {fileID: 576075658}
+  dialogueText: {fileID: 1746481623}
+  dialogueBox: {fileID: 0}
+>>>>>>> Stashed changes
 =======
   nameText: {fileID: 576075658}
   dialogueText: {fileID: 1746481623}
