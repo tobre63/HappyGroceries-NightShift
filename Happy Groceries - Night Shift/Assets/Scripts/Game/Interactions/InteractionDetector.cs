@@ -17,14 +17,12 @@ public class InteractionDetector : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("Apertou Interact");
             interactableInRange?.Interact();
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Entrou no trigger com: " + collision.name);
 
         if (collision.TryGetComponent(out IInteractable interactable) && interactable.CanInteract())
         {

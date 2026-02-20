@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour
     // Chamado a cada frame, ideal para input e animacoes
     void Update()
     {
+        if (NPCInteraction.isPlayerTalking) return;
         // Acede ao teclado atual atraves do Input System
         var k = Keyboard.current;
 

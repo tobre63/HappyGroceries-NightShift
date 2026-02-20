@@ -56,7 +56,7 @@ public class AutomatedDoorSide : MonoBehaviour
     bool ShouldOpen(Collider2D collision)
     {
         if (collision.CompareTag("Player")) return true;
-        if (collision.GetComponent<NpcWaypointController>() != null) return true;
+        if (collision.GetComponent<NPCController>() != null) return true;
         return false;
     }
 
