@@ -2,38 +2,36 @@ using UnityEngine;
 
 public class ClipboardInteraction : MonoBehaviour
 {
-    [Header("UI References")]
-    [Tooltip("Arraste aqui o Canvas (ou Painel) que contém o botão 'E', que deve flutuar sobre a mesa")]
-    public GameObject eButtonPrompt;
+    // --- SETTINGS ---
 
-    [Tooltip("Arraste aqui o menu/imagem do clipboard que deve abrir ao clicar")]
+    [Header("UI References")]
+    public GameObject eButtonPrompt;
     public GameObject clipboardMenu;
 
     [Header("Interaction Settings")]
-    [Tooltip("Tecla para interagir")]
     public KeyCode interactionKey = KeyCode.E;
-
-    [Tooltip("Fecha o menu automaticamente quando o player sai?")]
     public bool closeMenuOnExit = true;
+
+    // --- VARIÁVEIS INTERNAS ---
 
     private bool isPlayerInRange;
 
     void Start()
     {
-        // Começa com tudo escondido para evitar bugs visuais ao iniciar o jogo
+        // Garante que a UI começa toda escondida para evitar bugs visuais ao iniciar a cena
         if (eButtonPrompt != null) eButtonPrompt.SetActive(false);
         if (clipboardMenu != null) clipboardMenu.SetActive(false);
     }
 
     void Update()
     {
-        // Se o player estiver no alcance e apertar a tecla de interação
+        // Se o jogador estiver na área de alcance e pressionar a tecla de interação (ex: 'E')
         if (isPlayerInRange && Input.GetKeyDown(interactionKey))
         {
             ToggleMenu();
         }
 
-        // OPCIONAL: Fechar o menu com ESC
+        // Permite fechar o menu diretamente pressionando a tecla ESC
         if (clipboardMenu != null && clipboardMenu.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             CloseMenu();
@@ -42,6 +40,7 @@ public class ClipboardInteraction : MonoBehaviour
 
     private void ToggleMenu()
     {
+        // Alterna o estado do menu dependendo se este já se encontra aberto ou fechado
         if (clipboardMenu != null)
         {
             bool isCurrentlyActive = clipboardMenu.activeSelf;
@@ -61,18 +60,14 @@ public class ClipboardInteraction : MonoBehaviour
     {
         if (clipboardMenu != null)
         {
+            // Mostra o menu do clipboard no ecrã
             clipboardMenu.SetActive(true);
 
-            // Esconde o prompt do botão "E" para não poluir a tela
+            // Esconde a indicação visual da tecla de interação para não poluir o ecrã durante a leitura
             if (eButtonPrompt != null)
             {
                 eButtonPrompt.SetActive(false);
             }
-
-            // OPCIONAL: Pausar o jogo quando abre o clipboard
-            // Time.timeScale = 0f;
-            // Ou chamar o GameManager
-            // if (GameManager.Instance != null) GameManager.Instance.PauseGame();
         }
     }
 
@@ -80,30 +75,28 @@ public class ClipboardInteraction : MonoBehaviour
     {
         if (clipboardMenu != null)
         {
+            // Esconde o menu do clipboard
             clipboardMenu.SetActive(false);
 
-            // Volta a mostrar o prompt se o player ainda estiver perto
+            // Volta a exibir a indicação visual da tecla caso o jogador ainda se encontre perto da mesa/objeto
             if (eButtonPrompt != null && isPlayerInRange)
             {
                 eButtonPrompt.SetActive(true);
             }
-
-            // OPCIONAL: Despausar o jogo
-            // Time.timeScale = 1f;
-            // if (GameManager.Instance != null) GameManager.Instance.ResumeGame();
         }
     }
 
-    // --- FÍSICA 2D ---
+    // --- FÍSICA E COLISÕES (2D) ---
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Verifica se o objeto que entrou no Trigger tem a Tag "Player"
-        if (collision.CompareTag("Player"))
+        // Valida se a colisão foi feita pelo Jogador usando a Tag e o Nome exato do GameObject
+        // Esta dupla verificação ajuda a prevenir bugs com colisores invisíveis ou "filhos" do jogador (ex: áreas de ataque ou de deteção do jogador)
+        if (collision.CompareTag("Player") && collision.gameObject.name == "Player")
         {
             isPlayerInRange = true;
 
-            // Só mostra o prompt se o menu não estiver aberto
+            // Mostra o botão de interação apenas se o menu principal ainda não estiver aberto
             if (eButtonPrompt != null && (clipboardMenu == null || !clipboardMenu.activeSelf))
             {
                 eButtonPrompt.SetActive(true);
@@ -113,18 +106,18 @@ public class ClipboardInteraction : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Quando o Player sai de perto
-        if (collision.CompareTag("Player"))
+        // Valida novamente a saída do Jogador com a Tag e o Nome exato
+        if (collision.CompareTag("Player") && collision.gameObject.name == "Player")
         {
             isPlayerInRange = false;
 
-            // Esconde o prompt
+            // Esconde imediatamente a indicação visual da tecla de interação
             if (eButtonPrompt != null)
             {
                 eButtonPrompt.SetActive(false);
             }
 
-            // Fecha o menu se a opção estiver ativa
+            // Se a opção estiver ativa, fecha o menu de forma automática quando o jogador se afasta
             if (closeMenuOnExit && clipboardMenu != null)
             {
                 clipboardMenu.SetActive(false);
