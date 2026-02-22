@@ -1,4 +1,4 @@
-using System.Collections; // Necessário para as Corrotinas (Fades)
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
@@ -7,21 +7,27 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Header("Configurações de UI")]
+    [Header("UI Configs")]
     public GameObject pauseMenu;
     public GameObject settingsMenu;
     public GameObject settingsButton;
 
-    [Header("Sons da UI")]
+    [Header("UI Sounds")]
     public AudioSource uiAudioSource;
     public AudioClip hoverSound;
     public AudioClip clickSound;
 
-    [Header("Música de Fundo (BGM)")]
+    [Header("Background Music")]
     public AudioSource bgmAudioSource;
-    public float bgmFadeDuration = 0.1f; // O tempo super rápido do fade
+    public float bgmFadeDuration = 0.1f;
     private float originalBgmVolume = 1f;
     private Coroutine bgmFadeCoroutine;
+
+    [Header("Tasks / To-Do List")]
+    public GameObject taskObject;
+    public KeyCode toggleKey = KeyCode.Tab; // Tecla para ver as tarefas
+    public bool holdToShow = true;          // Se true, tens de segurar a tecla. Se false, é só clicar.
+    private bool isTasksToggled = false;
 
     public bool isPaused { get; private set; } = false;
 
@@ -30,25 +36,93 @@ public class GameManager : MonoBehaviour
         if (Instance == null) { Instance = this; }
         else { Destroy(gameObject); }
 
-        // Guarda o volume original da música mal o jogo comece
         if (bgmAudioSource != null)
         {
             originalBgmVolume = bgmAudioSource.volume;
+        }
+
+        // --- O TRUQUE MÁGICO DO ÁUDIO ---
+        // Ligamos o SettingsMenu à força mal o jogo arranca.
+        // Isto faz com que o script "SettingsManager" acorde e carregue os teus Saves de volume!
+        if (settingsMenu != null)
+        {
+            settingsMenu.SetActive(true);
         }
     }
 
     void Start()
     {
+        // ...E agora que o volume já carregou, voltamos a esconder o menu para o jogador jogar normalmente.
+        CloseSettings();
         Resume();
+        ForceCloseTasks(); // Garante que as tasks começam fechadas
     }
 
     void Update()
     {
+        // 1. Lógica do Menu de Pausa
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             HandleEscPress();
         }
+
+        // 2. Lógica das Tasks (Só funciona se o jogo NÃO estiver em pausa)
+        if (!isPaused)
+        {
+            HandleTasksInput();
+        }
     }
+
+    // ==========================================
+    //           GESTÃO DAS TASKS
+    // ==========================================
+
+    private void HandleTasksInput()
+    {
+        if (taskObject == null) return;
+
+        if (holdToShow)
+        {
+            // Modo HOLD: Mostra apenas enquanto a tecla está pressionada
+            bool isKeyPressed = Input.GetKey(toggleKey);
+
+            if (taskObject.activeSelf != isKeyPressed)
+            {
+                taskObject.SetActive(isKeyPressed);
+            }
+        }
+        else
+        {
+            // Modo TOGGLE: Clica uma vez para mostrar, clica de novo para esconder
+            if (Input.GetKeyDown(toggleKey))
+            {
+                isTasksToggled = !isTasksToggled;
+                taskObject.SetActive(isTasksToggled);
+            }
+        }
+    }
+
+    public void ShowTasks(bool show)
+    {
+        if (taskObject != null)
+        {
+            taskObject.SetActive(show);
+            if (!holdToShow) isTasksToggled = show;
+        }
+    }
+
+    public void ForceCloseTasks()
+    {
+        if (taskObject != null)
+        {
+            taskObject.SetActive(false);
+            isTasksToggled = false;
+        }
+    }
+
+    // ==========================================
+    //           GESTÃO DE PAUSA E MENUS
+    // ==========================================
 
     private void HandleEscPress()
     {
@@ -71,13 +145,14 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
 
+        ForceCloseTasks(); // Esconde as tasks quando abres o menu
+
         if (pauseMenu != null) pauseMenu.SetActive(true);
         if (settingsMenu != null) settingsMenu.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Inicia o Fade Out para a música
         if (bgmAudioSource != null)
         {
             if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine);
@@ -90,13 +165,14 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
 
+        ForceCloseTasks();
+
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
-        // Inicia o Fade Out para a música
         if (bgmAudioSource != null)
         {
             if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine);
@@ -115,7 +191,6 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
-        // Inicia o Fade In para a música voltar ao volume original
         if (bgmAudioSource != null)
         {
             if (bgmFadeCoroutine != null) StopCoroutine(bgmFadeCoroutine);
@@ -128,10 +203,7 @@ public class GameManager : MonoBehaviour
         if (settingsButton != null)
         {
             RectTransform rt = settingsButton.GetComponent<RectTransform>();
-            if (rt != null)
-            {
-                rt.sizeDelta = new Vector2(rt.sizeDelta.x, 160f);
-            }
+            if (rt != null) rt.sizeDelta = new Vector2(rt.sizeDelta.x, 160f);
         }
 
         if (pauseMenu != null) pauseMenu.SetActive(false);
@@ -147,20 +219,20 @@ public class GameManager : MonoBehaviour
     public void Home()
     {
         Time.timeScale = 1f;
-
-        // Garante que o volume volta ao normal se sairmos para o menu principal
         if (bgmAudioSource != null) bgmAudioSource.volume = originalBgmVolume;
-
         SceneManager.LoadScene("Menu");
     }
 
     public void Back()
     {
         isPaused = true;
-
         if (settingsMenu != null) settingsMenu.SetActive(false);
         if (pauseMenu != null) pauseMenu.SetActive(true);
     }
+
+    // ==========================================
+    //                 ÁUDIO
+    // ==========================================
 
     public void PlayHoverSound()
     {
@@ -180,32 +252,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // --- CORROTINA MAGICA DO FADE (Ignora a Pausa do Jogo) ---
     private IEnumerator FadeBGM(float targetVolume, bool pauseAtEnd)
     {
         float startVolume = bgmAudioSource.volume;
         float timeElapsed = 0f;
 
-        // Se for para ligar a música, fazemos o UnPause imediatamente antes de subir o volume
-        if (!pauseAtEnd && !bgmAudioSource.isPlaying)
-        {
-            bgmAudioSource.UnPause();
-        }
+        if (!pauseAtEnd && !bgmAudioSource.isPlaying) bgmAudioSource.UnPause();
 
         while (timeElapsed < bgmFadeDuration)
         {
-            // unscaledDeltaTime é obrigatório aqui porque o Time.timeScale = 0 congelou o tempo normal!
             timeElapsed += Time.unscaledDeltaTime;
             bgmAudioSource.volume = Mathf.Lerp(startVolume, targetVolume, timeElapsed / bgmFadeDuration);
             yield return null;
         }
 
         bgmAudioSource.volume = targetVolume;
-
-        // Se for para desligar a música, só fazemos o Pause DEPOIS do volume chegar a zero
-        if (pauseAtEnd)
-        {
-            bgmAudioSource.Pause();
-        }
+        if (pauseAtEnd) bgmAudioSource.Pause();
     }
 }
