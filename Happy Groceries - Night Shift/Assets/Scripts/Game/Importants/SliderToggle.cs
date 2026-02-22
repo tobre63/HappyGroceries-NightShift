@@ -83,4 +83,13 @@ public class SliderToggle : MonoBehaviour, IPointerClickHandler
         // Garante que no fim bate certinho no 0 ou no 1
         toggleSlider.value = targetValue;
     }
+
+    public void SetStateWithoutNotify(bool state)
+    {
+        isOn = state;
+        if (toggleSlider != null)
+        {
+            toggleSlider.value = isOn ? 1f : 0f;
+        }
+    }
 }
