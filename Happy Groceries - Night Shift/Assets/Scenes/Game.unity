@@ -6316,6 +6316,9 @@ MonoBehaviour:
   boxID: 1
   timeToPickUp: 7.5
   interactionIcon: {fileID: 1826008912}
+  progressBarObj: {fileID: 783671488}
+  progressBarRenderer: {fileID: 783671489}
+  percentageProperty: _Percentage
 --- !u!1 &303440312
 GameObject:
   m_ObjectHideFlags: 0
@@ -10743,12 +10746,12 @@ GameObject:
   - component: {fileID: 783671490}
   - component: {fileID: 783671489}
   m_Layer: 0
-  m_Name: Square
+  m_Name: RadialProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &783671489
 SpriteRenderer:
   serializedVersion: 2
@@ -10794,8 +10797,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -962139837
+  m_SortingLayer: 9
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
@@ -10816,12 +10819,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 783671488}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.7, y: -0.68, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.85, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1455093966}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &842179987
 GameObject:
@@ -12241,6 +12244,9 @@ MonoBehaviour:
   boxID: 2
   timeToPickUp: 7.5
   interactionIcon: {fileID: 1826008912}
+  progressBarObj: {fileID: 783671488}
+  progressBarRenderer: {fileID: 783671489}
+  percentageProperty: _Percentage
 --- !u!1 &1018911938
 GameObject:
   m_ObjectHideFlags: 0
@@ -15364,6 +15370,7 @@ Transform:
   m_Children:
   - {fileID: 171311804}
   - {fileID: 1826008913}
+  - {fileID: 783671490}
   m_Father: {fileID: 14135227}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1455093967
@@ -23148,7 +23155,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 783671490}
   - {fileID: 1740894378}
   - {fileID: 1816744624}
   - {fileID: 14135227}
