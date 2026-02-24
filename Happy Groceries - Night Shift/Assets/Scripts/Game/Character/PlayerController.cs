@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     // Chamado a cada frame, ideal para input e animacoes
     void Update()
     {
-        if (NPCInteraction.isPlayerTalking)
+        if (NPCInteraction.isPlayerTalking || BoxInteractable.isPickingUpBox)
         {
             input = Vector2.zero;
             anim.speed = 1; // Deixa o Animator correr mas parado
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.speed = 1;
-        if (NPCInteraction.isPlayerTalking) return;
+        if (NPCInteraction.isPlayerTalking || BoxInteractable.isPickingUpBox) return;
         // Acede ao teclado atual atraves do Input System
         var k = Keyboard.current;
 
