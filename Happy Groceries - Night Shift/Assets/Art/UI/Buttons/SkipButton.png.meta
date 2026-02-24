@@ -1,14 +1,10 @@
 fileFormatVersion: 2
-guid: 61257594538a6934fa7537317e849e52
-AssetOrigin:
-  serializedVersion: 1
-  productId: 330700
-  packageName: Dark UI package
-  packageVersion: 1.0
-  assetPath: "Assets/k\u03A9smaragd/Dark Buttons/dark_toggleSwitch.png"
-  uploadId: 782469
+guid: 5d6c578cbdeeabb49bad6930baf321e2
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 7510497192285408470
+    second: SkipButton_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +42,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -100,97 +96,27 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: dark_toggleSwitch_0
+      name: SkipButton_0
       rect:
         serializedVersion: 2
-        x: 110
+        x: 0
         y: 0
-        width: 968
-        height: 505
+        width: 480
+        height: 160
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 5566ebbe9b96417418a9d724eba65fb6
-      internalID: 1196078091
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dark_toggleSwitch_1
-      rect:
-        serializedVersion: 2
-        x: 1214
-        y: 69
-        width: 437
-        height: 437
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9bf678d74e59fde4b9aa520250b050d4
-      internalID: 558845467
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: dark_toggleSwitch_2
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 513
-        width: 1007
-        height: 512
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 853c55953b9a07e4aac1b46f8c442cd6
-      internalID: -288742295
+      spriteID: 6dc8db07765aa3860800000000000000
+      internalID: 7510497192285408470
       vertices: []
       indices: 
       edges: []
@@ -199,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 506c91d1350a58848b8951926e1d6902
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -209,9 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      dark_toggleSwitch_0: 1196078091
-      dark_toggleSwitch_1: 558845467
-      dark_toggleSwitch_2: -288742295
+      SkipButton_0: 7510497192285408470
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

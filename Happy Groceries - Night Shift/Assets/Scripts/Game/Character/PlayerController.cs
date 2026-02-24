@@ -47,6 +47,18 @@ public class PlayerController : MonoBehaviour
     // Chamado a cada frame, ideal para input e animacoes
     void Update()
     {
+        if (NPCInteraction.isPlayerTalking)
+        {
+            input = Vector2.zero;
+            anim.speed = 1; // Deixa o Animator correr mas parado
+            anim.SetBool("isMoving", false);
+            anim.SetFloat("moveX", 0f); // MantÃ©m a direÃ§Ã£o que estava
+            anim.SetFloat("moveY", 1f);
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        anim.speed = 1;
         if (NPCInteraction.isPlayerTalking) return;
         // Acede ao teclado atual atraves do Input System
         var k = Keyboard.current;
@@ -120,11 +132,11 @@ public class PlayerController : MonoBehaviour
 
     public void PlayFootstep()
     {
-        // Só toca som se o jogador estiver em movimento
+        // Sï¿½ toca som se o jogador estiver em movimento
         if (input != Vector2.zero)
         {
             // Deteta o objeto que esta debaixo do jogador
-            // Usamos um pequeno circulo na posição do jogador
+            // Usamos um pequeno circulo na posiï¿½ï¿½o do jogador
             Collider2D hit = Physics2D.OverlapCircle(transform.position, 0.2f, floorLayer);
 
             AudioClip clipToPlay = defaultFootstep; // Comeca com o som padrao

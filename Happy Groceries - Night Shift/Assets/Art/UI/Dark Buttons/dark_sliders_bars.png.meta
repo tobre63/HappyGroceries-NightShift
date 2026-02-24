@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: 443517dfe0661da408d7bec08772d8fa
+AssetOrigin:
+  serializedVersion: 1
+  productId: 330700
+  packageName: Dark UI package
+  packageVersion: 1.0
+  assetPath: "Assets/k\u03A9smaragd/Dark Buttons/dark_sliders_bars.png"
+  uploadId: 782469
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -417,10 +424,3 @@ TextureImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 330700
-  packageName: Dark UI package
-  packageVersion: 1.0
-  assetPath: "Assets/k\u03A9smaragd/Dark Buttons/dark_sliders_bars.png"
-  uploadId: 782469

@@ -7,39 +7,46 @@ using System.Collections;
 public class GameUIManager : MonoBehaviour
 {
     [Header("UI Screens & Fade")]
-    [SerializeField] private GameObject mainMenuPanel; // O painel principal do menu
-    [SerializeField] private GameObject settingsPanel; // O painel de opções
-    [SerializeField] private CanvasGroup fadePanel;    // O painel preto usado para transições (Fade In/Out)
+    [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private CanvasGroup fadePanel;
 
     [Header("Elements to Hide on Transition")]
-    [SerializeField] private GameObject buttonsPanel;    // O grupo que contém os botões (para ser desativado)
-    [SerializeField] private GameObject backgroundPanel; // A imagem de fundo (para ser desativada)
+    [SerializeField] private GameObject buttonsPanel;
+    [SerializeField] private GameObject backgroundPanel;
+    
+    // NOVO: ReferÃªncia para o botÃ£o de Skip para podermos mostrÃ¡-lo/escondÃª-lo
+    [SerializeField] private GameObject skipButton; 
 
     [Header("Story Text Settings")]
-    [SerializeField] private TextMeshProUGUI loadingText; // O componente de texto onde a história aparece
+    [SerializeField] private TextMeshProUGUI loadingText;
     [TextArea(8, 15)]
-    [SerializeField] private string fullText;             // O texto completo que será escrito letra por letra
-    [SerializeField] private float typingSpeed = 0.05f;   // Velocidade de escrita de cada letra
-    [SerializeField] private float waitAfterText = 2.0f;  // Tempo de espera após o texto terminar de escrever
+    [SerializeField] private string fullText;
+    [SerializeField] private float typingSpeed = 0.05f;
+    [SerializeField] private float waitAfterText = 2.0f;
 
     [Header("Audio Settings")]
-    [SerializeField] private AudioSource audioSource; // Fonte para Efeitos Sonoros (SFX)
-    [SerializeField] private AudioSource musicSource; // Fonte para a Música de Fundo (BGM)
-    [SerializeField] private AudioClip typeSound;     // Som de "teclar"
-    [SerializeField] private AudioClip hoverSound;    // Som ao passar o rato
-    [SerializeField] private AudioClip clickSound;    // Som ao clicar
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioClip typeSound;
+    [SerializeField] private AudioClip hoverSound;
+    [SerializeField] private AudioClip clickSound;
 
-    private CanvasGroup loadingTextGroup; // Controla a transparência do texto da história
-    private bool isTransitioning = false; // Flag de segurança para impedir cliques durante a animação
+    private CanvasGroup loadingTextGroup;
+    private bool isTransitioning = false;
+    
+    // NOVO: Flag para saber se o jogador clicou no skip
+    private bool isSkippingText = false; 
 
     private void Awake()
     {
-        // Inicialização: Garante que o menu principal está visível e as opções escondidas
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
         if (settingsPanel != null) settingsPanel.SetActive(false);
         if (loadingText != null) loadingText.text = "";
+        
+        // NOVO: Garante que o botÃ£o de skip comeÃ§a escondido
+        if (skipButton != null) skipButton.SetActive(false);
 
-        // Adiciona ou obtém um CanvasGroup no texto para podermos fazer Fade In/Out apenas nas letras
         if (loadingText != null)
         {
             loadingTextGroup = loadingText.GetComponent<CanvasGroup>();
@@ -47,10 +54,9 @@ public class GameUIManager : MonoBehaviour
                 loadingTextGroup = loadingText.gameObject.AddComponent<CanvasGroup>();
 
             loadingTextGroup.alpha = 1f;
-            loadingTextGroup.blocksRaycasts = false; // Impede que o texto bloqueie cliques do rato
+            loadingTextGroup.blocksRaycasts = false;
         }
 
-        // Prepara o painel de fade (começa preto para fazer o fade-in no Start)
         if (fadePanel != null)
         {
             fadePanel.alpha = 1;
@@ -60,73 +66,83 @@ public class GameUIManager : MonoBehaviour
 
     private void Start()
     {
-        // Ao iniciar a cena, faz o painel preto desaparecer (Fade In da imagem do menu)
         StartCoroutine(DoFade(1, 0, 1.5f));
     }
 
-    // Chamado pelo botão "Start" no Unity
     public void StartGame(string sceneName)
     {
-        // Segurança: Se já estiver a transitar ou o nome da cena for inválido, ignora o clique
         if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
 
-        isTransitioning = true; // Ativa o bloqueio de inputs
+        isTransitioning = true;
         PlaySound(clickSound);
 
-        // Inicia a sequência cinematográfica de entrada no jogo
         StartCoroutine(SequenceWithDiary(sceneName));
     }
 
-    // A Corrotina principal que gere toda a sequência de entrada
+    // NOVO: MÃ©todo que o teu botÃ£o "Skip" vai chamar
+    public void SkipTextAnimation()
+    {
+        // SÃ³ permite fazer skip se estivermos na transiÃ§Ã£o e ainda nÃ£o tivermos feito skip
+        if (isTransitioning && !isSkippingText)
+        {
+            isSkippingText = true;
+            PlaySound(clickSound);
+        }
+    }
+
     private IEnumerator SequenceWithDiary(string sceneName)
     {
-        // 1. Começa a baixar o volume da música suavemente
         if (musicSource != null)
         {
             StartCoroutine(FadeMusic(musicSource, 0f, 1.5f));
         }
 
-        // 2. Escurece o ecrã (Fade Out visual para preto)
         yield return StartCoroutine(DoFade(0, 1, 1.5f));
 
-        // 3. Oculta os elementos do menu (Botões e Fundo) agora que o ecrã está preto
-        // Isto garante que o jogador foca apenas no texto que vai aparecer
         if (buttonsPanel != null) buttonsPanel.SetActive(false);
         if (backgroundPanel != null) backgroundPanel.SetActive(false);
 
-        // 4. Efeito de Máquina de Escrever
         if (loadingText != null)
         {
             loadingText.gameObject.SetActive(true);
             loadingText.text = "";
+            
+            // NOVO: Reset da flag e mostra o botÃ£o de skip
+            isSkippingText = false;
+            if (skipButton != null) skipButton.SetActive(true);
 
-            // Escreve letra a letra
             foreach (char letter in fullText.ToCharArray())
             {
+                // NOVO: Verifica se o jogador clicou no Skip
+                if (isSkippingText)
+                {
+                    loadingText.text = fullText; // Mostra o texto todo
+                    break; // Sai do ciclo 'foreach' imediatamente
+                }
+
                 loadingText.text += letter;
-                // Toca o som de teclar a cada letra
                 if (typeSound != null && audioSource != null) audioSource.PlayOneShot(typeSound);
                 yield return new WaitForSeconds(typingSpeed);
             }
+            
+            // NOVO: Esconde o botÃ£o de skip quando o texto terminar (seja natural ou por skip)
+            if (skipButton != null) skipButton.SetActive(false);
         }
 
-        // 5. Tempo de leitura (espera um pouco com o texto completo no ecrã)
+        // 5. Tempo de leitura (espera os 2 segundos, mesmo se tiver feito skip)
         yield return new WaitForSeconds(waitAfterText);
 
-        // 6. Faz o texto desaparecer suavemente (Fade Out do texto)
         if (loadingTextGroup != null)
         {
             yield return StartCoroutine(FadeCanvasGroup(loadingTextGroup, 1f, 0f, 1.0f));
             loadingText.gameObject.SetActive(false);
         }
 
-        // 7. Carrega a próxima cena do jogo
         SceneManager.LoadScene(sceneName);
     }
 
-    // --- Helper Coroutines (Utilitários) ---
+    // --- Helper Coroutines (UtilitÃ¡rios) ---
 
-    // Controla o Fade do painel preto (Alpha de 0 a 1 ou vice-versa)
     private IEnumerator DoFade(float start, float end, float duration)
     {
         if (fadePanel == null) yield break;
@@ -141,11 +157,9 @@ public class GameUIManager : MonoBehaviour
         }
         fadePanel.alpha = end;
 
-        // Se o alpha for 0 (transparente), desativa o objeto para não bloquear cliques
         if (end <= 0) fadePanel.gameObject.SetActive(false);
     }
 
-    // Controla o Fade do volume da música
     private IEnumerator FadeMusic(AudioSource source, float targetVolume, float duration)
     {
         if (source == null) yield break;
@@ -162,7 +176,6 @@ public class GameUIManager : MonoBehaviour
         source.volume = targetVolume;
     }
 
-    // Controla o Fade de qualquer elemento com CanvasGroup (usado no texto)
     private IEnumerator FadeCanvasGroup(CanvasGroup cg, float start, float end, float duration)
     {
         if (cg == null) yield break;
@@ -185,7 +198,7 @@ public class GameUIManager : MonoBehaviour
 
     public void OpenSettings()
     {
-        if (isTransitioning) return; // Não permite abrir se o jogo estiver a iniciar
+        if (isTransitioning) return;
         PlaySound(clickSound);
         mainMenuPanel.SetActive(false);
         settingsPanel.SetActive(true);
@@ -212,7 +225,6 @@ public class GameUIManager : MonoBehaviour
         PlaySound(hoverSound);
     }
 
-    // Método auxiliar para tocar sons apenas se o clip existir
     private void PlaySound(AudioClip clip)
     {
         if (clip != null && audioSource != null) audioSource.PlayOneShot(clip);
