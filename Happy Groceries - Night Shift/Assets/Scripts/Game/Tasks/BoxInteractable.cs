@@ -65,7 +65,6 @@ public class BoxInteractable : MonoBehaviour
                 {
                     isInteracting = true;
                     isPickingUpBox = true; // Avisa o PlayerController para parar o movimento
-                    TaskManager.instance.onInteractionStart.Invoke();
 
                     interactionIcon.SetActive(false);
                     if (progressBarObj != null) progressBarObj.SetActive(true);
@@ -81,7 +80,6 @@ public class BoxInteractable : MonoBehaviour
                     isInteracting = false;
                     isPickingUpBox = false; // Liberta o jogador
                     TaskManager.instance.currentBoxHeldID = boxID;
-                    TaskManager.instance.onInteractionStop.Invoke();
 
                     if (progressBarObj != null) progressBarObj.SetActive(false);
                     gameObject.SetActive(false);
@@ -111,8 +109,6 @@ public class BoxInteractable : MonoBehaviour
             {
                 interactionIcon.SetActive(true);
             }
-
-            TaskManager.instance.onInteractionStop.Invoke();
         }
     }
 
