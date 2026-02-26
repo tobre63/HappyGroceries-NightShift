@@ -5384,8 +5384,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
   currentBoxHeldID: 0
-<<<<<<< Updated upstream
-=======
 --- !u!114 &229679169
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5400,7 +5398,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveFeedback
   objectiveText: {fileID: 732478975}
   fadeDuration: 0.3
->>>>>>> Stashed changes
 --- !u!1 &236615952
 GameObject:
   m_ObjectHideFlags: 0
