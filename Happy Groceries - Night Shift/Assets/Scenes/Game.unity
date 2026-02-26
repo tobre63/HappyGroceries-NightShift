@@ -3744,7 +3744,7 @@ Animator:
   m_GameObject: {fileID: 106406326}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1ad77fab0c1b13144aec606ec849b4ef, type: 2}
+  m_Controller: {fileID: 9100000, guid: cf468415cad6e9b48a4ec19a6676c273, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
@@ -5383,12 +5383,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TaskManager
   currentBoxHeldID: 0
-  onInteractionStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onInteractionStop:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &236615952
 GameObject:
   m_ObjectHideFlags: 0
@@ -7064,7 +7058,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &390590418
 Transform:
   m_ObjectHideFlags: 0
@@ -15470,7 +15464,7 @@ Animator:
   m_GameObject: {fileID: 1435891964}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5ec81a3f36680d94fb6dd5d9de055731, type: 2}
+  m_Controller: {fileID: 9100000, guid: cf468415cad6e9b48a4ec19a6676c273, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
