@@ -208,6 +208,7 @@ public class NPCInteraction : MonoBehaviour
     private void MostrarBotoesDeEscolha(DialogueNode node)
     {
         dialogueState = 2;
+
         if (interactionIcon != null) interactionIcon.SetActive(false);
 
         EsconderBotoes();
@@ -217,6 +218,7 @@ public class NPCInteraction : MonoBehaviour
         for (int i = 0; i < numberOfChoices; i++)
         {
             playerButtons[i].gameObject.SetActive(true);
+
             if (playerButtonsTexts[i] != null)
                 playerButtonsTexts[i].text = node.escolhas[i].textoDoBotao;
         }

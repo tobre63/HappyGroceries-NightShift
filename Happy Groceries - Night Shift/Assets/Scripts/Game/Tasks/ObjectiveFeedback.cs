@@ -12,6 +12,10 @@ public class ObjectiveFeedback : MonoBehaviour
     [Header("Fade Settings")]
     public float fadeDuration = 0.3f;
 
+    // Propriedades para o NPC conseguir ler o estado do objetivo
+    public string CurrentObjective { get; private set; }
+    public bool IsVisible { get; private set; }
+
     private Coroutine activeCoroutine;
 
     private void Awake()
@@ -28,12 +32,15 @@ public class ObjectiveFeedback : MonoBehaviour
 
     private void Start()
     {
-        SetObjective("Pick up the box.");
+        SetObjective("Pick up a box.");
     }
 
     public void SetObjective(string newText)
     {
         if (objectiveText == null) return;
+
+        CurrentObjective = newText;
+        IsVisible = true; // Marca como visível
 
         if (activeCoroutine != null)
         {
@@ -58,6 +65,8 @@ public class ObjectiveFeedback : MonoBehaviour
     public void HideObjective()
     {
         if (objectiveText == null) return;
+
+        IsVisible = false; // Marca como escondido
 
         if (activeCoroutine != null)
         {
