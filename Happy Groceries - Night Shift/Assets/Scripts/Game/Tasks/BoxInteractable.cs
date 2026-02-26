@@ -12,7 +12,7 @@ public class BoxInteractable : MonoBehaviour
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // Variável estática para o PlayerController saber se o jogador está a interagir
+    // Variï¿½vel estï¿½tica para o PlayerController saber se o jogador estï¿½ a interagir
     public static bool isPickingUpBox = false;
 
     private bool inRange = false;
@@ -81,6 +81,8 @@ public class BoxInteractable : MonoBehaviour
                     isPickingUpBox = false; // Liberta o jogador
                     TaskManager.instance.currentBoxHeldID = boxID;
 
+                    ObjectiveFeedback.instance.SetObjective("Carry the box to the shelf.");
+
                     if (progressBarObj != null) progressBarObj.SetActive(false);
                     gameObject.SetActive(false);
                 }
@@ -100,7 +102,7 @@ public class BoxInteractable : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            isPickingUpBox = false; // Liberta o jogador caso ele cancele a ação a meio
+            isPickingUpBox = false; // Liberta o jogador caso ele cancele a aï¿½ï¿½o a meio
             holdTimer = 0f;
             SetProgress(0f);
 

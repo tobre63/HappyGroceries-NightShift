@@ -23,12 +23,6 @@ public class GameManager : MonoBehaviour
     private float originalBgmVolume = 1f;
     private Coroutine bgmFadeCoroutine;
 
-    [Header("Tasks / To-Do List")]
-    public GameObject taskObject;
-    public KeyCode toggleKey = KeyCode.Tab; // Tecla para ver as tarefas
-    public bool holdToShow = true;          // Se true, tens de segurar a tecla. Se false, é só clicar.
-    private bool isTasksToggled = false;
-
     public bool isPaused { get; private set; } = false;
 
     void Awake()
@@ -41,8 +35,8 @@ public class GameManager : MonoBehaviour
             originalBgmVolume = bgmAudioSource.volume;
         }
 
-        // --- O TRUQUE MÁGICO DO ÁUDIO ---
-        // Ligamos o SettingsMenu à força mal o jogo arranca.
+        // --- O TRUQUE Mï¿½GICO DO ï¿½UDIO ---
+        // Ligamos o SettingsMenu ï¿½ forï¿½a mal o jogo arranca.
         // Isto faz com que o script "SettingsManager" acorde e carregue os teus Saves de volume!
         if (settingsMenu != null)
         {
@@ -52,76 +46,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // ...E agora que o volume já carregou, voltamos a esconder o menu para o jogador jogar normalmente.
+        // ...E agora que o volume jï¿½ carregou, voltamos a esconder o menu para o jogador jogar normalmente.
         CloseSettings();
         Resume();
-        ForceCloseTasks(); // Garante que as tasks começam fechadas
     }
 
     void Update()
     {
-        // 1. Lógica do Menu de Pausa
+        // 1. Lï¿½gica do Menu de Pausa
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             HandleEscPress();
         }
-
-        // 2. Lógica das Tasks (Só funciona se o jogo NÃO estiver em pausa)
-        if (!isPaused)
-        {
-            HandleTasksInput();
-        }
     }
 
     // ==========================================
-    //           GESTÃO DAS TASKS
-    // ==========================================
-
-    private void HandleTasksInput()
-    {
-        if (taskObject == null) return;
-
-        if (holdToShow)
-        {
-            // Modo HOLD: Mostra apenas enquanto a tecla está pressionada
-            bool isKeyPressed = Input.GetKey(toggleKey);
-
-            if (taskObject.activeSelf != isKeyPressed)
-            {
-                taskObject.SetActive(isKeyPressed);
-            }
-        }
-        else
-        {
-            // Modo TOGGLE: Clica uma vez para mostrar, clica de novo para esconder
-            if (Input.GetKeyDown(toggleKey))
-            {
-                isTasksToggled = !isTasksToggled;
-                taskObject.SetActive(isTasksToggled);
-            }
-        }
-    }
-
-    public void ShowTasks(bool show)
-    {
-        if (taskObject != null)
-        {
-            taskObject.SetActive(show);
-            if (!holdToShow) isTasksToggled = show;
-        }
-    }
-
-    public void ForceCloseTasks()
-    {
-        if (taskObject != null)
-        {
-            taskObject.SetActive(false);
-            isTasksToggled = false;
-        }
-    }
-
-    // ==========================================
-    //           GESTÃO DE PAUSA E MENUS
+    //           GESTï¿½O DE PAUSA E MENUS
     // ==========================================
 
     private void HandleEscPress()
@@ -145,8 +85,6 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
 
-        ForceCloseTasks(); // Esconde as tasks quando abres o menu
-
         if (pauseMenu != null) pauseMenu.SetActive(true);
         if (settingsMenu != null) settingsMenu.SetActive(false);
 
@@ -164,8 +102,6 @@ public class GameManager : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0f;
-
-        ForceCloseTasks();
 
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
@@ -231,7 +167,7 @@ public class GameManager : MonoBehaviour
     }
 
     // ==========================================
-    //                 ÁUDIO
+    //                 ï¿½UDIO
     // ==========================================
 
     public void PlayHoverSound()
