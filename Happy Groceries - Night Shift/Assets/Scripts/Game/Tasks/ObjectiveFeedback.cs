@@ -12,22 +12,19 @@ public class ObjectiveFeedback : MonoBehaviour
     [Header("Fade Settings")]
     public float fadeDuration = 0.3f;
 
-    // Propriedades para o NPC conseguir ler o estado do objetivo
-    public string CurrentObjective { get; private set; }
-    public bool IsVisible { get; private set; }
+    // --- MEMÓRIA DOS OBJETIVOS ---
+    private string backgroundObjective = "";
+    private bool isBackgroundVisible = false;
+
+    private string priorityObjective = "";
+    private bool isPriorityActive = false;
 
     private Coroutine activeCoroutine;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
     }
 
     private void Start()
@@ -35,19 +32,67 @@ public class ObjectiveFeedback : MonoBehaviour
         SetObjective("Pick up a box.");
     }
 
-    public void SetObjective(string newText)
+    // O "isPriority" diz-nos se isto é um objetivo super importante (NPC) ou normal (Caixas)
+    public void SetObjective(string newText, bool isPriority = false)
     {
         if (objectiveText == null) return;
 
-        CurrentObjective = newText;
-        IsVisible = true; // Marca como visível
-
-        if (activeCoroutine != null)
+        if (isPriority)
         {
-            StopCoroutine(activeCoroutine);
+            priorityObjective = newText;
+            isPriorityActive = true;
+            UpdateScreenText(priorityObjective); // Força a mostrar o do NPC
         }
+        else
+        {
+            backgroundObjective = newText;
+            isBackgroundVisible = true;
 
-        activeCoroutine = StartCoroutine(SetObjectiveRoutine(newText));
+            // Só atualiza o ecrã com as caixas se o NPC não estiver à espera!
+            // (Mas guarda a informação na mesma em background)
+            if (!isPriorityActive)
+            {
+                UpdateScreenText(backgroundObjective);
+            }
+        }
+    }
+
+    public void HideObjective(bool isPriority = false)
+    {
+        if (objectiveText == null) return;
+
+        if (isPriority)
+        {
+            isPriorityActive = false;
+            priorityObjective = "";
+
+            // O NPC foi-se embora. Volta a mostrar o objetivo que as caixas/prateleiras definiram!
+            if (isBackgroundVisible && !string.IsNullOrEmpty(backgroundObjective))
+                UpdateScreenText(backgroundObjective);
+            else
+                HideScreenText();
+        }
+        else
+        {
+            isBackgroundVisible = false;
+            backgroundObjective = "";
+
+            // Só esconde do ecrã se o NPC não estiver a dominar a UI
+            if (!isPriorityActive)
+                HideScreenText();
+        }
+    }
+
+    private void UpdateScreenText(string textToShow)
+    {
+        if (activeCoroutine != null) StopCoroutine(activeCoroutine);
+        activeCoroutine = StartCoroutine(SetObjectiveRoutine(textToShow));
+    }
+
+    private void HideScreenText()
+    {
+        if (activeCoroutine != null) StopCoroutine(activeCoroutine);
+        activeCoroutine = StartCoroutine(HideRoutine());
     }
 
     private IEnumerator SetObjectiveRoutine(string newText)
@@ -60,20 +105,6 @@ public class ObjectiveFeedback : MonoBehaviour
         Color c = objectiveText.color;
         c.a = 1f;
         objectiveText.color = c;
-    }
-
-    public void HideObjective()
-    {
-        if (objectiveText == null) return;
-
-        IsVisible = false; // Marca como escondido
-
-        if (activeCoroutine != null)
-        {
-            StopCoroutine(activeCoroutine);
-        }
-
-        activeCoroutine = StartCoroutine(HideRoutine());
     }
 
     private IEnumerator HideRoutine()

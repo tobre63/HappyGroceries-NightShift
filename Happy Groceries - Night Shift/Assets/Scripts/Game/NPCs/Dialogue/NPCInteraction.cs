@@ -58,13 +58,6 @@ public class NPCInteraction : MonoBehaviour
         anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        if (playerButtons.Length >= 3)
-        {
-            playerButtons[0].onClick.AddListener(() => EscolheuOpcao(0));
-            playerButtons[1].onClick.AddListener(() => EscolheuOpcao(1));
-            playerButtons[2].onClick.AddListener(() => EscolheuOpcao(2));
-        }
-
         CloseAllUI();
     }
 
@@ -72,9 +65,14 @@ public class NPCInteraction : MonoBehaviour
     {
         if (GameManager.Instance != null && GameManager.Instance.isPaused) return;
 
+        // Se o NPC não está ativo no mundo...
         if (npcController == null || !npcController.isActiveInWorld || npcController.isFading)
         {
-            CloseAllUI();
+            // SÓ fecha a UI se este NPC em específico a estiver a tentar usar
+            if (dialogueState != 0)
+            {
+                CloseAllUI();
+            }
             return;
         }
 
@@ -112,7 +110,7 @@ public class NPCInteraction : MonoBehaviour
         }
     }
 
-    private void StartDialogue()
+    public void StartDialogue()
     {
         if (dialogueNodes == null || dialogueNodes.Length == 0) return;
 
@@ -221,12 +219,25 @@ public class NPCInteraction : MonoBehaviour
 
             if (playerButtonsTexts[i] != null)
                 playerButtonsTexts[i].text = node.escolhas[i].textoDoBotao;
+
+            // NOVA LÓGICA: Limpa os donos antigos do botão e adiciona o NPC atual!
+            playerButtons[i].onClick.RemoveAllListeners();
+
+            int index = i; // Extremamente importante guardar o valor de 'i' nesta variável para o listener funcionar
+            playerButtons[i].onClick.AddListener(() => EscolheuOpcao(index));
         }
     }
 
     public void EscolheuOpcao(int indexDoBotao)
     {
+        // ESCUDO 1: Se ESTE NPC não estiver à espera de uma escolha, ignora o clique!
+        if (dialogueState != 2) return;
+
         DialogueNode currentNode = dialogueNodes[currentNodeIndex];
+
+        // ESCUDO 2: Proteção contra o erro IndexOutOfRange (caso a opção não exista neste Node)
+        if (indexDoBotao >= currentNode.escolhas.Length) return;
+
         int proximoNode = currentNode.escolhas[indexDoBotao].proximoNode;
 
         if (proximoNode == -1 || proximoNode >= dialogueNodes.Length)
@@ -255,6 +266,23 @@ public class NPCInteraction : MonoBehaviour
     private void EndDialogue()
     {
         CloseAllUI();
+
+        // --- VERIFICAÇÃO DE EVENTOS ESPECIAIS (Ex: Coca-Cola) ---
+        CocaColaSpillEvent spillEvent = GetComponent<CocaColaSpillEvent>();
+
+        // Se tem o evento e ainda não derramou, executa o Jumpscare!
+        if (spillEvent != null && !spillEvent.hasSpilled)
+        {
+            spillEvent.StartSpillSequence();
+            return; // Bloqueia o NPC de se ir embora!
+        }
+        // Se já derramou e acabou de dizer a frase assustadora, volta ao normal
+        else if (spillEvent != null && spillEvent.hasSpilled)
+        {
+            spillEvent.EndSpillSequence();
+        }
+        // --------------------------------------------------------
+
         if (npcController != null) npcController.ResumeMovement();
     }
 
@@ -285,5 +313,22 @@ public class NPCInteraction : MonoBehaviour
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (talkGUI != null) talkGUI.SetActive(false);
         EsconderBotoes();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // Verifica se quem bateu no NPC foi o jogador (certifica-te que o teu Player tem a Tag "Player")
+        if (collision.CompareTag("Player"))
+        {
+            OnPlayerEnter();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            OnPlayerExit();
+        }
     }
 }

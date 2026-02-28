@@ -30,8 +30,6 @@ public class NPCController : MonoBehaviour
 
     [Header("Counter Settings")]
     public GameObject[] counterItems;
-    private string previousObjective;
-    private bool wasObjectiveVisible;
 
     [Header("Fading Settings")]
     public float fadeDuration = 1.5f;
@@ -247,6 +245,8 @@ public class NPCController : MonoBehaviour
         {
             reachedEnd = true;
             yield return StartCoroutine(FadeOutCoroutine());
+            gameObject.SetActive(false);
+            //Destroy(gameObject);
         }
         else if (currentWaypointIndex == interactionWaypointIndex)
         {
@@ -255,12 +255,8 @@ public class NPCController : MonoBehaviour
             // --- Lógica do Balcão e Objetivo ---
             if (ObjectiveFeedback.instance != null)
             {
-                // Guarda o texto e se estava visível
-                previousObjective = ObjectiveFeedback.instance.CurrentObjective;
-                wasObjectiveVisible = ObjectiveFeedback.instance.IsVisible;
-
-                // Força o novo objetivo (corrigi também o inglês de costumer para customer)
-                ObjectiveFeedback.instance.SetObjective("Serve the customer.");
+                // Repara no 'true' no final. Significa: Sou prioridade!
+                ObjectiveFeedback.instance.SetObjective("Serve the customer.", true);
             }
 
             if (counterItems != null)
@@ -292,15 +288,8 @@ public class NPCController : MonoBehaviour
             // --- Reverter Lógica do Balcão e Objetivo ---
             if (ObjectiveFeedback.instance != null)
             {
-                // Se estava visível antes do NPC chegar, repõe. Se não, volta a esconder.
-                if (wasObjectiveVisible && !string.IsNullOrEmpty(previousObjective))
-                {
-                    ObjectiveFeedback.instance.SetObjective(previousObjective);
-                }
-                else
-                {
-                    ObjectiveFeedback.instance.HideObjective();
-                }
+                // Repara no 'true'. Ele diz: "A prioridade acabou, volta ao normal".
+                ObjectiveFeedback.instance.HideObjective(true);
             }
 
             if (counterItems != null)
