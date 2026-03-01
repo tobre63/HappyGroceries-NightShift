@@ -36,9 +36,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // ADICIONADO AQUI AS 3 NOVAS VARIÁVEIS DA LIMPEZA!
         bool isBlocked = NPCInteraction.isPlayerTalking
                       || BoxInteractable.isPickingUpBox
-                      || ShelfInteractable.isPlacingBox;
+                      || ShelfInteractable.isPlacingBox
+                      || MopInteractable.isInteractingWithMop
+                      || DirtZoneInteractable.isCleaningDirt
+                      || BottleInteractable.isPickingUpBottle;
 
         if (isBlocked)
         {

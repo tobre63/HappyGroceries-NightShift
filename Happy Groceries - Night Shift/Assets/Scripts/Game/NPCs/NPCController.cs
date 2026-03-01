@@ -27,6 +27,7 @@ public class NPCController : MonoBehaviour
     [Header("Interaction Settings")]
     public int interactionWaypointIndex = 1;
     [HideInInspector] public bool isWaitingForInteraction = false;
+    [HideInInspector] public bool preserveInteractionState = false;
 
     [Header("Counter Settings")]
     public GameObject[] counterItems;
@@ -285,18 +286,21 @@ public class NPCController : MonoBehaviour
             currentWaypointIndex++;
             isWaiting = false;
 
-            // --- Reverter Lógica do Balcão e Objetivo ---
-            if (ObjectiveFeedback.instance != null)
+            // NOVA LÓGICA UNIVERSAL: Se o interruptor estiver desligado, limpa as coisas normalmente.
+            if (!preserveInteractionState)
             {
-                // Repara no 'true'. Ele diz: "A prioridade acabou, volta ao normal".
-                ObjectiveFeedback.instance.HideObjective(true);
-            }
-
-            if (counterItems != null)
-            {
-                foreach (var item in counterItems)
+                // --- Reverter Lógica do Balcão e Objetivo ---
+                if (ObjectiveFeedback.instance != null)
                 {
-                    if (item != null) item.SetActive(false);
+                    ObjectiveFeedback.instance.HideObjective(true);
+                }
+
+                if (counterItems != null)
+                {
+                    foreach (var item in counterItems)
+                    {
+                        if (item != null) item.SetActive(false);
+                    }
                 }
             }
         }
