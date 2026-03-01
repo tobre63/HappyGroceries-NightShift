@@ -145,7 +145,7 @@ public class CocaColaSpillEvent : MonoBehaviour
 
         if (ObjectiveFeedback.instance != null)
         {
-            ObjectiveFeedback.instance.SetObjective("Pick up the Mop", true);
+            ObjectiveFeedback.instance.SetObjective("Pick up the mop.", true);
         }
     }
 

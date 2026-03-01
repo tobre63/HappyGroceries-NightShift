@@ -3946,8 +3946,8 @@ GameObject:
   m_Component:
   - component: {fileID: 100725611}
   - component: {fileID: 100725614}
-  - component: {fileID: 100725613}
   - component: {fileID: 100725612}
+  - component: {fileID: 100725613}
   m_Layer: 7
   m_Name: Wall4
   m_TagString: Untagged
@@ -5580,7 +5580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1e68ae09e8313409396d0c9e4245db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BottleInteractable
-  timeToPickUp: 1
+  timeToPickUp: 3
   interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
@@ -6473,7 +6473,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1785239588}
+  m_Father: {fileID: 507496251}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &231869511
 BoxCollider2D:
@@ -7298,8 +7298,8 @@ GameObject:
   m_Component:
   - component: {fileID: 275791897}
   - component: {fileID: 275791900}
-  - component: {fileID: 275791899}
   - component: {fileID: 275791898}
+  - component: {fileID: 275791899}
   m_Layer: 7
   m_Name: Wall3
   m_TagString: Untagged
@@ -9339,6 +9339,7 @@ Transform:
   m_Children:
   - {fileID: 1026341453}
   - {fileID: 1749639261}
+  - {fileID: 231869510}
   m_Father: {fileID: 1785239588}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &510923339
@@ -16521,9 +16522,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 77308994}
+  - {fileID: 2044735792}
   - {fileID: 1514459342}
   - {fileID: 1383843206}
-  - {fileID: 77308994}
   - {fileID: 1841746261}
   - {fileID: 1772621176}
   m_Father: {fileID: 1785239588}
@@ -19251,7 +19253,7 @@ GameObject:
   - component: {fileID: 1514459344}
   - component: {fileID: 1514459343}
   m_Layer: 7
-  m_Name: SeeThroughWalls
+  m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19321,8 +19323,8 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -198908811
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
@@ -21709,7 +21711,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1764076874}
   m_Layer: 0
-  m_Name: Task
+  m_Name: Task2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22286,12 +22288,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 231869510}
   - {fileID: 1764076874}
   - {fileID: 1208922606}
   - {fileID: 197586374}
   - {fileID: 1214099467}
-  - {fileID: 2044735792}
   - {fileID: 507496251}
   m_Father: {fileID: 2015736289}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24444,7 +24444,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1785239588}
+  m_Father: {fileID: 1208922606}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!66 &2044735793
 CompositeCollider2D:
