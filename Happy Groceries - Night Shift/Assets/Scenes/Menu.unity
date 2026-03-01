@@ -6198,7 +6198,8 @@ MonoBehaviour:
 
 
     Julian Frost'
-  typingSpeed: 0.085
+  typingSpeed: 0.08
+  punctuationPause: 0.15
   waitAfterText: 2
   audioSource: {fileID: 1880828595}
   musicSource: {fileID: 1658746684}
@@ -7366,7 +7367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5f77488cf16734fbb6108ab53c7a73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParallaxEffect
-  intensity: 70
+  intensity: 50
   smoothness: 10
 --- !u!1 &2134893419
 GameObject:

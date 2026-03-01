@@ -14,15 +14,16 @@ public class GameUIManager : MonoBehaviour
     [Header("Elements to Hide on Transition")]
     [SerializeField] private GameObject buttonsPanel;
     [SerializeField] private GameObject backgroundPanel;
-    
-    // NOVO: Referência para o botão de Skip para podermos mostrá-lo/escondê-lo
-    [SerializeField] private GameObject skipButton; 
+
+    [SerializeField] private GameObject skipButton;
 
     [Header("Story Text Settings")]
     [SerializeField] private TextMeshProUGUI loadingText;
     [TextArea(8, 15)]
     [SerializeField] private string fullText;
     [SerializeField] private float typingSpeed = 0.05f;
+    // NOVO: Tempo de pausa extra após a pontuação (podes ajustar no Inspector!)
+    [SerializeField] private float punctuationPause = 0.15f;
     [SerializeField] private float waitAfterText = 2.0f;
 
     [Header("Audio Settings")]
@@ -34,17 +35,14 @@ public class GameUIManager : MonoBehaviour
 
     private CanvasGroup loadingTextGroup;
     private bool isTransitioning = false;
-    
-    // NOVO: Flag para saber se o jogador clicou no skip
-    private bool isSkippingText = false; 
+    private bool isSkippingText = false;
 
     private void Awake()
     {
         if (mainMenuPanel != null) mainMenuPanel.SetActive(true);
         if (settingsPanel != null) settingsPanel.SetActive(false);
         if (loadingText != null) loadingText.text = "";
-        
-        // NOVO: Garante que o botão de skip começa escondido
+
         if (skipButton != null) skipButton.SetActive(false);
 
         if (loadingText != null)
@@ -79,10 +77,8 @@ public class GameUIManager : MonoBehaviour
         StartCoroutine(SequenceWithDiary(sceneName));
     }
 
-    // NOVO: Método que o teu botão "Skip" vai chamar
     public void SkipTextAnimation()
     {
-        // Só permite fazer skip se estivermos na transição e ainda não tivermos feito skip
         if (isTransitioning && !isSkippingText)
         {
             isSkippingText = true;
@@ -106,30 +102,41 @@ public class GameUIManager : MonoBehaviour
         {
             loadingText.gameObject.SetActive(true);
             loadingText.text = "";
-            
-            // NOVO: Reset da flag e mostra o botão de skip
+
             isSkippingText = false;
             if (skipButton != null) skipButton.SetActive(true);
 
             foreach (char letter in fullText.ToCharArray())
             {
-                // NOVO: Verifica se o jogador clicou no Skip
                 if (isSkippingText)
                 {
-                    loadingText.text = fullText; // Mostra o texto todo
-                    break; // Sai do ciclo 'foreach' imediatamente
+                    loadingText.text = fullText;
+                    break;
                 }
 
                 loadingText.text += letter;
-                if (typeSound != null && audioSource != null) audioSource.PlayOneShot(typeSound);
+
+                if (char.IsLetterOrDigit(letter))
+                {
+                    if (typeSound != null && audioSource != null)
+                    {
+                        audioSource.pitch = Random.Range(0.9f, 1.1f);
+                        audioSource.PlayOneShot(typeSound);
+                    }
+                }
+
                 yield return new WaitForSeconds(typingSpeed);
+
+                // NOVO: Adiciona a pausa extra se for um sinal de pontuação importante
+                if (letter == '.' || letter == '!' || letter == '?')
+                {
+                    yield return new WaitForSeconds(punctuationPause);
+                }
             }
-            
-            // NOVO: Esconde o botão de skip quando o texto terminar (seja natural ou por skip)
+
             if (skipButton != null) skipButton.SetActive(false);
         }
 
-        // 5. Tempo de leitura (espera os 2 segundos, mesmo se tiver feito skip)
         yield return new WaitForSeconds(waitAfterText);
 
         if (loadingTextGroup != null)
@@ -141,9 +148,9 @@ public class GameUIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // --- Helper Coroutines (Utilitários) ---
+    // --- Helper Coroutines (Utilitários) ---
 
-    private IEnumerator DoFade(float start, float end, float duration)
+    private IEnumerator DoFade(float start, float end, float duration)
     {
         if (fadePanel == null) yield break;
         fadePanel.gameObject.SetActive(true);
@@ -194,9 +201,9 @@ public class GameUIManager : MonoBehaviour
         if (end <= 0f) cg.gameObject.SetActive(false);
     }
 
-    // --- UI & Audio Methods ---
+    // --- UI & Audio Methods ---
 
-    public void OpenSettings()
+    public void OpenSettings()
     {
         if (isTransitioning) return;
         PlaySound(clickSound);
@@ -227,6 +234,10 @@ public class GameUIManager : MonoBehaviour
 
     private void PlaySound(AudioClip clip)
     {
-        if (clip != null && audioSource != null) audioSource.PlayOneShot(clip);
+        if (clip != null && audioSource != null)
+        {
+            audioSource.pitch = 1f;
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

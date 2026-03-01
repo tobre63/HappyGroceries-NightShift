@@ -6,8 +6,8 @@ public class DirtZoneInteractable : MonoBehaviour
     public GameObject[] dirtStages;
     public GameObject interactionIcon;
 
-    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
-    public static bool isCleaningDirt = false;
+    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
+    public static bool isCleaningDirt = false;
 
     private int currentStageIndex = 0;
     private bool isFullyCleaned = false;
@@ -52,7 +52,7 @@ public class DirtZoneInteractable : MonoBehaviour
                 isInteracting = true;
                 isCleaningDirt = true; // BLOQUEIA O JOGADOR
 
-                if (interactionIcon != null) interactionIcon.SetActive(true);
+                if (interactionIcon != null) interactionIcon.SetActive(true);
             }
 
             holdTimer += Time.deltaTime;
@@ -77,9 +77,9 @@ public class DirtZoneInteractable : MonoBehaviour
 
         currentStageIndex++;
 
-        // CORREÇÃO AQUI: Em vez de fazer um ResetInteraction() completo, apenas zeramos o tempo!
-        // Assim, a variável 'isCleaningDirt' continua 'true' e o jogador não dá aquele passo falso.
-        holdTimer = 0f;
+        // CORREÇÃO AQUI: Em vez de fazer um ResetInteraction() completo, apenas zeramos o tempo!
+        // Assim, a variável 'isCleaningDirt' continua 'true' e o jogador não dá aquele passo falso.
+        holdTimer = 0f;
 
         if (currentStageIndex >= dirtStages.Length)
         {
@@ -90,8 +90,8 @@ public class DirtZoneInteractable : MonoBehaviour
             CleaningEventController.instance.dirtZonesCleaned++;
             CleaningEventController.instance.CheckProgress();
 
-            // A nódoa sumiu de vez, agora sim libertamos o jogador!
-            ResetInteraction();
+            // A nódoa sumiu de vez, agora sim libertamos o jogador!
+            ResetInteraction();
         }
     }
 
@@ -99,7 +99,7 @@ public class DirtZoneInteractable : MonoBehaviour
     {
         isInteracting = false;
         isCleaningDirt = false; // LIBERTA O JOGADOR
-        holdTimer = 0f;
+        holdTimer = 0f;
 
         if (inRange && !isFullyCleaned && interactionIcon != null)
         {

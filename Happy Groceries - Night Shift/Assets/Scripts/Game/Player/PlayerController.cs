@@ -36,21 +36,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // ADICIONADO AQUI AS 3 NOVAS VARIÁVEIS DA LIMPEZA!
         bool isBlocked = NPCInteraction.isPlayerTalking
-                      || BoxInteractable.isPickingUpBox
-                      || ShelfInteractable.isPlacingBox
-                      || MopInteractable.isInteractingWithMop
-                      || DirtZoneInteractable.isCleaningDirt
-                      || BottleInteractable.isPickingUpBottle;
+               || BoxInteractable.isPickingUpBox
+               || ShelfInteractable.isPlacingBox
+               || MopInteractable.isInteractingWithMop
+               || DirtZoneInteractable.isCleaningDirt
+               || BottleInteractable.isPickingUpBottle
+               || CocaColaSpillEvent.isSpillEventActive;
 
         if (isBlocked)
         {
             input = Vector2.zero; // Garante que o FixedUpdate também para
-            anim.speed = 1;
+            anim.speed = 1;
             anim.SetBool("isMoving", false);
             anim.SetFloat("moveX", lastDirection.x); // Mantém a direção que estava
-            anim.SetFloat("moveY", lastDirection.y);
+            anim.SetFloat("moveY", lastDirection.y);
             return;
         }
 
@@ -105,8 +105,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Como input é zerado no Update quando bloqueado, isto para automaticamente
-        rb.linearVelocity = input * speed;
+        // Como input é zerado no Update quando bloqueado, isto para automaticamente
+        rb.linearVelocity = input * speed;
     }
 
     public void PlayFootstep()

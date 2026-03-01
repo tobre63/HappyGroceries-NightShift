@@ -9,9 +9,9 @@ public class AutomatedDoorSide : MonoBehaviour
 
     [Header("Audio Settings")]
     public AudioSource audioSource; // Arrasta o AudioSource (pode ser o da porta pai)
-    public AudioClip doorOpenSound; // O som da porta a abrir
+    public AudioClip doorOpenSound; // O som da porta a abrir
 
-    private int objectsInside = 0;
+    private int objectsInside = 0;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -19,19 +19,19 @@ public class AutomatedDoorSide : MonoBehaviour
         {
             objectsInside++;
 
-            // Só tentamos abrir se for o primeiro objeto E se o outro lado não estiver já ativo
-            if (objectsInside == 1)
+            // Só tentamos abrir se for o primeiro objeto E se o outro lado não estiver já ativo
+            if (objectsInside == 1)
             {
-                // VERIFICAÇÃO CRÍTICA:
-                if (doorAnimator.GetBool(otherBoolName) == true)
+                // VERIFICAÇÃO CRÍTICA:
+                if (doorAnimator.GetBool(otherBoolName) == true)
                 {
                     return;
                 }
 
                 doorAnimator.SetBool(myBoolName, true);
 
-                // --- TOCA O SOM AQUI ---
-                PlaySound();
+                // --- TOCA O SOM AQUI ---
+                PlaySound();
             }
         }
     }
@@ -46,10 +46,10 @@ public class AutomatedDoorSide : MonoBehaviour
             {
                 objectsInside = 0;
                 doorAnimator.SetBool(myBoolName, false);
-                // Nota: Geralmente não se mete som ao fechar aqui, 
-                // porque a porta pode demorar a reagir à animação. 
-                // Se quiseres som ao fechar, o ideal é usar Animation Events na animação de fechar.
-            }
+                // Nota: Geralmente não se mete som ao fechar aqui, 
+                // porque a porta pode demorar a reagir à animação. 
+                // Se quiseres som ao fechar, o ideal é usar Animation Events na animação de fechar.
+            }
         }
     }
 
@@ -64,8 +64,8 @@ public class AutomatedDoorSide : MonoBehaviour
     {
         if (audioSource != null && doorOpenSound != null)
         {
-            // PlayOneShot permite que o som toque sem cortar outros sons que possam estar a dar
-            audioSource.PlayOneShot(doorOpenSound);
+            // PlayOneShot permite que o som toque sem cortar outros sons que possam estar a dar
+            audioSource.PlayOneShot(doorOpenSound);
         }
     }
 }

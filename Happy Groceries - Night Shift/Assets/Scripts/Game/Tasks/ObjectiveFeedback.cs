@@ -12,8 +12,8 @@ public class ObjectiveFeedback : MonoBehaviour
     [Header("Fade Settings")]
     public float fadeDuration = 0.3f;
 
-    // --- MEMÓRIA DOS OBJETIVOS ---
-    private string backgroundObjective = "";
+    // --- MEMÓRIA DOS OBJETIVOS ---
+    private string backgroundObjective = "";
     private bool isBackgroundVisible = false;
 
     private string priorityObjective = "";
@@ -32,8 +32,8 @@ public class ObjectiveFeedback : MonoBehaviour
         SetObjective("Pick up a box.");
     }
 
-    // O "isPriority" diz-nos se isto é um objetivo super importante (NPC) ou normal (Caixas)
-    public void SetObjective(string newText, bool isPriority = false)
+    // O "isPriority" diz-nos se isto é um objetivo super importante (NPC) ou normal (Caixas)
+    public void SetObjective(string newText, bool isPriority = false)
     {
         if (objectiveText == null) return;
 
@@ -42,15 +42,15 @@ public class ObjectiveFeedback : MonoBehaviour
             priorityObjective = newText;
             isPriorityActive = true;
             UpdateScreenText(priorityObjective); // Força a mostrar o do NPC
-        }
+        }
         else
         {
             backgroundObjective = newText;
             isBackgroundVisible = true;
 
-            // Só atualiza o ecrã com as caixas se o NPC não estiver à espera!
-            // (Mas guarda a informação na mesma em background)
-            if (!isPriorityActive)
+            // Só atualiza o ecrã com as caixas se o NPC não estiver à espera!
+            // (Mas guarda a informação na mesma em background)
+            if (!isPriorityActive)
             {
                 UpdateScreenText(backgroundObjective);
             }
@@ -66,8 +66,8 @@ public class ObjectiveFeedback : MonoBehaviour
             isPriorityActive = false;
             priorityObjective = "";
 
-            // O NPC foi-se embora. Volta a mostrar o objetivo que as caixas/prateleiras definiram!
-            if (isBackgroundVisible && !string.IsNullOrEmpty(backgroundObjective))
+            // O NPC foi-se embora. Volta a mostrar o objetivo que as caixas/prateleiras definiram!
+            if (isBackgroundVisible && !string.IsNullOrEmpty(backgroundObjective))
                 UpdateScreenText(backgroundObjective);
             else
                 HideScreenText();
@@ -77,8 +77,8 @@ public class ObjectiveFeedback : MonoBehaviour
             isBackgroundVisible = false;
             backgroundObjective = "";
 
-            // Só esconde do ecrã se o NPC não estiver a dominar a UI
-            if (!isPriorityActive)
+            // Só esconde do ecrã se o NPC não estiver a dominar a UI
+            if (!isPriorityActive)
                 HideScreenText();
         }
     }

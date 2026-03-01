@@ -12,8 +12,8 @@ public class BoxInteractable : MonoBehaviour
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // Vari�vel est�tica para o PlayerController saber se o jogador est� a interagir
-    public static bool isPickingUpBox = false;
+    // Vari�vel est�tica para o PlayerController saber se o jogador est� a interagir
+    public static bool isPickingUpBox = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
@@ -66,7 +66,7 @@ public class BoxInteractable : MonoBehaviour
                     isInteracting = true;
                     isPickingUpBox = true; // Avisa o PlayerController para parar o movimento
 
-                    interactionIcon.SetActive(false);
+                    interactionIcon.SetActive(false);
                     if (progressBarObj != null) progressBarObj.SetActive(true);
                 }
 
@@ -79,7 +79,7 @@ public class BoxInteractable : MonoBehaviour
                 {
                     isInteracting = false;
                     isPickingUpBox = false; // Liberta o jogador
-                    TaskManager.instance.currentBoxHeldID = boxID;
+                    TaskManager.instance.currentBoxHeldID = boxID;
 
                     ObjectiveFeedback.instance.SetObjective("Carry the box to the shelf.");
 
@@ -103,7 +103,7 @@ public class BoxInteractable : MonoBehaviour
         {
             isInteracting = false;
             isPickingUpBox = false; // Liberta o jogador caso ele cancele a a��o a meio
-            holdTimer = 0f;
+            holdTimer = 0f;
             SetProgress(0f);
 
             if (progressBarObj != null) progressBarObj.SetActive(false);

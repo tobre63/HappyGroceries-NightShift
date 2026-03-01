@@ -13,9 +13,9 @@ public class NPCWaypoint
 [RequireComponent(typeof(AudioSource))]
 public class NPCController : MonoBehaviour
 {
-    // --- SETTINGS ---
+    // --- SETTINGS ---
 
-    [Header("Schedule Settings")]
+    [Header("Schedule Settings")]
     [SerializeField] private NightTimer nightTimer;
     public float activationHour = 22f;
     [HideInInspector] public bool isActiveInWorld = false;
@@ -51,9 +51,9 @@ public class NPCController : MonoBehaviour
     public AudioClip tilesFootstep;
     public LayerMask floorLayer;
 
-    // --- COMPONENTES E CONTROLOS INTERNOS ---
+    // --- COMPONENTES E CONTROLOS INTERNOS ---
 
-    private Rigidbody2D rb;
+    private Rigidbody2D rb;
     private Animator anim;
     private AudioSource audioSource;
     private SpriteRenderer spriteRenderer;
@@ -247,17 +247,17 @@ public class NPCController : MonoBehaviour
             reachedEnd = true;
             yield return StartCoroutine(FadeOutCoroutine());
             gameObject.SetActive(false);
-            //Destroy(gameObject);
-        }
+            //Destroy(gameObject);
+        }
         else if (currentWaypointIndex == interactionWaypointIndex)
         {
             isWaitingForInteraction = true;
 
-            // --- Lógica do Balcão e Objetivo ---
-            if (ObjectiveFeedback.instance != null)
+            // --- Lógica do Balcão e Objetivo ---
+            if (ObjectiveFeedback.instance != null)
             {
-                // Repara no 'true' no final. Significa: Sou prioridade!
-                ObjectiveFeedback.instance.SetObjective("Serve the customer.", true);
+                // Repara no 'true' no final. Significa: Sou prioridade!
+                ObjectiveFeedback.instance.SetObjective("Serve the customer.", true);
             }
 
             if (counterItems != null)
@@ -286,11 +286,11 @@ public class NPCController : MonoBehaviour
             currentWaypointIndex++;
             isWaiting = false;
 
-            // NOVA LÓGICA UNIVERSAL: Se o interruptor estiver desligado, limpa as coisas normalmente.
-            if (!preserveInteractionState)
+            // NOVA LÓGICA UNIVERSAL: Se o interruptor estiver desligado, limpa as coisas normalmente.
+            if (!preserveInteractionState)
             {
-                // --- Reverter Lógica do Balcão e Objetivo ---
-                if (ObjectiveFeedback.instance != null)
+                // --- Reverter Lógica do Balcão e Objetivo ---
+                if (ObjectiveFeedback.instance != null)
                 {
                     ObjectiveFeedback.instance.HideObjective(true);
                 }

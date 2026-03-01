@@ -15,10 +15,15 @@ public class CocaColaSpillEvent : MonoBehaviour
     public float zoomDuration = 0.15f;
     public Vector2 focusOffset = new Vector2(0f, 0.5f);
 
+    // NOVO: A força do tremor da câmara durante o susto!
+    [Header("Screen Shake Settings")]
+    public float shakeMagnitude = 0.3f;
+
     [Header("Creepy Dialogue")]
     public DialogueNode creepyDialogue;
 
     [HideInInspector] public bool hasSpilled = false;
+    public static bool isSpillEventActive = false;
 
     private NPCInteraction npcInteraction;
     private float originalCameraSize;
@@ -43,8 +48,8 @@ public class CocaColaSpillEvent : MonoBehaviour
     public void StartSpillSequence()
     {
         hasSpilled = true;
+        isSpillEventActive = true;
 
-        // Avisa o NPCController base para NÃO apagar os objetivos/itens quando for embora!
         NPCController npcCtrl = GetComponent<NPCController>();
         if (npcCtrl != null)
         {
@@ -62,14 +67,12 @@ public class CocaColaSpillEvent : MonoBehaviour
             originalCameraPosition = mainCamera.transform.position;
         }
 
-        // Toca o som do susto
         if (jumpscareSound != null)
         {
             audioSource.pitch = 1f;
             audioSource.PlayOneShot(jumpscareSound);
         }
 
-        // 1. Faz desaparecer a Coca-Cola intacta do balcão imediatamente!
         NPCController npcCtrl = GetComponent<NPCController>();
         if (npcCtrl != null && npcCtrl.counterItems != null)
         {
@@ -79,7 +82,6 @@ public class CocaColaSpillEvent : MonoBehaviour
             }
         }
 
-        // 2. Faz aparecer os objetos do derrame (Sujidade e Garrafa caída)
         if (spillObjects != null && spillObjects.Length > 0)
         {
             foreach (var obj in spillObjects)
@@ -93,7 +95,8 @@ public class CocaColaSpillEvent : MonoBehaviour
             float t = 0f;
             Vector3 targetPosition = new Vector3(transform.position.x + focusOffset.x, transform.position.y + focusOffset.y, originalCameraPosition.z);
 
-            while (t < zoomDuration)
+            // 1. FAZ O ZOOM IN SUPER RÁPIDO (Sem tremer, para ser preciso)
+            while (t < zoomDuration)
             {
                 t += Time.deltaTime;
                 float normalizedTime = t / zoomDuration;
@@ -101,13 +104,33 @@ public class CocaColaSpillEvent : MonoBehaviour
                 mainCamera.transform.position = Vector3.Lerp(originalCameraPosition, targetPosition, normalizedTime);
                 yield return null;
             }
-            mainCamera.orthographicSize = zoomInSize;
+
+            // Garante que a câmara chegou ao destino exato
+            mainCamera.orthographicSize = zoomInSize;
             mainCamera.transform.position = targetPosition;
+
+            // 2. NOVO: O TERRAMOTO! Treme violentamente durante 0.5 segundos (ou mais)
+            float shakeDuration = 0.5f;
+            float shakeTimer = 0f;
+
+            while (shakeTimer < shakeDuration)
+            {
+                shakeTimer += Time.deltaTime;
+
+                // Cria uma posição caótica baseada no targetPosition
+                Vector2 randomShake = Random.insideUnitCircle * shakeMagnitude;
+                mainCamera.transform.position = new Vector3(targetPosition.x + randomShake.x, targetPosition.y + randomShake.y, targetPosition.z);
+
+                yield return null;
+            }
+
+            // 3. Fim do tremor: volta a estabilizar a câmara antes de o NPC falar
+            mainCamera.transform.position = targetPosition;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        // Já não precisamos do WaitForSeconds(0.5f) solto aqui, porque o tremor já ocupou esse tempo!
 
-        npcInteraction.dialogueNodes = new DialogueNode[] { creepyDialogue };
+        npcInteraction.dialogueNodes = new DialogueNode[] { creepyDialogue };
         npcInteraction.StartDialogue();
     }
 
@@ -120,7 +143,6 @@ public class CocaColaSpillEvent : MonoBehaviour
             CleaningEventController.instance.isQuestActive = true;
         }
 
-        // OBJETIVO DE PRIORIDADE MÁXIMA: Apanhar a Mop
         if (ObjectiveFeedback.instance != null)
         {
             ObjectiveFeedback.instance.SetObjective("Pick up the Mop", true);
@@ -146,5 +168,7 @@ public class CocaColaSpillEvent : MonoBehaviour
             mainCamera.orthographicSize = originalCameraSize;
             mainCamera.transform.position = originalCameraPosition;
         }
+
+        isSpillEventActive = false;
     }
 }

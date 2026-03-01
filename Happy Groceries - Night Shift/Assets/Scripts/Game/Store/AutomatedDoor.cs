@@ -15,10 +15,10 @@ public class AutomatedDoor : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
 
-        // Configurações básicas do AudioSource
-        audioSource.playOnAwake = false;
+        // Configurações básicas do AudioSource
+        audioSource.playOnAwake = false;
         audioSource.spatialBlend = 1.0f; // Som 3D
-    }
+    }
 
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -43,8 +43,8 @@ public class AutomatedDoor : MonoBehaviour
     {
         bool shouldBeOpen = entitiesInside > 0;
 
-        // Só toca o som se o estado da porta realmente mudar
-        if (shouldBeOpen && !isOpen)
+        // Só toca o som se o estado da porta realmente mudar
+        if (shouldBeOpen && !isOpen)
         {
             PlaySound(doorSound);
             isOpen = true;
@@ -63,7 +63,7 @@ public class AutomatedDoor : MonoBehaviour
         if (clip != null)
         {
             audioSource.pitch = Random.Range(0.9f, 1.1f); // Pequena variação para não ser repetitivo
-            audioSource.PlayOneShot(clip);
+            audioSource.PlayOneShot(clip);
         }
     }
 }

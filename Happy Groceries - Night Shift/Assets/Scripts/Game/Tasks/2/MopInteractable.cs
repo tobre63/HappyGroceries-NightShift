@@ -4,13 +4,13 @@ public class MopInteractable : MonoBehaviour
 {
     public float timeToInteract = 1.5f;
     public GameObject mopVisuals; // Arrasta a imagem da esfregona para aqui
-    public GameObject interactionIcon;
+    public GameObject interactionIcon;
     public GameObject progressBarObj;
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
-    public static bool isInteractingWithMop = false;
+    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
+    public static bool isInteractingWithMop = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
@@ -62,8 +62,8 @@ public class MopInteractable : MonoBehaviour
                     isInteracting = true;
                     isInteractingWithMop = true; // BLOQUEIA O JOGADOR
 
-                    // CORREÇÃO AQUI: Esconde o ícone do 'E' enquanto enche a barra
-                    if (interactionIcon != null) interactionIcon.SetActive(false);
+                    // CORREÇÃO AQUI: Esconde o ícone do 'E' enquanto enche a barra
+                    if (interactionIcon != null) interactionIcon.SetActive(false);
                     if (progressBarObj != null) progressBarObj.SetActive(true);
                 }
 
@@ -75,12 +75,12 @@ public class MopInteractable : MonoBehaviour
                     isInteracting = false;
                     isInteractingWithMop = false; // LIBERTA O JOGADOR
 
-                    if (canPickUp)
+                    if (canPickUp)
                     {
                         CleaningEventController.instance.isMopEquipped = true;
                         SetMopAlpha(0f); // Fica invisível (Alpha 0)
 
-                        if (ObjectiveFeedback.instance != null)
+                        if (ObjectiveFeedback.instance != null)
                         {
                             ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
                         }
@@ -90,8 +90,8 @@ public class MopInteractable : MonoBehaviour
                         CleaningEventController.instance.isMopEquipped = false;
                         SetMopAlpha(1f); // Volta a ficar visível (Alpha 1)
 
-                        // IMPEDE QUE SEJA APANHADA OUTRA VEZ: Desliga o colisor
-                        Collider2D col = GetComponent<Collider2D>();
+                        // IMPEDE QUE SEJA APANHADA OUTRA VEZ: Desliga o colisor
+                        Collider2D col = GetComponent<Collider2D>();
                         if (col != null) col.enabled = false;
 
                         if (ObjectiveFeedback.instance != null)
@@ -110,7 +110,7 @@ public class MopInteractable : MonoBehaviour
     {
         isInteracting = false;
         isInteractingWithMop = false; // Garante que liberta o jogador se ele largar o 'E' a meio
-        holdTimer = 0f;
+        holdTimer = 0f;
         if (progressMaterial != null) progressMaterial.SetFloat(percentageProperty, 0f);
         if (progressBarObj != null) progressBarObj.SetActive(false);
 
@@ -118,8 +118,8 @@ public class MopInteractable : MonoBehaviour
             if (interactionIcon != null) interactionIcon.SetActive(true);
     }
 
-    // Função que altera apenas a transparência do SpriteRenderer
-    private void SetMopAlpha(float alpha)
+    // Função que altera apenas a transparência do SpriteRenderer
+    private void SetMopAlpha(float alpha)
     {
         if (mopVisuals != null)
         {

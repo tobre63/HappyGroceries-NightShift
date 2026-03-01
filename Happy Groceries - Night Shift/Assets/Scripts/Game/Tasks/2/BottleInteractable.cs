@@ -8,8 +8,8 @@ public class BottleInteractable : MonoBehaviour
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
-    public static bool isPickingUpBottle = false;
+    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
+    public static bool isPickingUpBottle = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
@@ -55,8 +55,8 @@ public class BottleInteractable : MonoBehaviour
                 isInteracting = true;
                 isPickingUpBottle = true; // BLOQUEIA O JOGADOR
 
-                // CORREÇÃO AQUI: Esconde o ícone do 'E' enquanto enche a barra
-                if (interactionIcon != null) interactionIcon.SetActive(false);
+                // CORREÇÃO AQUI: Esconde o ícone do 'E' enquanto enche a barra
+                if (interactionIcon != null) interactionIcon.SetActive(false);
                 if (progressBarObj != null) progressBarObj.SetActive(true);
             }
 
@@ -69,7 +69,7 @@ public class BottleInteractable : MonoBehaviour
                 CleaningEventController.instance.CheckProgress();
 
                 ResetInteraction(); // Garante que tudo limpa e o jogador é libertado ANTES de desativar o objeto
-                gameObject.SetActive(false);
+                gameObject.SetActive(false);
             }
         }
         else if (isInteracting) ResetInteraction();
@@ -79,7 +79,7 @@ public class BottleInteractable : MonoBehaviour
     {
         isInteracting = false;
         isPickingUpBottle = false; // LIBERTA O JOGADOR
-        holdTimer = 0f;
+        holdTimer = 0f;
 
         if (progressMaterial != null) progressMaterial.SetFloat(percentageProperty, 0f);
         if (progressBarObj != null) progressBarObj.SetActive(false);

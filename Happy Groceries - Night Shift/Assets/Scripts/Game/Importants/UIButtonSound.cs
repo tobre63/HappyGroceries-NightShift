@@ -6,8 +6,8 @@ public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickH
 {
     public void OnPointerEnter(PointerEventData eventData)
     {
-        // Quando o rato passa por cima, avisa o GameManager
-        if (GameManager.Instance != null)
+        // Quando o rato passa por cima, avisa o GameManager
+        if (GameManager.Instance != null)
         {
             GameManager.Instance.PlayHoverSound();
         }
@@ -15,8 +15,8 @@ public class UIButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerClickH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Quando o rato clica, avisa o GameManager
-        if (GameManager.Instance != null)
+        // Quando o rato clica, avisa o GameManager
+        if (GameManager.Instance != null)
         {
             GameManager.Instance.PlayClickSound();
         }

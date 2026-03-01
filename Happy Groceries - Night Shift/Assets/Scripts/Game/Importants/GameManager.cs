@@ -35,10 +35,10 @@ public class GameManager : MonoBehaviour
             originalBgmVolume = bgmAudioSource.volume;
         }
 
-        // --- O TRUQUE M�GICO DO �UDIO ---
-        // Ligamos o SettingsMenu � for�a mal o jogo arranca.
-        // Isto faz com que o script "SettingsManager" acorde e carregue os teus Saves de volume!
-        if (settingsMenu != null)
+        // --- O TRUQUE M�GICO DO �UDIO ---
+        // Ligamos o SettingsMenu � for�a mal o jogo arranca.
+        // Isto faz com que o script "SettingsManager" acorde e carregue os teus Saves de volume!
+        if (settingsMenu != null)
         {
             settingsMenu.SetActive(true);
         }
@@ -46,25 +46,25 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // ...E agora que o volume j� carregou, voltamos a esconder o menu para o jogador jogar normalmente.
-        CloseSettings();
+        // ...E agora que o volume j� carregou, voltamos a esconder o menu para o jogador jogar normalmente.
+        CloseSettings();
         Resume();
     }
 
     void Update()
     {
-        // 1. L�gica do Menu de Pausa
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        // 1. L�gica do Menu de Pausa
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             HandleEscPress();
         }
     }
 
-    // ==========================================
-    //           GEST�O DE PAUSA E MENUS
-    // ==========================================
+    // ==========================================
+    //           GEST�O DE PAUSA E MENUS
+    // ==========================================
 
-    private void HandleEscPress()
+    private void HandleEscPress()
     {
         if (settingsMenu != null && settingsMenu.activeSelf)
         {
@@ -166,11 +166,11 @@ public class GameManager : MonoBehaviour
         if (pauseMenu != null) pauseMenu.SetActive(true);
     }
 
-    // ==========================================
-    //                 �UDIO
-    // ==========================================
+    // ==========================================
+    //                 �UDIO
+    // ==========================================
 
-    public void PlayHoverSound()
+    public void PlayHoverSound()
     {
         if (uiAudioSource != null && hoverSound != null)
         {

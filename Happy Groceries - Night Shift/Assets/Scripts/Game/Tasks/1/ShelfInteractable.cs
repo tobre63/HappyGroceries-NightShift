@@ -15,12 +15,12 @@ public class ShelfInteractable : MonoBehaviour
     public GameObject floatingTextObj;
     public TMP_Text progressText;
 
-    // Número total de prateleiras na cena — define no Inspector
-    [Header("Completion Settings")]
-    public static int totalShelves = 2;          // Podes mudar aqui ou tornar público no Inspector
-    private static int completedShelves = 0;     // Contador estático partilhado entre todas as prateleiras
+    // Número total de prateleiras na cena — define no Inspector
+    [Header("Completion Settings")]
+    public static int totalShelves = 2;          // Podes mudar aqui ou tornar público no Inspector
+    private static int completedShelves = 0;     // Contador estático partilhado entre todas as prateleiras
 
-    public static bool isPlacingBox = false;
+    public static bool isPlacingBox = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
@@ -39,8 +39,8 @@ public class ShelfInteractable : MonoBehaviour
         UpdateProgressText();
     }
 
-    // Garante que o contador reinicia quando a cena é carregada
-    private void OnEnable()
+    // Garante que o contador reinicia quando a cena é carregada
+    private void OnEnable()
     {
         completedShelves = 0;
     }
@@ -113,8 +113,8 @@ public class ShelfInteractable : MonoBehaviour
 
                         completedShelves++;
 
-                        // Se todas as prateleiras estiverem completas, esconde o objetivo
-                        if (completedShelves >= totalShelves)
+                        // Se todas as prateleiras estiverem completas, esconde o objetivo
+                        if (completedShelves >= totalShelves)
                         {
                             ObjectiveFeedback.instance.HideObjective();
                         }
