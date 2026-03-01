@@ -6436,10 +6436,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb5a733817f732f419092559e30b495a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CleaningEventController
-  _isQuestActive: 0
-  _isMopEquipped: 0
-  _isBottlePickedUp: 0
-  _dirtZonesCleaned: 0
+  isQuestActive: 0
+  isMopEquipped: 0
+  isBottlePickedUp: 0
+  dirtZonesCleaned: 0
   totalDirtZones: 3
 --- !u!1 &231869509
 GameObject:
@@ -6469,7 +6469,7 @@ Transform:
   m_GameObject: {fileID: 231869509}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.5, y: -6.8, z: 0}
+  m_LocalPosition: {x: 6.125, y: -6.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6572,7 +6572,7 @@ SpriteRenderer:
   m_MaskInteraction: 0
   m_Sprite: {fileID: 4964869317685371108, guid: 18eee9606358b1a408545fc223c5aafc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 2}
