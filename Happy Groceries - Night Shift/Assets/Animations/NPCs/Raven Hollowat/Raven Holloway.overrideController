@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Raven Holloway
+  m_Controller: {fileID: 9100000, guid: 4fdd2f53d238b0d46b2af518de45aec2, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: f374e8106c6db864db0c80e72dbc7ad5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 3698bdf7bf270644c81196562be873ce, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8edbff6591c366b44b0d26cf110b8fd4, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: f958f791d1187dd44b7e36ff77708ad9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 6d82237b7155a9e40ad0a1ab273f711b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 13d03345bd2e25c4198a5efedb25bb41, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: afaef6b7c5ec62e4a848f481a222b7bd, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: e7caac0b9fbc2c64e9ce5718553985f7, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0ef7f384a4d6f1e4290321e66566830b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1c06ebb3aab97b8488738429ba3768fb, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 0c227c4903ec7e14abb2bb62379d31a8, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ff0b889dc48368c4b891181d1542f433, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: aec36842ff81b9a4a9f5603694bbef60, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 99e0f6082054cba49ae901a9617f7a2c, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 3fbc1e70b036d1244941d89fdb8db34e, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ac5bb5b065e13d94c9cc92801d53df0c, type: 2}
