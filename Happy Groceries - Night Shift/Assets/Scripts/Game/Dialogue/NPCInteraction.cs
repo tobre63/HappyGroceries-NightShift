@@ -51,6 +51,7 @@ public class NPCInteraction : MonoBehaviour
     private int dialogueState = 0;
     private int currentNodeIndex = 0;
     private int currentLineIndex = 0;
+    public bool autoStartDialogue = false;
 
     void Start()
     {
@@ -65,22 +66,21 @@ public class NPCInteraction : MonoBehaviour
     {
         if (GameManager.Instance != null && GameManager.Instance.isPaused) return;
 
-        // Se o NPC não está ativo no mundo...
-        if (npcController == null || !npcController.isActiveInWorld || npcController.isFading)
+        // --- VERIFICAÇÃO 1: O NPC está ativo e não está a desaparecer? ---
+        if (npcController != null && (!npcController.isActiveInWorld || npcController.isFading))
         {
-            // SÓ fecha a UI se este NPC em específico a estiver a tentar usar
-            if (dialogueState != 0)
-            {
-                CloseAllUI();
-            }
+            if (dialogueState != 0) CloseAllUI();
             return;
         }
 
-        bool isReadyToTalk = npcController.isWaitingForInteraction;
+        // --- VERIFICAÇÃO 2: Está pronto a falar? ---
+        // Se NÃO tiver NPCController (como a Criança), assume que está sempre pronto a falar!
+        bool isReadyToTalk = (npcController == null) || npcController.isWaitingForInteraction;
 
+        // --- LÓGICA DE INTERAÇÃO ---
         if (playerInRange && isReadyToTalk)
         {
-            if (dialogueState == 0 && interactionIcon != null && !interactionIcon.activeSelf)
+            if (dialogueState == 0 && interactionIcon != null && !interactionIcon.activeSelf && !autoStartDialogue)
                 interactionIcon.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.E))
@@ -268,28 +268,46 @@ public class NPCInteraction : MonoBehaviour
     {
         CloseAllUI();
 
-        // --- VERIFICAÇÃO DE EVENTOS ESPECIAIS (Ex: Coca-Cola) ---
-        CocaColaSpillEvent spillEvent = GetComponent<CocaColaSpillEvent>();
-
-        // Se tem o evento e ainda não derramou, executa o Jumpscare!
-        if (spillEvent != null && !spillEvent.hasSpilled)
+        // --- VERIFICAÇÃO DE EVENTOS ESPECIAIS (Ex: Coca-Cola) ---
+        CocaColaSpillEvent spillEvent = GetComponent<CocaColaSpillEvent>();
+        if (spillEvent != null && !spillEvent.hasSpilled)
         {
             spillEvent.StartSpillSequence();
-            return; // Bloqueia o NPC de se ir embora!
-        }
-        // Se já derramou e acabou de dizer a frase assustadora, volta ao normal
-        else if (spillEvent != null && spillEvent.hasSpilled)
+            return;
+        }
+        else if (spillEvent != null && spillEvent.hasSpilled)
         {
             spillEvent.EndSpillSequence();
         }
-        // --------------------------------------------------------
 
-        if (npcController != null) npcController.ResumeMovement();
+        // --- NOVO: VERIFICAÇÃO DO EVENTO DA CRIANÇA NA CASA DE BANHO ---
+        ChildBathroomEvent childEvent = GetComponent<ChildBathroomEvent>();
+        if (childEvent != null)
+        {
+            childEvent.OnDialogueFinished();
+        }
+        // --------------------------------------------------------
+
+        if (npcController != null) npcController.ResumeMovement();
     }
 
     public void OnPlayerEnter()
     {
         playerInRange = true;
+
+        // Se este NPC estiver configurado para falar automaticamente:
+        if (autoStartDialogue && dialogueState == 0)
+        {
+            // Corta o som da casa de banho instantaneamente se for a Criança!
+            ChildBathroomEvent childEvent = GetComponent<ChildBathroomEvent>();
+            if (childEvent != null)
+            {
+                childEvent.StopAudio();
+            }
+
+            // Arranca a conversa sem esperar pelo 'E'
+            StartDialogue();
+        }
     }
 
     public void OnPlayerExit()

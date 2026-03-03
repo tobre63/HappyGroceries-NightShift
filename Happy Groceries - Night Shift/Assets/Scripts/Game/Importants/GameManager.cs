@@ -33,12 +33,14 @@ public class GameManager : MonoBehaviour
         if (bgmAudioSource != null)
         {
             originalBgmVolume = bgmAudioSource.volume;
+            // NOVO: Permite que a música de fundo ignore a pausa global para poder fazer o Fade Out suavemente!
+            bgmAudioSource.ignoreListenerPause = true;
         }
 
-        // --- O TRUQUE M�GICO DO �UDIO ---
-        // Ligamos o SettingsMenu � for�a mal o jogo arranca.
-        // Isto faz com que o script "SettingsManager" acorde e carregue os teus Saves de volume!
-        if (settingsMenu != null)
+        // --- O TRUQUE MÁGICO DO ÁUDIO ---
+        // Ligamos o SettingsMenu à força mal o jogo arranca.
+        // Isto faz com que o script "SettingsManager" acorde e carregue os teus Saves de volume!
+        if (settingsMenu != null)
         {
             settingsMenu.SetActive(true);
         }
@@ -46,25 +48,25 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // ...E agora que o volume j� carregou, voltamos a esconder o menu para o jogador jogar normalmente.
-        CloseSettings();
+        // ...E agora que o volume já carregou, voltamos a esconder o menu para o jogador jogar normalmente.
+        CloseSettings();
         Resume();
     }
 
     void Update()
     {
-        // 1. L�gica do Menu de Pausa
-        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
+        // 1. Lógica do Menu de Pausa
+        if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             HandleEscPress();
         }
     }
 
-    // ==========================================
-    //           GEST�O DE PAUSA E MENUS
-    // ==========================================
+    // ==========================================
+    //            GESTÃO DE PAUSA E MENUS
+    // ==========================================
 
-    private void HandleEscPress()
+    private void HandleEscPress()
     {
         if (settingsMenu != null && settingsMenu.activeSelf)
         {
@@ -85,6 +87,9 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
 
+        // NOVO: Pausa todos os efeitos sonoros do mundo (passos, falas, objetos)
+        AudioListener.pause = true;
+
         if (pauseMenu != null) pauseMenu.SetActive(true);
         if (settingsMenu != null) settingsMenu.SetActive(false);
 
@@ -103,6 +108,9 @@ public class GameManager : MonoBehaviour
         isPaused = true;
         Time.timeScale = 0f;
 
+        // NOVO: Pausa global do áudio
+        AudioListener.pause = true;
+
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
 
@@ -120,6 +128,9 @@ public class GameManager : MonoBehaviour
     {
         isPaused = false;
         Time.timeScale = 1f;
+
+        // NOVO: Despausa os sons do mundo quando voltas ao jogo
+        AudioListener.pause = false;
 
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
@@ -155,6 +166,10 @@ public class GameManager : MonoBehaviour
     public void Home()
     {
         Time.timeScale = 1f;
+
+        // NOVO: Garante que os sons não vão bloqueados para o Main Menu
+        AudioListener.pause = false;
+
         if (bgmAudioSource != null) bgmAudioSource.volume = originalBgmVolume;
         SceneManager.LoadScene("Menu");
     }
@@ -166,11 +181,11 @@ public class GameManager : MonoBehaviour
         if (pauseMenu != null) pauseMenu.SetActive(true);
     }
 
-    // ==========================================
-    //                 �UDIO
-    // ==========================================
+    // ==========================================
+    //                  ÁUDIO
+    // ==========================================
 
-    public void PlayHoverSound()
+    public void PlayHoverSound()
     {
         if (uiAudioSource != null && hoverSound != null)
         {
