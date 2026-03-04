@@ -4,11 +4,12 @@ using UnityEngine;
 public class ChildBathroomEvent : MonoBehaviour
 {
     [Header("Time Settings")]
-    [Tooltip("Hora em que o evento começa (24.5 = 00h30)")]
+    public NightTimer nightTimer;
     public float appearanceTime = 24.5f;
 
-    [Tooltip("Arrasta o objeto que tem o script NightTimer para aqui!")]
-    public NightTimer nightTimer;
+    [Header("Objective Settings")]
+    public float distanciaParaOuvir = 12.5f;
+    public AudioClip somDeRepararNoBarulho;
 
     [Header("References")]
     public Collider2D bathroomDoorCollider;
@@ -48,22 +49,32 @@ public class ChildBathroomEvent : MonoBehaviour
     {
         hasAppeared = true;
 
-        // 1. Acontece tudo imediatamente:
         if (visualsAndTrigger != null) visualsAndTrigger.SetActive(true);
         audioSource.Play();
         if (bathroomDoorCollider != null) bathroomDoorCollider.enabled = true;
 
-        // 2. Chama a rotina que vai esperar 5 segundos para mostrar o objetivo!
-        StartCoroutine(AtrasarObjetivo(4f));
+        StartCoroutine(EsperarAteOuvir());
     }
 
-    // A nossa nova rotina de tempo:
-    private System.Collections.IEnumerator AtrasarObjetivo(float tempoDeEspera)
+    private System.Collections.IEnumerator EsperarAteOuvir()
     {
-        // O famoso "wait(x)" do Unity
-        yield return new WaitForSeconds(tempoDeEspera);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
-        // O que acontece depois de passarem os 5 segundos:
+        if (player != null)
+        {
+            // O jogo espera que o jogador se aproxime...
+            yield return new WaitUntil(() => Vector2.Distance(transform.position, player.transform.position) <= distanciaParaOuvir);
+        }
+
+        // --- O JOGADOR ENTROU NO RAIO DE AUDIÇÃO! ---
+
+        // 1. Toca o "UHMMMM" por cima dos barulhos da casa de banho
+        if (somDeRepararNoBarulho != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(somDeRepararNoBarulho);
+        }
+
+        // 2. Mostra o objetivo no ecrã
         if (ObjectiveFeedback.instance != null)
         {
             ObjectiveFeedback.instance.SetObjective("Investigate the sound.", true);

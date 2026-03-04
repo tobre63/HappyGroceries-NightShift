@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Raven Holloway
+  m_Name: Daniel Brooks
   m_Controller: {fileID: 9100000, guid: 4fdd2f53d238b0d46b2af518de45aec2, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: f374e8106c6db864db0c80e72dbc7ad5, type: 2}
