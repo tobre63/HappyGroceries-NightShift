@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic; // Necessário para a Lista
 using UnityEngine;
 
 [System.Serializable]
@@ -13,9 +14,14 @@ public class NPCWaypoint
 [RequireComponent(typeof(AudioSource))]
 public class NPCController : MonoBehaviour
 {
-    // --- SETTINGS ---
+    // --- LÓGICA DE FILA ESTÁTICA (NOVO) ---
+    private static NPCController currentActiveNPC = null; // Quem está na cena agora
+    private static List<NPCController> waitingQueue = new List<NPCController>(); // Fila de espera
+    private bool isQueued = false; // Garante que não entra na fila duas vezes
 
-    [Header("Schedule Settings")]
+    // --- SETTINGS ---
+
+    [Header("Schedule Settings")]
     [SerializeField] private NightTimer nightTimer;
     public float activationHour = 22f;
     [HideInInspector] public bool isActiveInWorld = false;
@@ -51,9 +57,9 @@ public class NPCController : MonoBehaviour
     public AudioClip tilesFootstep;
     public LayerMask floorLayer;
 
-    // --- COMPONENTES E CONTROLOS INTERNOS ---
+    // --- COMPONENTES E CONTROLOS INTERNOS ---
 
-    private Rigidbody2D rb;
+    private Rigidbody2D rb;
     private Animator anim;
     private AudioSource audioSource;
     private SpriteRenderer spriteRenderer;
@@ -75,26 +81,31 @@ public class NPCController : MonoBehaviour
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
         audioSource.playOnAwake = false;
+
+        // Reset de segurança ao iniciar (caso a Unity mantenha estáticos entre execuções no Editor)
+        currentActiveNPC = null;
+        waitingQueue.Clear();
     }
 
     void Start()
     {
         if (nightTimer == null) nightTimer = Object.FindFirstObjectByType<NightTimer>();
 
-        if (nightTimer != null)
-        {
-            bool shouldBeActive = nightTimer.currentTime >= activationHour;
-            isActiveInWorld = !shouldBeActive;
-            CheckSchedule();
-        }
+        // Inicialmente desativado até ser chamado pela fila
+        if (spriteRenderer != null) spriteRenderer.enabled = false;
+        foreach (var col in colliders) if (col != null) col.enabled = false;
     }
 
     void Update()
     {
-        CheckSchedule();
+        // Se ainda não está no mundo, verifica se deve entrar na fila
+        if (!isActiveInWorld)
+        {
+            CheckQueueRegistration();
+            return;
+        }
 
-        if (!isActiveInWorld) return;
-
+        // Se está ativo, processa movimento e animação
         if (CanMove() == false)
         {
             StopMovement();
@@ -118,41 +129,59 @@ public class NPCController : MonoBehaviour
         else rb.linearVelocity = Vector2.zero;
     }
 
-    void CheckSchedule()
+    /// <summary>
+    /// Gerencia a entrada na fila e a ativação baseada na disponibilidade da cena.
+    /// </summary>
+    void CheckQueueRegistration()
     {
         if (nightTimer == null) return;
 
-        bool shouldBeActive = nightTimer.currentTime >= activationHour;
+        // 1. Verificar se já passou da hora de aparecer
+        bool reachedTime = nightTimer.currentTime >= activationHour;
 
-        if (isActiveInWorld != shouldBeActive)
+        // 2. Se chegou a hora e ainda não está na fila, entra nela
+        if (reachedTime && !isQueued)
         {
-            isActiveInWorld = shouldBeActive;
-            if (isActiveInWorld)
-            {
-                reachedEnd = false;
-                isWaitingForInteraction = false;
-                currentWaypointIndex = 0;
+            waitingQueue.Add(this);
+            isQueued = true;
+            // Debug.Log($"{gameObject.name} entrou na fila de espera.");
+        }
 
-                if (waypoints != null && waypoints.Length > 0 && waypoints[0].point != null)
-                    transform.position = waypoints[0].point.position;
-
-                if (spriteRenderer != null)
-                {
-                    spriteRenderer.enabled = true;
-                    Color c = spriteRenderer.color;
-                    c.a = 0f;
-                    spriteRenderer.color = c;
-                }
-                foreach (var col in colliders) if (col != null) col.enabled = true;
-                StartCoroutine(FadeInCoroutine());
-            }
-            else
+        // 3. Se eu estou na fila, verificar se sou o primeiro e se a cena está vazia
+        if (isQueued && currentActiveNPC == null)
+        {
+            if (waitingQueue.Count > 0 && waitingQueue[0] == this)
             {
-                if (spriteRenderer != null) spriteRenderer.enabled = false;
-                foreach (var col in colliders) if (col != null) col.enabled = false;
-                StopMovement();
+                ActivateNPC();
             }
         }
+    }
+
+    void ActivateNPC()
+    {
+        isActiveInWorld = true;
+        currentActiveNPC = this; // Ocupa a vaga
+        waitingQueue.RemoveAt(0); // Remove-se da fila
+
+        reachedEnd = false;
+        isWaitingForInteraction = false;
+        currentWaypointIndex = 0;
+
+        if (waypoints != null && waypoints.Length > 0 && waypoints[0].point != null)
+            transform.position = waypoints[0].point.position;
+
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = true;
+            Color c = spriteRenderer.color;
+            c.a = 0f;
+            spriteRenderer.color = c;
+        }
+
+        foreach (var col in colliders) if (col != null) col.enabled = true;
+
+        StartCoroutine(FadeInCoroutine());
+        // Debug.Log($"{gameObject.name} começou o FadeIn e ocupou o balcão.");
     }
 
     IEnumerator FadeInCoroutine()
@@ -194,16 +223,18 @@ public class NPCController : MonoBehaviour
 
         if (spriteRenderer != null) spriteRenderer.enabled = false;
         foreach (var col in colliders) if (col != null) col.enabled = false;
+
+        // LIBERAR A VAGA PARA O PRÓXIMO DA FILA
+        currentActiveNPC = null;
+        isActiveInWorld = false;
+        gameObject.SetActive(false);
     }
 
     bool CanMove()
     {
         if (isWaitingForInteraction) return false;
-
         if (isFading || isWaiting || reachedEnd || waypoints == null || waypoints.Length == 0) return false;
-
         if (waypoints[currentWaypointIndex].point == null) return false;
-
         return true;
     }
 
@@ -246,26 +277,20 @@ public class NPCController : MonoBehaviour
         {
             reachedEnd = true;
             yield return StartCoroutine(FadeOutCoroutine());
-            gameObject.SetActive(false);
-            //Destroy(gameObject);
-        }
+            // O SetActive(false) agora acontece dentro do Coroutine após o FadeOut
+        }
         else if (currentWaypointIndex == interactionWaypointIndex)
         {
             isWaitingForInteraction = true;
 
-            // --- Lógica do Balcão e Objetivo ---
-            if (ObjectiveFeedback.instance != null)
+            if (ObjectiveFeedback.instance != null)
             {
-                // Repara no 'true' no final. Significa: Sou prioridade!
-                ObjectiveFeedback.instance.SetObjective("Serve the customer.", true);
+                ObjectiveFeedback.instance.SetObjective("Serve the customer.", true);
             }
 
             if (counterItems != null)
             {
-                foreach (var item in counterItems)
-                {
-                    if (item != null) item.SetActive(true);
-                }
+                foreach (var item in counterItems) if (item != null) item.SetActive(true);
             }
         }
         else
@@ -286,21 +311,12 @@ public class NPCController : MonoBehaviour
             currentWaypointIndex++;
             isWaiting = false;
 
-            // NOVA LÓGICA UNIVERSAL: Se o interruptor estiver desligado, limpa as coisas normalmente.
-            if (!preserveInteractionState)
+            if (!preserveInteractionState)
             {
-                // --- Reverter Lógica do Balcão e Objetivo ---
-                if (ObjectiveFeedback.instance != null)
-                {
-                    ObjectiveFeedback.instance.HideObjective(true);
-                }
-
+                if (ObjectiveFeedback.instance != null) ObjectiveFeedback.instance.HideObjective(true);
                 if (counterItems != null)
                 {
-                    foreach (var item in counterItems)
-                    {
-                        if (item != null) item.SetActive(false);
-                    }
+                    foreach (var item in counterItems) if (item != null) item.SetActive(false);
                 }
             }
         }
@@ -330,7 +346,6 @@ public class NPCController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (targetItems == null || targetItems.Length == 0) return;
-
         for (int i = 0; i < targetItems.Length; i++)
         {
             if (targetItems[i] != null && collision.gameObject == targetItems[i])
@@ -339,5 +354,12 @@ public class NPCController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    // Limpeza de segurança caso o objeto seja destruído por outro motivo
+    private void OnDestroy()
+    {
+        if (currentActiveNPC == this) currentActiveNPC = null;
+        if (waitingQueue.Contains(this)) waitingQueue.Remove(this);
     }
 }

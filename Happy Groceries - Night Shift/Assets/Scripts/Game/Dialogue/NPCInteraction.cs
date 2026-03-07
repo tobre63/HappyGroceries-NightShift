@@ -11,10 +11,17 @@ public class DialogueChoice
 }
 
 [System.Serializable]
-public class DialogueNode
+public class DialogueLine
 {
     [TextArea(2, 4)]
-    public string[] frasesDoNPC;
+    public string frase;
+    public AudioClip vozDaFrase; // Arraste o MP3 específico da frase aqui
+}
+
+[System.Serializable]
+public class DialogueNode
+{
+    public DialogueLine[] frasesDoNPC;
     public DialogueChoice[] escolhas;
 }
 
@@ -41,6 +48,7 @@ public class NPCInteraction : MonoBehaviour
     [Header("Audio & Animation Settings")]
     public float typingSpeed = 0.04f;
     public AudioClip typingSound;
+    public AudioClip defaultVoiceClip; // Voz padrão se a frase não tiver áudio
 
     private Animator anim;
     private AudioSource audioSource;
@@ -66,18 +74,14 @@ public class NPCInteraction : MonoBehaviour
     {
         if (GameManager.Instance != null && GameManager.Instance.isPaused) return;
 
-        // --- VERIFICAÇÃO 1: O NPC está ativo e não está a desaparecer? ---
         if (npcController != null && (!npcController.isActiveInWorld || npcController.isFading))
         {
             if (dialogueState != 0) CloseAllUI();
             return;
         }
 
-        // --- VERIFICAÇÃO 2: Está pronto a falar? ---
-        // Se NÃO tiver NPCController (como a Criança), assume que está sempre pronto a falar!
         bool isReadyToTalk = (npcController == null) || npcController.isWaitingForInteraction;
 
-        // --- LÓGICA DE INTERAÇÃO ---
         if (playerInRange && isReadyToTalk)
         {
             if (dialogueState == 0 && interactionIcon != null && !interactionIcon.activeSelf && !autoStartDialogue)
@@ -85,21 +89,16 @@ public class NPCInteraction : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (dialogueState == 0)
-                {
-                    StartDialogue();
-                }
+                if (dialogueState == 0) StartDialogue();
                 else if (dialogueState == 1)
                 {
                     if (isTyping)
                     {
                         StopAllCoroutines();
+                        if (audioSource.isPlaying) audioSource.Stop();
                         FinishTyping(dialogueNodes[currentNodeIndex]);
                     }
-                    else
-                    {
-                        NextLine();
-                    }
+                    else NextLine();
                 }
             }
         }
@@ -115,7 +114,6 @@ public class NPCInteraction : MonoBehaviour
         if (dialogueNodes == null || dialogueNodes.Length == 0) return;
 
         isPlayerTalking = true;
-
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
@@ -135,9 +133,22 @@ public class NPCInteraction : MonoBehaviour
         if (interactionIcon != null) interactionIcon.SetActive(false);
 
         DialogueNode currentNode = dialogueNodes[currentNodeIndex];
-        string lineToType = currentNode.frasesDoNPC[currentLineIndex];
+        DialogueLine currentLine = currentNode.frasesDoNPC[currentLineIndex];
 
-        StartCoroutine(TypeLine(lineToType, currentNode));
+        // --- SISTEMA DE VOZ ---
+        if (audioSource != null)
+        {
+            audioSource.Stop();
+            AudioClip clipToPlay = currentLine.vozDaFrase != null ? currentLine.vozDaFrase : defaultVoiceClip;
+
+            if (clipToPlay != null)
+            {
+                audioSource.clip = clipToPlay;
+                audioSource.Play();
+            }
+        }
+
+        StartCoroutine(TypeLine(currentLine.frase, currentNode));
     }
 
     private IEnumerator TypeLine(string line, DialogueNode currentNode)
@@ -151,11 +162,9 @@ public class NPCInteraction : MonoBehaviour
         {
             clientTalkText.text += c;
 
-            // NOVO: Só toca som se for letra ou número (ignora espaços, vírgulas, barras, etc)
-            if (typingSound != null && audioSource != null && char.IsLetterOrDigit(c))
+            if (typingSound != null && audioSource != null && char.IsLetterOrDigit(c))
             {
-                audioSource.pitch = Random.Range(0.9f, 1.1f); // Variação de pitch mais notória
-                audioSource.PlayOneShot(typingSound, 0.5f);
+                audioSource.PlayOneShot(typingSound, 0.2f);
             }
             yield return new WaitForSeconds(typingSpeed);
         }
@@ -166,26 +175,21 @@ public class NPCInteraction : MonoBehaviour
     private void FinishTyping(DialogueNode currentNode)
     {
         isTyping = false;
-
         if (clientTalkText != null)
-            clientTalkText.text = currentNode.frasesDoNPC[currentLineIndex];
+            clientTalkText.text = currentNode.frasesDoNPC[currentLineIndex].frase;
 
         if (anim != null) anim.SetBool("isTalking", false);
 
         if (currentLineIndex == currentNode.frasesDoNPC.Length - 1)
         {
             if (currentNode.escolhas != null && currentNode.escolhas.Length > 0)
-            {
                 MostrarBotoesDeEscolha(currentNode);
-            }
             else if (interactionIcon != null)
-            {
                 interactionIcon.SetActive(true);
-            }
         }
-        else
+        else if (interactionIcon != null)
         {
-            if (interactionIcon != null) interactionIcon.SetActive(true);
+            interactionIcon.SetActive(true);
         }
     }
 
@@ -198,18 +202,13 @@ public class NPCInteraction : MonoBehaviour
             currentLineIndex++;
             ShowCurrentLine();
         }
-        else
-        {
-            EndDialogue();
-        }
+        else EndDialogue();
     }
 
     private void MostrarBotoesDeEscolha(DialogueNode node)
     {
         dialogueState = 2;
-
         if (interactionIcon != null) interactionIcon.SetActive(false);
-
         EsconderBotoes();
 
         int numberOfChoices = Mathf.Min(node.escolhas.Length, playerButtons.Length);
@@ -217,40 +216,29 @@ public class NPCInteraction : MonoBehaviour
         for (int i = 0; i < numberOfChoices; i++)
         {
             playerButtons[i].gameObject.SetActive(true);
-
             if (playerButtonsTexts[i] != null)
                 playerButtonsTexts[i].text = node.escolhas[i].textoDoBotao;
 
-            // NOVA LÓGICA: Limpa os donos antigos do botão e adiciona o NPC atual!
-            playerButtons[i].onClick.RemoveAllListeners();
-
-            int index = i; // Extremamente importante guardar o valor de 'i' nesta variável para o listener funcionar
-            playerButtons[i].onClick.AddListener(() => EscolheuOpcao(index));
+            playerButtons[i].onClick.RemoveAllListeners();
+            int index = i;
+            playerButtons[i].onClick.AddListener(() => EscolheuOpcao(index));
         }
     }
 
     public void EscolheuOpcao(int indexDoBotao)
     {
-        // ESCUDO 1: Se ESTE NPC não estiver à espera de uma escolha, ignora o clique!
-        if (dialogueState != 2) return;
-
+        if (dialogueState != 2) return;
         DialogueNode currentNode = dialogueNodes[currentNodeIndex];
-
-        // ESCUDO 2: Proteção contra o erro IndexOutOfRange (caso a opção não exista neste Node)
-        if (indexDoBotao >= currentNode.escolhas.Length) return;
+        if (indexDoBotao >= currentNode.escolhas.Length) return;
 
         int proximoNode = currentNode.escolhas[indexDoBotao].proximoNode;
 
-        if (proximoNode == -1 || proximoNode >= dialogueNodes.Length)
-        {
-            EndDialogue();
-        }
+        if (proximoNode == -1 || proximoNode >= dialogueNodes.Length) EndDialogue();
         else
         {
             currentNodeIndex = proximoNode;
             currentLineIndex = 0;
             dialogueState = 1;
-
             EsconderBotoes();
             ShowCurrentLine();
         }
@@ -258,17 +246,14 @@ public class NPCInteraction : MonoBehaviour
 
     private void EsconderBotoes()
     {
-        foreach (Button btn in playerButtons)
-        {
-            if (btn != null) btn.gameObject.SetActive(false);
-        }
+        foreach (Button btn in playerButtons) if (btn != null) btn.gameObject.SetActive(false);
     }
 
     private void EndDialogue()
     {
+        if (audioSource.isPlaying) audioSource.Stop();
         CloseAllUI();
 
-        // --- VERIFICAÇÃO DE EVENTOS ESPECIAIS (Ex: Coca-Cola) ---
         CocaColaSpillEvent spillEvent = GetComponent<CocaColaSpillEvent>();
         if (spillEvent != null && !spillEvent.hasSpilled)
         {
@@ -280,13 +265,8 @@ public class NPCInteraction : MonoBehaviour
             spillEvent.EndSpillSequence();
         }
 
-        // --- NOVO: VERIFICAÇÃO DO EVENTO DA CRIANÇA NA CASA DE BANHO ---
         ChildBathroomEvent childEvent = GetComponent<ChildBathroomEvent>();
-        if (childEvent != null)
-        {
-            childEvent.OnDialogueFinished();
-        }
-        // --------------------------------------------------------
+        if (childEvent != null) childEvent.OnDialogueFinished();
 
         if (npcController != null) npcController.ResumeMovement();
     }
@@ -294,18 +274,10 @@ public class NPCInteraction : MonoBehaviour
     public void OnPlayerEnter()
     {
         playerInRange = true;
-
-        // Se este NPC estiver configurado para falar automaticamente:
         if (autoStartDialogue && dialogueState == 0)
         {
-            // Corta o som da casa de banho instantaneamente se for a Criança!
             ChildBathroomEvent childEvent = GetComponent<ChildBathroomEvent>();
-            if (childEvent != null)
-            {
-                childEvent.StopAudio();
-            }
-
-            // Arranca a conversa sem esperar pelo 'E'
+            if (childEvent != null) childEvent.StopAudio();
             StartDialogue();
         }
     }
@@ -321,14 +293,10 @@ public class NPCInteraction : MonoBehaviour
         dialogueState = 0;
         isTyping = false;
         StopAllCoroutines();
-
         if (anim != null) anim.SetBool("isTalking", false);
-
         isPlayerTalking = false;
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (talkGUI != null) talkGUI.SetActive(false);
         EsconderBotoes();

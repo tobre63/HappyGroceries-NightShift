@@ -1586,12 +1586,14 @@ MonoBehaviour:
   npcName: Michael Reed
   dialogueNodes:
   - frasesDoNPC:
-    - That is all, thank you.
+    - frase: "That\u2019s all, thank you."
+      vozDaFrase: {fileID: 8300000, guid: 8d73ff262a57c834b99d6a05d67ca3ab, type: 3}
     escolhas:
     - textoDoBotao: Fine, it will be 3.89$
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
+  defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
   autoStartDialogue: 0
 --- !u!114 &77258889
 MonoBehaviour:
@@ -1781,7 +1783,8 @@ MonoBehaviour:
   shakeMagnitude: 0.3
   creepyDialogue:
     frasesDoNPC:
-    - Ah, sorry! What a mess. Can you... clean this up for me?
+    - frase: Ah, sorry! What a mess. Can you... clean this up for me?
+      vozDaFrase: {fileID: 8300000, guid: 378b932a31f74b146b5bea62b3f67ade, type: 3}
     escolhas:
     - textoDoBotao: I have to. You should be more careful next time.
       proximoNode: -1
@@ -9641,8 +9644,9 @@ MonoBehaviour:
   npcName: Raven Holloway
   dialogueNodes:
   - frasesDoNPC:
-    - "Please\u2026 please tell me where the police station is! I just\u2026 I just
-      saw a murder nearby!"
+    - frase: "Please\u2026 please tell me where the police station is! I just\u2026
+        I just saw a murder nearby!"
+      vozDaFrase: {fileID: 8300000, guid: 946bd95fc578dde4696d4a6258502bea, type: 3}
     escolhas:
     - textoDoBotao: "Calm down. I\u2019m not your guide. I bet you are joking."
       proximoNode: 1
@@ -9652,22 +9656,26 @@ MonoBehaviour:
         is\u2026"
       proximoNode: 3
   - frasesDoNPC:
-    - Get lost, man! Hope you die.
+    - frase: Get lost, man! Hope you die.
+      vozDaFrase: {fileID: 8300000, guid: 135167c22a9136f4aa8acd4afa4a9c6d, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - Thank you so much.
+    - frase: Thank you so much.
+      vozDaFrase: {fileID: 8300000, guid: c699349847ce67e46908bf5ea18e4b85, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - Thank you anyways.
+    - frase: Thank you anyways.
+      vozDaFrase: {fileID: 8300000, guid: fbd6aa872d3970b44bb304468f827eff, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
+  defaultVoiceClip: {fileID: 0}
   autoStartDialogue: 0
 --- !u!114 &505602099
 MonoBehaviour:
@@ -19511,7 +19519,8 @@ MonoBehaviour:
   npcName: Oliver Grant
   dialogueNodes:
   - frasesDoNPC:
-    - Hi! I am sorry to disturb you.
+    - frase: 
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: You should not be wandering around alone.
       proximoNode: 1
@@ -19521,7 +19530,8 @@ MonoBehaviour:
         alone."
       proximoNode: 1
   - frasesDoNPC:
-    - "It is okay\u2026 I am fine here. Are you too?"
+    - frase: 
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Why do you care? Stay out of trouble.
       proximoNode: 2
@@ -19530,7 +19540,8 @@ MonoBehaviour:
     - textoDoBotao: "I guess I am fine\u2026 just\u2026 do not go anywhere strange."
       proximoNode: 2
   - frasesDoNPC:
-    - I just want to make sure you are safe.
+    - frase: 
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Weirdo.
       proximoNode: -1
@@ -19540,6 +19551,7 @@ MonoBehaviour:
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
+  defaultVoiceClip: {fileID: 0}
   autoStartDialogue: 1
 --- !u!114 &1369029359
 MonoBehaviour:
@@ -24659,12 +24671,14 @@ MonoBehaviour:
   npcName: Thomas Hale
   dialogueNodes:
   - frasesDoNPC:
-    - texte
+    - frase: 
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
+  defaultVoiceClip: {fileID: 0}
   autoStartDialogue: 0
 --- !u!114 &1827144757
 MonoBehaviour:
@@ -26663,8 +26677,9 @@ MonoBehaviour:
   npcName: Daniel Brooks
   dialogueNodes:
   - frasesDoNPC:
-    - "Quite the quiet place, is not it? Makes you wonder what is really going on.
-      Do not worry, it is perfectly safe\u2026 probably."
+    - frase: "Quite the quiet place, isn\u2019t it? Makes you wonder what\u2019s
+        really going on. Don\u2019t worry, it\u2019s perfectly safe\u2026 probably."
+      vozDaFrase: {fileID: 8300000, guid: cedb1b356ab572346903446932e01057, type: 3}
     escolhas:
     - textoDoBotao: Stop joking around. This is not funny. It will be 10.39$.
       proximoNode: 1
@@ -26675,27 +26690,32 @@ MonoBehaviour:
         10.39$.
       proximoNode: 3
   - frasesDoNPC:
-    - Godamn! Can you give me a discount?
+    - frase: Godamn! Can you give me a discount?
+      vozDaFrase: {fileID: 8300000, guid: 59333f6548cb6014a989ea6ff37e5566, type: 3}
     escolhas:
     - textoDoBotao: No, if you will not pay leave.
       proximoNode: 4
   - frasesDoNPC:
-    - Keep the change.
+    - frase: Keep the change.
+      vozDaFrase: {fileID: 8300000, guid: 37c9f354b2b7cf44fab1e30f479d49ee, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - Do not matter. Keep the change, you might need it.
+    - frase: Do not matter. Keep the change, you might need it.
+      vozDaFrase: {fileID: 8300000, guid: 045dc1d3cc0bdb5438fdb4244a006422, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - Fine... Keep the change. You might need it.
+    - frase: 
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
+  defaultVoiceClip: {fileID: 0}
   autoStartDialogue: 0
 --- !u!114 &2021037601
 MonoBehaviour:
@@ -29091,7 +29111,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 1148471866473347335, guid: d0984b43c634f3c4faf97dd993c2d0af, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
@@ -29357,7 +29377,8 @@ MonoBehaviour:
   npcName: Harold Finch
   dialogueNodes:
   - frasesDoNPC:
-    - Hello, young man. I hope you are having a pleasant night so far.
+    - frase: Hello, young man. I hope you are having a pleasant night so far.
+      vozDaFrase: {fileID: 8300000, guid: 3d2e6e7e9d614f44e8e95774eb81b358, type: 3}
     escolhas:
     - textoDoBotao: Mind your own business. I did not ask for your concern. It is
         5.29$.
@@ -29367,12 +29388,14 @@ MonoBehaviour:
     - textoDoBotao: Thank you. The total is 5.29$.
       proximoNode: 1
   - frasesDoNPC:
-    - That was all, thank you.
+    - frase: That was all, thank you.
+      vozDaFrase: {fileID: 8300000, guid: f4075e42dad7e074991a2e75f58a89c3, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
+  defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
   autoStartDialogue: 0
 --- !u!1 &2129138306
 GameObject:
