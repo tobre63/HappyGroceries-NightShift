@@ -24674,11 +24674,8 @@ MonoBehaviour:
   npcName: Thomas Hale
   dialogueNodes:
   - frasesDoNPC:
-<<<<<<< Updated upstream
-    - frase: 
+    - frase: Excuse me, could you spare some food? I am really hungry.
       vozDaFrase: {fileID: 0}
-=======
-    - Excuse me, could you spare some food? I am really hungry.
     escolhas:
     - textoDoBotao: No, I cannot give you anything.
       proximoNode: 1
@@ -24687,7 +24684,8 @@ MonoBehaviour:
     - textoDoBotao: I... I cannot give you anything.
       proximoNode: 2
   - frasesDoNPC:
-    - Please, just a little? I have not eaten all day.
+    - frase: Please, just a little? I have not eaten all day.
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: The owner does not allow it.
       proximoNode: 3
@@ -24696,7 +24694,8 @@ MonoBehaviour:
     - textoDoBotao: The owner said no, I am sorry.
       proximoNode: 4
   - frasesDoNPC:
-    - Come on, just a small piece, I am desperate.
+    - frase: Come on, just a small piece, I am desperate.
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: I said no.
       proximoNode: 3
@@ -24705,13 +24704,14 @@ MonoBehaviour:
     - textoDoBotao: I cannot, please understand.
       proximoNode: 4
   - frasesDoNPC:
-    - Alright, I will leave. I just hoped someone would help.
+    - frase: Alright, I will leave. I just hoped someone would help.
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - Thank you anyway, I will try somewhere else.
->>>>>>> Stashed changes
+    - frase: Thank you anyway, I will try somewhere else.
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
@@ -29416,12 +29416,8 @@ MonoBehaviour:
   npcName: Harold Finch
   dialogueNodes:
   - frasesDoNPC:
-<<<<<<< Updated upstream
-    - frase: Hello, young man. I hope you are having a pleasant night so far.
-      vozDaFrase: {fileID: 8300000, guid: 3d2e6e7e9d614f44e8e95774eb81b358, type: 3}
-=======
-    - Good evening. I hope your shift has been treating you well tonight.
->>>>>>> Stashed changes
+    - frase: Good evening. I hope your shift has been treating you well tonight.
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Just tell me what you need. Total is 5.29$.
       proximoNode: 1
@@ -29430,11 +29426,8 @@ MonoBehaviour:
     - textoDoBotao: It has been fine. Total is 5.29$.
       proximoNode: 3
   - frasesDoNPC:
-<<<<<<< Updated upstream
-    - frase: That was all, thank you.
-      vozDaFrase: {fileID: 8300000, guid: f4075e42dad7e074991a2e75f58a89c3, type: 3}
-=======
-    - I see. No need for the attitude, young man. Are you new around here?
+    - frase: I see. No need for the attitude, young man. Are you new around here?
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: New or not, it is none of your concern.
       proximoNode: -1
@@ -29443,8 +29436,8 @@ MonoBehaviour:
     - textoDoBotao: Yes, I just started. I hope I am doing okay.
       proximoNode: 4
   - frasesDoNPC:
-    - That is good to hear. Quiet nights are always nice. Do you enjoy your work
-      here?
+    - frase: That is good to hear. Quiet nights are always nice. Do you enjoy your work here?
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Enjoy it or not, I still get the job done.
       proximoNode: -1
@@ -29453,7 +29446,8 @@ MonoBehaviour:
     - textoDoBotao: I think so. I am still learning.
       proximoNode: 4
   - frasesDoNPC:
-    - You seem tense. Long shifts can be tough. Do you manage the stress well?
+    - frase: You seem tense. Long shifts can be tough. Do you manage the stress well?
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: I handle it just fine, thank you.
       proximoNode: -1
@@ -29462,8 +29456,8 @@ MonoBehaviour:
     - textoDoBotao: I try. It can be overwhelming sometimes.
       proximoNode: 4
   - frasesDoNPC:
-    - Good to hear. Have a great night.
->>>>>>> Stashed changes
+    - frase: Good to hear. Have a great night.
+      vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
