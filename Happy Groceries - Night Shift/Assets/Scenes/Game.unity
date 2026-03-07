@@ -1591,6 +1591,10 @@ MonoBehaviour:
     escolhas:
     - textoDoBotao: Fine, it will be 3.89$
       proximoNode: -1
+    - textoDoBotao: Thank you. The total is 3.89$.
+      proximoNode: -1
+    - textoDoBotao: Ok, it will be 3.89$.
+      proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
@@ -1788,9 +1792,9 @@ MonoBehaviour:
     escolhas:
     - textoDoBotao: I have to. You should be more careful next time.
       proximoNode: -1
-    - textoDoBotao: "Don\u2019t worry, I\u2019ll clean it up for you."
+    - textoDoBotao: Do not worry, I will clean it up for you.
       proximoNode: -1
-    - textoDoBotao: "Oh\u2026 uh, okay\u2026 I\u2019ll just step back."
+    - textoDoBotao: "Oh\u2026 uh, okay\u2026 I will just step back."
       proximoNode: -1
   hasSpilled: 0
 --- !u!1 &77308993
@@ -9648,12 +9652,11 @@ MonoBehaviour:
         I just saw a murder nearby!"
       vozDaFrase: {fileID: 8300000, guid: 946bd95fc578dde4696d4a6258502bea, type: 3}
     escolhas:
-    - textoDoBotao: "Calm down. I\u2019m not your guide. I bet you are joking."
+    - textoDoBotao: Calm down. I am not your guide. I bet you are joking.
       proximoNode: 1
-    - textoDoBotao: "What? It\u2019s just down the street, turn left at the corner."
+    - textoDoBotao: What? It is just down the street, turn left at the corner.
       proximoNode: 2
-    - textoDoBotao: "Oh\u2026 a murder? I\u2026 I really don\u2019t know where it
-        is\u2026"
+    - textoDoBotao: "Oh\u2026 a murder? I\u2026 I really do not know where it is\u2026"
       proximoNode: 3
   - frasesDoNPC:
     - frase: Get lost, man! Hope you die.
@@ -24671,8 +24674,44 @@ MonoBehaviour:
   npcName: Thomas Hale
   dialogueNodes:
   - frasesDoNPC:
+<<<<<<< Updated upstream
     - frase: 
       vozDaFrase: {fileID: 0}
+=======
+    - Excuse me, could you spare some food? I am really hungry.
+    escolhas:
+    - textoDoBotao: No, I cannot give you anything.
+      proximoNode: 1
+    - textoDoBotao: I wish I could, but I cannot.
+      proximoNode: 2
+    - textoDoBotao: I... I cannot give you anything.
+      proximoNode: 2
+  - frasesDoNPC:
+    - Please, just a little? I have not eaten all day.
+    escolhas:
+    - textoDoBotao: The owner does not allow it.
+      proximoNode: 3
+    - textoDoBotao: The owner says I cannot give food.
+      proximoNode: 4
+    - textoDoBotao: The owner said no, I am sorry.
+      proximoNode: 4
+  - frasesDoNPC:
+    - Come on, just a small piece, I am desperate.
+    escolhas:
+    - textoDoBotao: I said no.
+      proximoNode: 3
+    - textoDoBotao: I am really sorry, I cannot help.
+      proximoNode: 3
+    - textoDoBotao: I cannot, please understand.
+      proximoNode: 4
+  - frasesDoNPC:
+    - Alright, I will leave. I just hoped someone would help.
+    escolhas:
+    - textoDoBotao: ...
+      proximoNode: -1
+  - frasesDoNPC:
+    - Thank you anyway, I will try somewhere else.
+>>>>>>> Stashed changes
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
@@ -26683,7 +26722,7 @@ MonoBehaviour:
     escolhas:
     - textoDoBotao: Stop joking around. This is not funny. It will be 10.39$.
       proximoNode: 1
-    - textoDoBotao: "Heh\u2026 yeah, it is a bit eerie, but I\u2019m okay. The total
+    - textoDoBotao: "Heh\u2026 yeah, it is a bit eerie, but I am okay. The total
         is 10.39$."
       proximoNode: 2
     - textoDoBotao: Why probably? There is are a murder in the town. The price is
@@ -29377,19 +29416,54 @@ MonoBehaviour:
   npcName: Harold Finch
   dialogueNodes:
   - frasesDoNPC:
+<<<<<<< Updated upstream
     - frase: Hello, young man. I hope you are having a pleasant night so far.
       vozDaFrase: {fileID: 8300000, guid: 3d2e6e7e9d614f44e8e95774eb81b358, type: 3}
+=======
+    - Good evening. I hope your shift has been treating you well tonight.
+>>>>>>> Stashed changes
     escolhas:
-    - textoDoBotao: Mind your own business. I did not ask for your concern. It is
-        5.29$.
+    - textoDoBotao: Just tell me what you need. Total is 5.29$.
       proximoNode: 1
-    - textoDoBotao: Thank you. Good night for you too. The total is 5.29$.
-      proximoNode: 1
-    - textoDoBotao: Thank you. The total is 5.29$.
-      proximoNode: 1
+    - textoDoBotao: It has been a quiet night so far. Total is 5.29$.
+      proximoNode: 2
+    - textoDoBotao: It has been fine. Total is 5.29$.
+      proximoNode: 3
   - frasesDoNPC:
+<<<<<<< Updated upstream
     - frase: That was all, thank you.
       vozDaFrase: {fileID: 8300000, guid: f4075e42dad7e074991a2e75f58a89c3, type: 3}
+=======
+    - I see. No need for the attitude, young man. Are you new around here?
+    escolhas:
+    - textoDoBotao: New or not, it is none of your concern.
+      proximoNode: -1
+    - textoDoBotao: Yes, I just started. It has been interesting.
+      proximoNode: 4
+    - textoDoBotao: Yes, I just started. I hope I am doing okay.
+      proximoNode: 4
+  - frasesDoNPC:
+    - That is good to hear. Quiet nights are always nice. Do you enjoy your work
+      here?
+    escolhas:
+    - textoDoBotao: Enjoy it or not, I still get the job done.
+      proximoNode: -1
+    - textoDoBotao: I am, thank you. The people here are kind.
+      proximoNode: 4
+    - textoDoBotao: I think so. I am still learning.
+      proximoNode: 4
+  - frasesDoNPC:
+    - You seem tense. Long shifts can be tough. Do you manage the stress well?
+    escolhas:
+    - textoDoBotao: I handle it just fine, thank you.
+      proximoNode: -1
+    - textoDoBotao: I do my best. It is not too bad.
+      proximoNode: 4
+    - textoDoBotao: I try. It can be overwhelming sometimes.
+      proximoNode: 4
+  - frasesDoNPC:
+    - Good to hear. Have a great night.
+>>>>>>> Stashed changes
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
