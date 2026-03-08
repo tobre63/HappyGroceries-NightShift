@@ -69,9 +69,9 @@ public class ChildBathroomEvent : MonoBehaviour
         // --- O JOGADOR ENTROU NO RAIO DE AUDIÇÃO! ---
 
         // 1. Toca o "UHMMMM" por cima dos barulhos da casa de banho
-        if (somDeRepararNoBarulho != null && audioSource != null)
+        if (somDeRepararNoBarulho != null)
         {
-            audioSource.PlayOneShot(somDeRepararNoBarulho);
+            AudioSource.PlayClipAtPoint(somDeRepararNoBarulho, Camera.main.transform.position, 1f);
         }
 
         // 2. Mostra o objetivo no ecrã

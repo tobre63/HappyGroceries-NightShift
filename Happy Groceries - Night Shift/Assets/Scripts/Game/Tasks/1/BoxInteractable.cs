@@ -81,7 +81,10 @@ public class BoxInteractable : MonoBehaviour
                     isPickingUpBox = false; // Liberta o jogador
                     TaskManager.instance.currentBoxHeldID = boxID;
 
-                    ObjectiveFeedback.instance.SetObjective("Carry the box to the shelf.");
+                    if (ObjectiveFeedback.instance != null)
+                    {
+                        ObjectiveFeedback.instance.ChangeMainObjective("Carry the box to the shelf.");
+                    }
 
                     if (progressBarObj != null) progressBarObj.SetActive(false);
                     gameObject.SetActive(false);

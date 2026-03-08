@@ -1586,7 +1586,7 @@ MonoBehaviour:
   npcName: Michael Reed
   dialogueNodes:
   - frasesDoNPC:
-    - frase: "That\u2019s all, thank you."
+    - frase: That is all, thank you.
       vozDaFrase: {fileID: 8300000, guid: 8d73ff262a57c834b99d6a05d67ca3ab, type: 3}
     escolhas:
     - textoDoBotao: Fine, it will be 3.89$
@@ -1616,6 +1616,7 @@ MonoBehaviour:
   isActiveInWorld: 0
   moveSpeed: 1.4
   stoppingDistance: 0.1
+  interactionObjective: Serve the customer.
   interactionWaypointIndex: 8
   isWaitingForInteraction: 0
   preserveInteractionState: 0
@@ -6574,6 +6575,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectiveFeedback
   objectiveText: {fileID: 732478975}
   fadeDuration: 0.3
+  hideUIWhenEmpty: 0
+  defaultObjective: Pick up a box.
 --- !u!114 &229679170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9697,6 +9700,7 @@ MonoBehaviour:
   isActiveInWorld: 0
   moveSpeed: 2
   stoppingDistance: 0.1
+  interactionObjective: Help the woman.
   interactionWaypointIndex: 2
   isWaitingForInteraction: 0
   preserveInteractionState: 0
@@ -16475,7 +16479,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -1.875}
+  m_Offset: {x: 0, y: -0.75}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.1}
@@ -19522,7 +19526,7 @@ MonoBehaviour:
   npcName: Oliver Grant
   dialogueNodes:
   - frasesDoNPC:
-    - frase: 
+    - frase: Hi! Sorry to disturb you.
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: You should not be wandering around alone.
@@ -19533,7 +19537,7 @@ MonoBehaviour:
         alone."
       proximoNode: 1
   - frasesDoNPC:
-    - frase: 
+    - frase: "It is okay\u2026 I am fine here. Are you too?"
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Why do you care? Stay out of trouble.
@@ -19543,7 +19547,7 @@ MonoBehaviour:
     - textoDoBotao: "I guess I am fine\u2026 just\u2026 do not go anywhere strange."
       proximoNode: 2
   - frasesDoNPC:
-    - frase: 
+    - frase: I just want to make sure you are safe.
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Weirdo.
@@ -24717,7 +24721,7 @@ MonoBehaviour:
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
-  defaultVoiceClip: {fileID: 0}
+  defaultVoiceClip: {fileID: 8300000, guid: 045dc1d3cc0bdb5438fdb4244a006422, type: 3}
   autoStartDialogue: 0
 --- !u!114 &1827144757
 MonoBehaviour:
@@ -24732,10 +24736,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
   nightTimer: {fileID: 1716897022}
-  activationHour: 24.8
+  activationHour: 25
   isActiveInWorld: 0
   moveSpeed: 1.5
   stoppingDistance: 0.1
+  interactionObjective: 'Check the back door. '
   interactionWaypointIndex: 2
   isWaitingForInteraction: 0
   preserveInteractionState: 0
@@ -26716,8 +26721,8 @@ MonoBehaviour:
   npcName: Daniel Brooks
   dialogueNodes:
   - frasesDoNPC:
-    - frase: "Quite the quiet place, isn\u2019t it? Makes you wonder what\u2019s
-        really going on. Don\u2019t worry, it\u2019s perfectly safe\u2026 probably."
+    - frase: "Quite the quiet place, is not it? Makes you wonder what is really going
+        on. Do not worry, it is perfectly safe\u2026 probably."
       vozDaFrase: {fileID: 8300000, guid: cedb1b356ab572346903446932e01057, type: 3}
     escolhas:
     - textoDoBotao: Stop joking around. This is not funny. It will be 10.39$.
@@ -26747,7 +26752,7 @@ MonoBehaviour:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: 
+    - frase: Fine... Keep the change. You might need it.
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
@@ -26773,6 +26778,7 @@ MonoBehaviour:
   isActiveInWorld: 0
   moveSpeed: 1.3
   stoppingDistance: 0.1
+  interactionObjective: Serve the customer.
   interactionWaypointIndex: 9
   isWaitingForInteraction: 0
   preserveInteractionState: 0
@@ -29097,6 +29103,7 @@ MonoBehaviour:
   isActiveInWorld: 0
   moveSpeed: 0.8
   stoppingDistance: 0.1
+  interactionObjective: Serve the customer.
   interactionWaypointIndex: 8
   isWaitingForInteraction: 0
   preserveInteractionState: 0
@@ -29436,7 +29443,8 @@ MonoBehaviour:
     - textoDoBotao: Yes, I just started. I hope I am doing okay.
       proximoNode: 4
   - frasesDoNPC:
-    - frase: That is good to hear. Quiet nights are always nice. Do you enjoy your work here?
+    - frase: That is good to hear. Quiet nights are always nice. Do you enjoy your
+        work here?
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Enjoy it or not, I still get the job done.

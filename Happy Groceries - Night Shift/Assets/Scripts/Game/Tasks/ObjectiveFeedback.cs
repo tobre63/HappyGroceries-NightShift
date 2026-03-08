@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System.Collections.Generic; // Necessário para usar Listas (Pilhas)
 
 public class ObjectiveFeedback : MonoBehaviour
 {
@@ -12,13 +13,14 @@ public class ObjectiveFeedback : MonoBehaviour
     [Header("Fade Settings")]
     public float fadeDuration = 0.3f;
 
-    // --- MEMÓRIA DOS OBJETIVOS ---
-    private string backgroundObjective = "";
-    private bool isBackgroundVisible = false;
+    [Header("Stack Settings")]
+    [Tooltip("Se estiver ativo, a UI desaparece completamente quando não há missões.")]
+    public bool hideUIWhenEmpty = false;
+    [Tooltip("A missão padrão que aparece quando a pilha está vazia.")]
+    public string defaultObjective = "Pick up a box.";
 
-    private string priorityObjective = "";
-    private bool isPriorityActive = false;
-
+    // --- A NOSSA "PILHA" DE OBJETIVOS ---
+    private List<string> activeObjectives = new List<string>();
     private Coroutine activeCoroutine;
 
     private void Awake()
@@ -29,68 +31,109 @@ public class ObjectiveFeedback : MonoBehaviour
 
     private void Start()
     {
-        SetObjective("Pick up a box.");
+        // Começa com a missão padrão
+        UpdateUI();
     }
 
-    // O "isPriority" diz-nos se isto é um objetivo super importante (NPC) ou normal (Caixas)
-    public void SetObjective(string newText, bool isPriority = false)
+    // ADICIONA À PILHA
+    public void SetObjective(string newText, bool isPriority = false)
     {
         if (objectiveText == null) return;
 
+        // Se este objetivo já estiver na lista, tira-o para não haver repetidos
+        if (activeObjectives.Contains(newText))
+        {
+            activeObjectives.Remove(newText);
+        }
+
+        // Se for prioridade, vai para o TOPO (Fim da lista). Se não, vai para o FUNDO (Início da lista).
         if (isPriority)
         {
-            priorityObjective = newText;
-            isPriorityActive = true;
-            UpdateScreenText(priorityObjective); // Força a mostrar o do NPC
-        }
+            activeObjectives.Add(newText);
+        }
         else
         {
-            backgroundObjective = newText;
-            isBackgroundVisible = true;
+            activeObjectives.Insert(0, newText);
+        }
 
-            // Só atualiza o ecrã com as caixas se o NPC não estiver à espera!
-            // (Mas guarda a informação na mesma em background)
-            if (!isPriorityActive)
+        UpdateUI();
+    }
+
+    // REMOVE DA PILHA
+    public void HideObjective(bool wasPriority = false)
+    {
+        if (objectiveText == null || activeObjectives.Count == 0) return;
+
+        if (wasPriority)
+        {
+            // Remove o último papel (O que está no Topo das prioridades)
+            activeObjectives.RemoveAt(activeObjectives.Count - 1);
+        }
+        else
+        {
+            // Remove o primeiro papel (O que está no Fundo, normalmente as caixas)
+            activeObjectives.RemoveAt(0);
+        }
+
+        UpdateUI();
+    }
+
+    public void RemoveSpecificObjective(string objectiveToRemove)
+    {
+        if (activeObjectives.Contains(objectiveToRemove))
+        {
+            activeObjectives.Remove(objectiveToRemove);
+            UpdateUI();
+        }
+    }
+
+    public void ForceClearAll()
+    {
+        activeObjectives.Clear(); // Deita fora todos os papéis (incluindo clientes fantasmas)
+        ChangeMainObjective("", true); // Muda o objetivo principal para vazio e desliga a UI
+    }
+
+    // LÓGICA DE DECISÃO DO QUE MOSTRAR
+    private void UpdateUI()
+    {
+        if (activeObjectives.Count > 0)
+        {
+            // Lê sempre o que está no TOPO da pilha
+            string textToShow = activeObjectives[activeObjectives.Count - 1];
+            UpdateScreenText(textToShow);
+        }
+        else
+        {
+            // A pilha está vazia!
+            if (hideUIWhenEmpty)
             {
-                UpdateScreenText(backgroundObjective);
+                HideScreenText();
+            }
+            else
+            {
+                UpdateScreenText(defaultObjective);
             }
         }
     }
 
-    public void HideObjective(bool isPriority = false)
-    {
-        if (objectiveText == null) return;
-
-        if (isPriority)
-        {
-            isPriorityActive = false;
-            priorityObjective = "";
-
-            // O NPC foi-se embora. Volta a mostrar o objetivo que as caixas/prateleiras definiram!
-            if (isBackgroundVisible && !string.IsNullOrEmpty(backgroundObjective))
-                UpdateScreenText(backgroundObjective);
-            else
-                HideScreenText();
-        }
-        else
-        {
-            isBackgroundVisible = false;
-            backgroundObjective = "";
-
-            // Só esconde do ecrã se o NPC não estiver a dominar a UI
-            if (!isPriorityActive)
-                HideScreenText();
-        }
-    }
+    // ==========================================
+    //  SISTEMA DE ANIMAÇÕES (MANTIDO DO ORIGINAL)
+    // ==========================================
 
     private void UpdateScreenText(string textToShow)
     {
+        // Previne que o ecrã pisque se a missão que vai entrar for igual à que já lá está!
+        if (objectiveText.text == textToShow && objectiveText.gameObject.activeSelf) return;
+
         if (activeCoroutine != null) StopCoroutine(activeCoroutine);
         activeCoroutine = StartCoroutine(SetObjectiveRoutine(textToShow));
     }
 
     private void HideScreenText()
     {
+        // Se já estiver escondido, não precisa de fazer Fade Out de novo
+        if (!objectiveText.gameObject.activeSelf) return;
+
         if (activeCoroutine != null) StopCoroutine(activeCoroutine);
         activeCoroutine = StartCoroutine(HideRoutine());
     }
@@ -129,5 +172,12 @@ public class ObjectiveFeedback : MonoBehaviour
 
         c.a = 0f;
         objectiveText.color = c;
+    }
+
+    public void ChangeMainObjective(string newObjective, bool finishQuest = false)
+    {
+        defaultObjective = newObjective;
+        hideUIWhenEmpty = finishQuest; // Se for true, a UI desaparece no fim
+        UpdateUI();
     }
 }

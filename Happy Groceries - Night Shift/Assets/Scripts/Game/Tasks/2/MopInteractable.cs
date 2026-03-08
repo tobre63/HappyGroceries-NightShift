@@ -80,8 +80,10 @@ public class MopInteractable : MonoBehaviour
                         CleaningEventController.instance.isMopEquipped = true;
                         SetMopAlpha(0f); // Fica invisível (Alpha 0)
 
-                        if (ObjectiveFeedback.instance != null)
+                        if (ObjectiveFeedback.instance != null)
                         {
+                            // Remove o objetivo antigo e mete o novo
+                            ObjectiveFeedback.instance.RemoveSpecificObjective("Pick up the mop.");
                             ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
                         }
                     }
@@ -90,13 +92,14 @@ public class MopInteractable : MonoBehaviour
                         CleaningEventController.instance.isMopEquipped = false;
                         SetMopAlpha(1f); // Volta a ficar visível (Alpha 1)
 
-                        // IMPEDE QUE SEJA APANHADA OUTRA VEZ: Desliga o colisor
-                        Collider2D col = GetComponent<Collider2D>();
+                        // IMPEDE QUE A MOP SEJA APANHADA OUTRA VEZ: Desliga o colisor
+                        Collider2D col = GetComponent<Collider2D>();
                         if (col != null) col.enabled = false;
 
                         if (ObjectiveFeedback.instance != null)
                         {
-                            ObjectiveFeedback.instance.HideObjective(true);
+                            // NOVO: Aplica a força nuclear e apaga TUDO do ecrã!
+                            ObjectiveFeedback.instance.ForceClearAll();
                         }
                     }
                     ResetInteraction();

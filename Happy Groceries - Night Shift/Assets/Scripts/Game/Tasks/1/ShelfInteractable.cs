@@ -113,14 +113,22 @@ public class ShelfInteractable : MonoBehaviour
 
                         completedShelves++;
 
-                        // Se todas as prateleiras estiverem completas, esconde o objetivo
-                        if (completedShelves >= totalShelves)
+                        // SE TODAS AS PRATELEIRAS ESTIVEREM COMPLETAS
+                        if (completedShelves >= totalShelves)
                         {
-                            ObjectiveFeedback.instance.HideObjective();
+                            if (ObjectiveFeedback.instance != null)
+                            {
+                                // Atualiza para vazio e diz que a Quest acabou (true), escondendo a UI!
+                                ObjectiveFeedback.instance.ChangeMainObjective("", true);
+                            }
                         }
-                        else
+                        else // SE AINDA FALTAR ARRUMAR MAIS CAIXAS
                         {
-                            ObjectiveFeedback.instance.SetObjective("Pick up another box.");
+                            if (ObjectiveFeedback.instance != null)
+                            {
+                                // Muda a missão base para apanhar outra caixa
+                                ObjectiveFeedback.instance.ChangeMainObjective("Pick up another box.");
+                            }
                         }
                     }
                 }

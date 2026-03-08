@@ -21,12 +21,12 @@ public class CleaningEventController : MonoBehaviour
 
     public void CheckProgress()
     {
-        // Se já limpou tudo...
-        if (dirtZonesCleaned >= totalDirtZones && isBottlePickedUp)
+        if (dirtZonesCleaned >= totalDirtZones && isBottlePickedUp)
         {
-            // OBJETIVO 3: Pousar a Mop (Com PRIORIDADE = true)
-            if (ObjectiveFeedback.instance != null)
+            if (ObjectiveFeedback.instance != null)
             {
+                // Remove o objetivo antigo e mete o novo
+                ObjectiveFeedback.instance.RemoveSpecificObjective("Clean the scene.");
                 ObjectiveFeedback.instance.SetObjective("Put the mop back.", true);
             }
         }

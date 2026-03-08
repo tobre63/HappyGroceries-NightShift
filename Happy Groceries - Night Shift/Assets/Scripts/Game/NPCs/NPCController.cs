@@ -31,6 +31,7 @@ public class NPCController : MonoBehaviour
     public float stoppingDistance = 0.1f;
 
     [Header("Interaction Settings")]
+    public string interactionObjective = "Serve the customer.";
     public int interactionWaypointIndex = 1;
     [HideInInspector] public bool isWaitingForInteraction = false;
     [HideInInspector] public bool preserveInteractionState = false;
@@ -285,7 +286,7 @@ public class NPCController : MonoBehaviour
 
             if (ObjectiveFeedback.instance != null)
             {
-                ObjectiveFeedback.instance.SetObjective("Serve the customer.", true);
+                ObjectiveFeedback.instance.SetObjective(interactionObjective, true);
             }
 
             if (counterItems != null)
@@ -313,7 +314,12 @@ public class NPCController : MonoBehaviour
 
             if (!preserveInteractionState)
             {
-                if (ObjectiveFeedback.instance != null) ObjectiveFeedback.instance.HideObjective(true);
+                if (ObjectiveFeedback.instance != null)
+                {
+                    // NOVO: Remove a frase exata deste NPC
+                    ObjectiveFeedback.instance.RemoveSpecificObjective(interactionObjective);
+                }
+
                 if (counterItems != null)
                 {
                     foreach (var item in counterItems) if (item != null) item.SetActive(false);
