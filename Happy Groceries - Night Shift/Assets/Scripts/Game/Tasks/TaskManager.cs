@@ -7,6 +7,7 @@ public class TaskManager : MonoBehaviour
     // 0 significa que o jogador tem as mãos livres. 
     // 1 será a Caixa 1, 2 será a Caixa 2.
     public int currentBoxHeldID = 0;
+    public bool hasCloth = false;
 
     public static TaskManager instance;
 
