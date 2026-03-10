@@ -15,7 +15,7 @@ public class DialogueLine
 {
     [TextArea(2, 4)]
     public string frase;
-    public AudioClip vozDaFrase; // Arraste o MP3 específico da frase aqui
+    public AudioClip vozDaFrase; // Arraste o MP3 especï¿½fico da frase aqui
 }
 
 [System.Serializable]
@@ -48,7 +48,11 @@ public class NPCInteraction : MonoBehaviour
     [Header("Audio & Animation Settings")]
     public float typingSpeed = 0.04f;
     public AudioClip typingSound;
-    public AudioClip defaultVoiceClip; // Voz padrão se a frase não tiver áudio
+    public AudioClip defaultVoiceClip; // Voz padrï¿½o se a frase nï¿½o tiver ï¿½udio
+
+    [Header("Machine Animation")]
+    public bool usesMachine = false; // Ativa isto no Inspector apenas nos NPCs que compram
+    public Animator machineAnimator;
 
     private Animator anim;
     private AudioSource audioSource;
@@ -131,6 +135,15 @@ public class NPCInteraction : MonoBehaviour
     private void ShowCurrentLine()
     {
         if (interactionIcon != null) interactionIcon.SetActive(false);
+
+        if (usesMachine && currentNodeIndex == 0 && currentLineIndex == 0)
+        {
+            if (machineAnimator != null)
+            {
+                machineAnimator.SetBool("isOpen", true);
+                StartCoroutine(CloseMachineAfterDelay(3f)); // Fecha apÃ³s 3 segundos
+            }
+        }
 
         DialogueNode currentNode = dialogueNodes[currentNodeIndex];
         DialogueLine currentLine = currentNode.frasesDoNPC[currentLineIndex];
@@ -300,5 +313,15 @@ public class NPCInteraction : MonoBehaviour
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (talkGUI != null) talkGUI.SetActive(false);
         EsconderBotoes();
+    }
+
+    private IEnumerator CloseMachineAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+ 
+        if (machineAnimator != null)
+        {
+            machineAnimator.SetBool("isOpen", false);
+        }
     }
 }

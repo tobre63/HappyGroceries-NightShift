@@ -129,14 +129,24 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
 
-        // NOVO: Despausa os sons do mundo quando voltas ao jogo
+        // NOVO: Despausa os sons do mundo quando voltas ao jogo
         AudioListener.pause = false;
 
         if (pauseMenu != null) pauseMenu.SetActive(false);
         if (settingsMenu != null) settingsMenu.SetActive(false);
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // CORREÇÃO: Verifica se o jogador está a falar com o NPC. 
+        // Se estiver, mantém o rato visível. Se não, esconde-o.
+        if (NPCInteraction.isPlayerTalking)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
 
         if (bgmAudioSource != null)
         {

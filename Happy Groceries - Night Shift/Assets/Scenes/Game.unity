@@ -1803,6 +1803,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
+  usesMachine: 1
+  machineAnimator: {fileID: 51923035}
   autoStartDialogue: 0
 --- !u!114 &77258889
 MonoBehaviour:
@@ -3957,7 +3959,109 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 77308999}
+    m_ColliderPaths:
+    - - X: 142500000
+        Y: 20000000
+      - X: 172500000
+        Y: 20000000
+      - X: 172500000
+        Y: 100000000
+      - X: -172500000
+        Y: 100000000
+      - X: -172500000
+        Y: 20000000
+      - X: -142500000
+        Y: 20000000
+      - X: -142500000
+        Y: -110000000
+      - X: 142500000
+        Y: -110000000
+    - - X: -140000000
+        Y: -107500000
+      - X: -140000000
+        Y: 22500000
+      - X: -170000000
+        Y: 22500000
+      - X: -170000000
+        Y: 97500000
+      - X: 170000000
+        Y: 97500000
+      - X: 170000000
+        Y: 22500000
+      - X: 140000000
+        Y: 22500000
+      - X: 140000000
+        Y: -107500000
+    - - X: 105000000
+        Y: -58750000
+      - X: 103750000
+        Y: -57500000
+      - X: 50000000
+        Y: -57500000
+      - X: 50000000
+        Y: -56875000
+      - X: 45000000
+        Y: -50000000
+      - X: 45000000
+        Y: 1250000
+      - X: 43750000
+        Y: 2500000
+      - X: 0
+        Y: 2500000
+      - X: 0
+        Y: 0
+      - X: 40000000
+        Y: 0
+      - X: 40000000
+        Y: -70000000
+      - X: 45000000
+        Y: -70000000
+      - X: 45000000
+        Y: -60000000
+      - X: 100000000
+        Y: -60000000
+      - X: 100000000
+        Y: -77500000
+      - X: -110000000
+        Y: -77500000
+      - X: -110000000
+        Y: -80000000
+      - X: 105000000
+        Y: -80000000
+    - - X: -110000000
+        Y: -60000000
+      - X: -45000000
+        Y: -60000000
+      - X: -45000000
+        Y: -70000000
+      - X: -40000000
+        Y: -70000000
+      - X: -40000000
+        Y: 0
+      - X: -20000000
+        Y: 0
+      - X: -20000000
+        Y: 2500000
+      - X: -43750000
+        Y: 2500000
+      - X: -45000000
+        Y: 1250000
+      - X: -45000000
+        Y: -50000000
+      - X: -50000000
+        Y: -56875000
+      - X: -50000000
+        Y: -57500000
+      - X: -113750000
+        Y: -57500000
+      - X: -115000000
+        Y: -58750000
+      - X: -115000000
+        Y: -70000000
+      - X: -110000000
+        Y: -70000000
   m_CompositePaths:
     m_Paths:
     - - {x: 14.25, y: 2}
@@ -5026,6 +5130,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
+  usesMachine: 1
+  machineAnimator: {fileID: 51923035}
   autoStartDialogue: 0
 --- !u!114 &160997857
 MonoBehaviour:
@@ -5040,7 +5146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcWaypointController
   nightTimer: {fileID: 1716897022}
-  activationHour: 26.8
+  activationHour: 27.1
   isActiveInWorld: 0
   moveSpeed: 1.4
   stoppingDistance: 0.1
@@ -10227,6 +10333,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 0}
+  usesMachine: 0
+  machineAnimator: {fileID: 51923035}
   autoStartDialogue: 0
 --- !u!114 &505602099
 MonoBehaviour:
@@ -18418,7 +18526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1208922606
 Transform:
   m_ObjectHideFlags: 0
@@ -20453,6 +20561,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 0}
+  usesMachine: 0
+  machineAnimator: {fileID: 0}
   autoStartDialogue: 1
 --- !u!114 &1369029359
 MonoBehaviour:
@@ -22490,7 +22600,7 @@ Transform:
   m_GameObject: {fileID: 1544841499}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.8, y: 0.8, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22547,7 +22657,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: -1.4}
+  m_Offset: {x: 0, y: -1.45}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -22557,7 +22667,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.3, y: 0.5}
+  m_Size: {x: 0.3, y: 0.4}
   m_EdgeRadius: 0
 --- !u!212 &1544841503
 SpriteRenderer:
@@ -23026,6 +23136,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
+  usesMachine: 1
+  machineAnimator: {fileID: 51923035}
   autoStartDialogue: 0
 --- !u!114 &1568107606
 MonoBehaviour:
@@ -23040,7 +23152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NpcWaypointController
   nightTimer: {fileID: 1716897022}
-  activationHour: 26.4
+  activationHour: 26.5
   isActiveInWorld: 0
   moveSpeed: 1.4
   stoppingDistance: 0.1
@@ -26380,6 +26492,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 8300000, guid: 045dc1d3cc0bdb5438fdb4244a006422, type: 3}
+  usesMachine: 0
+  machineAnimator: {fileID: 0}
   autoStartDialogue: 0
 --- !u!114 &1827144757
 MonoBehaviour:
@@ -28540,6 +28654,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 0}
+  usesMachine: 1
+  machineAnimator: {fileID: 51923035}
   autoStartDialogue: 0
 --- !u!114 &2021037601
 MonoBehaviour:
@@ -29402,7 +29518,57 @@ CompositeCollider2D:
   m_GeometryType: 1
   m_GenerationType: 0
   m_EdgeRadius: 0
-  m_ColliderPaths: []
+  m_ColliderPaths:
+  - m_Collider: {fileID: 2044735795}
+    m_ColliderPaths:
+    - - X: -31250000
+        Y: -47500000
+      - X: -31250000
+        Y: 0
+      - X: -40000000
+        Y: 0
+      - X: -40000000
+        Y: -48750000
+      - X: -32500000
+        Y: -48750000
+    - - X: 30000000
+        Y: 0
+      - X: 0
+        Y: 0
+      - X: 0
+        Y: -7500000
+      - X: 30000000
+        Y: -7500000
+    - - X: 40000000
+        Y: 0
+      - X: 31250000
+        Y: 0
+      - X: 31250000
+        Y: -57500000
+      - X: 32500000
+        Y: -58750000
+      - X: 40000000
+        Y: -58750000
+    - - X: 10000000
+        Y: -53750000
+      - X: -40000000
+        Y: -53750000
+      - X: -40000000
+        Y: -60000000
+      - X: -100000000
+        Y: -60000000
+      - X: -100000000
+        Y: -67500000
+      - X: 10000000
+        Y: -67500000
+    - - X: 100000000
+        Y: -60000000
+      - X: 40000000
+        Y: -60000000
+      - X: 40000000
+        Y: -67500000
+      - X: 100000000
+        Y: -67500000
   m_CompositePaths:
     m_Paths:
     - - {x: -3.125, y: -4.75}
@@ -31295,6 +31461,8 @@ MonoBehaviour:
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
   defaultVoiceClip: {fileID: 8300000, guid: 7bdc83003244cc04eb497026ce910abc, type: 3}
+  usesMachine: 1
+  machineAnimator: {fileID: 51923035}
   autoStartDialogue: 0
 --- !u!1 &2129138306
 GameObject:
