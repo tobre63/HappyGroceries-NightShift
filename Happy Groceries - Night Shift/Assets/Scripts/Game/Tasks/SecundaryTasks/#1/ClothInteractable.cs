@@ -3,7 +3,7 @@ using UnityEngine;
 public class ClothInteractable : MonoBehaviour
 {
     [Header("Settings")]
-    public float timeToPickUp = 2f; // Tempo para pegar o pano
+    public float timeToInteract = 2f;
     public GameObject interactionIcon;
 
     [Header("Progress Bar Settings")]
@@ -11,21 +11,22 @@ public class ClothInteractable : MonoBehaviour
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // Variável estática para parar o Player (similar ao isPickingUpBox)
-    public static bool isPickingUpCloth = false;
+    public static bool isInteractingWithCloth = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
     private float holdTimer = 0f;
     private Material progressMaterial;
+    private SpriteRenderer spriteRenderer; // Referência para esconder o visual
 
     private void Start()
     {
-        // Garante que a UI comece desativada
+        // Pega o SpriteRenderer automaticamente do objeto atual
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(false);
 
-        // Prepara o material da barra de progresso
         if (progressBarRenderer != null)
         {
             progressMaterial = progressBarRenderer.material;
@@ -35,11 +36,10 @@ public class ClothInteractable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Só mostra o ícone se for o Player e ele AINDA NÃO tiver o pano
-        if (collision.CompareTag("Player") && !TaskManager.instance.hasCloth)
+        if (collision.CompareTag("Player"))
         {
             inRange = true;
-            if (interactionIcon != null) interactionIcon.SetActive(true);
+            CheckInteractionIcon();
         }
     }
 
@@ -55,8 +55,15 @@ public class ClothInteractable : MonoBehaviour
 
     private void Update()
     {
-        // Verifica se está no alcance e se ainda não tem o pano
-        if (inRange && !TaskManager.instance.hasCloth)
+        if (!inRange) return;
+
+        // LÓGICA DO MOP: Verifica se pode pegar OU devolver
+        bool canPickUp = !TaskManager.instance.hasCloth;
+
+        // Só pode devolver se tiver o pano E a mesa estiver limpa
+        bool canPutAway = TaskManager.instance.hasCloth && TableCleaningInteractable.isTableClean;
+
+        if (canPickUp || canPutAway)
         {
             if (Input.GetKey(KeyCode.E))
             {
@@ -65,50 +72,69 @@ public class ClothInteractable : MonoBehaviour
                     StartInteraction();
                 }
 
-                // Incrementa o tempo
                 holdTimer += Time.deltaTime;
-                float currentPercentage = (holdTimer / timeToPickUp) * 100f;
+                float currentPercentage = (holdTimer / timeToInteract) * 100f;
                 SetProgress(currentPercentage);
 
-                // Concluiu a ação
-                if (holdTimer >= timeToPickUp)
+                if (holdTimer >= timeToInteract)
                 {
-                    FinishInteraction();
+                    FinishInteraction(canPickUp, canPutAway);
                 }
             }
             else
             {
-                // Se soltar a tecla E no meio do processo
                 if (isInteracting)
                 {
                     ResetInteraction();
                 }
             }
         }
+        else
+        {
+            // Se não pode fazer nada, garante que o ícone suma
+            if (interactionIcon != null && interactionIcon.activeSelf)
+                interactionIcon.SetActive(false);
+        }
     }
 
     private void StartInteraction()
     {
         isInteracting = true;
-        isPickingUpCloth = true; // Para o movimento do player
+        isInteractingWithCloth = true; // Para o player
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(true);
     }
 
-    private void FinishInteraction()
+    private void FinishInteraction(bool pickingUp, bool puttingAway)
     {
         isInteracting = false;
-        isPickingUpCloth = false; // Libera o player
+        isInteractingWithCloth = false; // Libera o player
 
-        // Salva no TaskManager que pegamos o pano
-        TaskManager.instance.hasCloth = true;
+        if (pickingUp)
+        {
+            // PEGAR O PANO
+            TaskManager.instance.hasCloth = true;
+            SetVisuals(false); // Esconde o pano, mas mantém o objeto ativo
+            Debug.Log("Pano pego!");
+        }
+        else if (puttingAway)
+        {
+            // DEVOLVER O PANO
+            TaskManager.instance.hasCloth = false;
+            SetVisuals(true); // Mostra o pano de volta
 
-        Debug.Log("Pano coletado!");
+            // Trava o objeto para não pegar de novo imediatamente (igual ao Mop)
+            Collider2D col = GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
 
-        // Esconde barra e desativa o objeto da cena
+            Debug.Log("Pano devolvido! Tarefa concluída.");
+        }
+
         if (progressBarObj != null) progressBarObj.SetActive(false);
-        gameObject.SetActive(false);
+
+        // Reseta o timer para evitar loops
+        holdTimer = 0f;
     }
 
     private void ResetInteraction()
@@ -116,17 +142,39 @@ public class ClothInteractable : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            isPickingUpCloth = false; // Libera o player se cancelar
+            isInteractingWithCloth = false;
             holdTimer = 0f;
             SetProgress(0f);
 
             if (progressBarObj != null) progressBarObj.SetActive(false);
 
-            // Mostra o ícone de novo se ainda estiver perto
-            if (inRange && !TaskManager.instance.hasCloth)
-            {
-                if (interactionIcon != null) interactionIcon.SetActive(true);
-            }
+            // Verifica se deve mostrar o ícone novamente
+            CheckInteractionIcon();
+        }
+    }
+
+    private void CheckInteractionIcon()
+    {
+        if (!inRange) return;
+
+        bool canPickUp = !TaskManager.instance.hasCloth;
+        bool canPutAway = TaskManager.instance.hasCloth && TableCleaningInteractable.isTableClean;
+
+        if (canPickUp || canPutAway)
+        {
+            if (interactionIcon != null) interactionIcon.SetActive(true);
+        }
+        else
+        {
+            if (interactionIcon != null) interactionIcon.SetActive(false);
+        }
+    }
+
+    private void SetVisuals(bool active)
+    {
+        if (spriteRenderer != null)
+        {
+            spriteRenderer.enabled = active;
         }
     }
 
