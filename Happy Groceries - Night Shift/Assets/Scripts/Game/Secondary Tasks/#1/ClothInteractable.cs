@@ -11,17 +11,20 @@ public class ClothInteractable : MonoBehaviour
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
+    // Variï¿½vel estï¿½tica para o script do Jogador ler
     public static bool isInteractingWithCloth = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
     private float holdTimer = 0f;
     private Material progressMaterial;
-    private SpriteRenderer spriteRenderer; // Referência para esconder o visual
+    private SpriteRenderer spriteRenderer;
+
+    // Referï¿½ncia para parar fisicamente o jogador
+    private Rigidbody2D playerRb;
 
     private void Start()
     {
-        // Pega o SpriteRenderer automaticamente do objeto atual
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
@@ -39,6 +42,7 @@ public class ClothInteractable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = true;
+            playerRb = collision.GetComponent<Rigidbody2D>(); // Guarda o Rigidbody do jogador
             CheckInteractionIcon();
         }
     }
@@ -48,6 +52,7 @@ public class ClothInteractable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = false;
+            playerRb = null; // Limpa a referï¿½ncia
             if (interactionIcon != null) interactionIcon.SetActive(false);
             ResetInteraction();
         }
@@ -57,10 +62,7 @@ public class ClothInteractable : MonoBehaviour
     {
         if (!inRange) return;
 
-        // LÓGICA DO MOP: Verifica se pode pegar OU devolver
         bool canPickUp = !TaskManager.instance.hasCloth;
-
-        // Só pode devolver se tiver o pano E a mesa estiver limpa
         bool canPutAway = TaskManager.instance.hasCloth && TableCleaningInteractable.isTableClean;
 
         if (canPickUp || canPutAway)
@@ -91,7 +93,6 @@ public class ClothInteractable : MonoBehaviour
         }
         else
         {
-            // Se não pode fazer nada, garante que o ícone suma
             if (interactionIcon != null && interactionIcon.activeSelf)
                 interactionIcon.SetActive(false);
         }
@@ -100,7 +101,13 @@ public class ClothInteractable : MonoBehaviour
     private void StartInteraction()
     {
         isInteracting = true;
-        isInteractingWithCloth = true; // Para o player
+        isInteractingWithCloth = true; // Bloqueia o input no player
+
+        // Para o jogador fisicamente no momento em que aperta o E
+        if (playerRb != null)
+        {
+            playerRb.linearVelocity = Vector2.zero;
+        }
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(true);
@@ -109,31 +116,23 @@ public class ClothInteractable : MonoBehaviour
     private void FinishInteraction(bool pickingUp, bool puttingAway)
     {
         isInteracting = false;
-        isInteractingWithCloth = false; // Libera o player
+        isInteractingWithCloth = false; // Liberta o player
 
         if (pickingUp)
         {
-            // PEGAR O PANO
             TaskManager.instance.hasCloth = true;
-            SetVisuals(false); // Esconde o pano, mas mantém o objeto ativo
-            Debug.Log("Pano pego!");
+            SetVisuals(false);
         }
         else if (puttingAway)
         {
-            // DEVOLVER O PANO
             TaskManager.instance.hasCloth = false;
-            SetVisuals(true); // Mostra o pano de volta
+            SetVisuals(true);
 
-            // Trava o objeto para não pegar de novo imediatamente (igual ao Mop)
             Collider2D col = GetComponent<Collider2D>();
             if (col != null) col.enabled = false;
-
-            Debug.Log("Pano devolvido! Tarefa concluída.");
         }
 
         if (progressBarObj != null) progressBarObj.SetActive(false);
-
-        // Reseta o timer para evitar loops
         holdTimer = 0f;
     }
 
@@ -142,13 +141,11 @@ public class ClothInteractable : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            isInteractingWithCloth = false;
+            isInteractingWithCloth = false; // Liberta o player se ele soltar o E
             holdTimer = 0f;
             SetProgress(0f);
 
             if (progressBarObj != null) progressBarObj.SetActive(false);
-
-            // Verifica se deve mostrar o ícone novamente
             CheckInteractionIcon();
         }
     }

@@ -45,7 +45,9 @@ public class PlayerController : MonoBehaviour
                || DirtZoneInteractable.isCleaningDirt  // MANTIDO (Sistema Antigo)
                || (CleaningEventController.instance != null && CleaningEventController.instance.isCleaningDirt) // ADICIONADO (Sistema Novo)
                || BottleInteractable.isPickingUpBottle
-               || CocaColaSpillEvent.isSpillEventActive;
+               || CocaColaSpillEvent.isSpillEventActive
+               || ClothInteractable.isInteractingWithCloth
+               || TableCleaningInteractable.isCleaningTable;
 
         if (isBlocked)
         {

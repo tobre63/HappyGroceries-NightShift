@@ -5181,7 +5181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -11043,7 +11043,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TableCleaningInteractable
   timeToCleanPerItem: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   dirtItems:
   - {fileID: 617857375}
   - {fileID: 636738322}
@@ -14227,7 +14227,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -14985,7 +14985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -15409,7 +15409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -19339,7 +19339,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -19500,7 +19500,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -19820,7 +19820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -21548,7 +21548,7 @@ GameObject:
   - component: {fileID: 1283486835}
   - component: {fileID: 1283486834}
   m_Layer: 9
-  m_Name: InteractionIconSecondaryTasks
+  m_Name: InteractionIconFirstTask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24586,7 +24586,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.15, y: 0.4}
+  m_Size: {x: 0.3, y: 0.4}
   m_EdgeRadius: 0
 --- !u!212 &1544841503
 SpriteRenderer:
@@ -27480,7 +27480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage
@@ -29007,7 +29007,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DirtSpot
   timeToClean: 2
-  interactionIcon: {fileID: 1283486832}
+  interactionIcon: {fileID: 1826008912}
   progressBarObj: {fileID: 783671488}
   progressBarRenderer: {fileID: 783671489}
   percentageProperty: _Percentage

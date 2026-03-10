@@ -14,10 +14,8 @@ public class TableCleaningInteractable : MonoBehaviour
     public GameObject playerFloatingTextObj;
     public TMP_Text progressText;
 
-    // Variáveis de Controle
+    // Variï¿½veis de Controle para o script do Jogador ler
     public static bool isCleaningTable = false;
-
-    // NOVA VARIÁVEL: Permite que o Pano saiba se a mesa está limpa
     public static bool isTableClean = false;
 
     private bool inRange = false;
@@ -26,9 +24,11 @@ public class TableCleaningInteractable : MonoBehaviour
     private int itemsCleaned = 0;
     private bool isCompletelyClean = false;
 
+    // Referï¿½ncia para parar fisicamente o jogador
+    private Rigidbody2D playerRb;
+
     private void Start()
     {
-        // Reseta o estado estático ao iniciar
         isTableClean = false;
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
@@ -47,6 +47,8 @@ public class TableCleaningInteractable : MonoBehaviour
         if (collision.CompareTag("Player") && TaskManager.instance.hasCloth)
         {
             inRange = true;
+            playerRb = collision.GetComponent<Rigidbody2D>(); // Guarda o Rigidbody do jogador
+
             if (interactionIcon != null) interactionIcon.SetActive(true);
             UpdateProgressText();
         }
@@ -57,6 +59,8 @@ public class TableCleaningInteractable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = false;
+            playerRb = null; // Limpa a referï¿½ncia
+
             if (interactionIcon != null) interactionIcon.SetActive(false);
             ResetInteraction();
         }
@@ -92,7 +96,13 @@ public class TableCleaningInteractable : MonoBehaviour
     private void StartCleaning()
     {
         isInteracting = true;
-        isCleaningTable = true;
+        isCleaningTable = true; // Bloqueia o input no player
+
+        // Para o jogador fisicamente no momento em que aperta o E
+        if (playerRb != null)
+        {
+            playerRb.linearVelocity = Vector2.zero;
+        }
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (playerFloatingTextObj != null) playerFloatingTextObj.SetActive(true);
@@ -120,17 +130,13 @@ public class TableCleaningInteractable : MonoBehaviour
     private void CompleteTask()
     {
         isCompletelyClean = true;
-
-        // AVISA O SISTEMA QUE A MESA ESTÁ LIMPA
         isTableClean = true;
 
         isInteracting = false;
-        isCleaningTable = false;
+        isCleaningTable = false; // Liberta o player
 
         if (playerFloatingTextObj != null) playerFloatingTextObj.SetActive(false);
         if (interactionIcon != null) interactionIcon.SetActive(false);
-
-        Debug.Log("Mesa limpa! Agora você pode devolver o pano.");
     }
 
     private void ResetInteraction()
@@ -138,7 +144,7 @@ public class TableCleaningInteractable : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            isCleaningTable = false;
+            isCleaningTable = false; // Liberta o player se soltar o E
             cleanTimer = 0f;
 
             if (playerFloatingTextObj != null) playerFloatingTextObj.SetActive(false);
@@ -154,7 +160,7 @@ public class TableCleaningInteractable : MonoBehaviour
     {
         if (progressText != null)
         {
-            progressText.text = itemsCleaned + " / " + dirtItems.Length;
+            progressText.text = itemsCleaned + "/" + dirtItems.Length;
         }
     }
 }
