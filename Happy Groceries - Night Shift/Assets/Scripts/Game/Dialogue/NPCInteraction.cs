@@ -141,7 +141,7 @@ public class NPCInteraction : MonoBehaviour
             if (machineAnimator != null)
             {
                 machineAnimator.SetBool("isOpen", true);
-                StartCoroutine(CloseMachineAfterDelay(3f)); // Fecha após 3 segundos
+                Invoke("CloseMachine", 5f); // Usa Invoke em vez de Coroutine
             }
         }
 
@@ -306,6 +306,11 @@ public class NPCInteraction : MonoBehaviour
         dialogueState = 0;
         isTyping = false;
         StopAllCoroutines();
+
+        // NOVO: Cancela o temporizador se ainda estiver a contar e força a máquina a fechar
+        CancelInvoke("CloseMachine");
+        CloseMachine();
+
         if (anim != null) anim.SetBool("isTalking", false);
         isPlayerTalking = false;
         Cursor.visible = false;
@@ -315,10 +320,8 @@ public class NPCInteraction : MonoBehaviour
         EsconderBotoes();
     }
 
-    private IEnumerator CloseMachineAfterDelay(float delay)
+    private void CloseMachine()
     {
-        yield return new WaitForSeconds(delay);
- 
         if (machineAnimator != null)
         {
             machineAnimator.SetBool("isOpen", false);
