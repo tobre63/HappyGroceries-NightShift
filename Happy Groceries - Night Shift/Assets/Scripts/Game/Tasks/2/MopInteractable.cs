@@ -2,15 +2,18 @@ using UnityEngine;
 
 public class MopInteractable : MonoBehaviour
 {
+    [Header("Configurações")]
     public float timeToInteract = 1.5f;
-    public GameObject mopVisuals; // Arrasta a imagem da esfregona para aqui
-    public GameObject interactionIcon;
+
+    [Header("Referências Visuais")]
+    public GameObject mopVisuals; // Sprite do Mop no chão/parede
+    public GameObject interactionIcon;
     public GameObject progressBarObj;
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // VARIÁVEL PARA PARAR O MOVIMENTO DO JOGADOR
-    public static bool isInteractingWithMop = false;
+    // VARIÁVEL GLOBAL PARA PARAR O MOVIMENTO DO JOGADOR
+    public static bool isInteractingWithMop = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
@@ -26,13 +29,12 @@ public class MopInteractable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!CleaningEventController.instance.isQuestActive) return;
+        // REMOVIDO: if (!CleaningEventController.instance.isQuestActive) return;
 
         if (collision.CompareTag("Player"))
         {
             inRange = true;
-            if (!CleaningEventController.instance.isMopEquipped || CleaningEventController.instance.IsTaskReadyToFinish())
-                if (interactionIcon != null) interactionIcon.SetActive(true);
+            UpdateIconVisibility();
         }
     }
 
@@ -48,10 +50,18 @@ public class MopInteractable : MonoBehaviour
 
     private void Update()
     {
-        if (!CleaningEventController.instance.isQuestActive || !inRange) return;
+        // REMOVIDO: if (!CleaningEventController.instance.isQuestActive) ...
+        if (!inRange) return;
 
+        // LÓGICA ATUALIZADA:
+        // Pode pegar se não tiver equipado.
         bool canPickUp = !CleaningEventController.instance.isMopEquipped;
-        bool canPutAway = CleaningEventController.instance.isMopEquipped && CleaningEventController.instance.IsTaskReadyToFinish();
+
+        // Pode guardar se tiver equipado (removemos a restrição de IsTaskReadyToFinish aqui para não travar o jogador)
+        bool canPutAway = CleaningEventController.instance.isMopEquipped;
+
+        // Atualiza ícone dinamicamente caso o estado mude enquanto o jogador está parado dentro do trigger
+        if (!isInteracting) UpdateIconVisibility();
 
         if (canPickUp || canPutAway)
         {
@@ -59,70 +69,107 @@ public class MopInteractable : MonoBehaviour
             {
                 if (!isInteracting)
                 {
-                    isInteracting = true;
-                    isInteractingWithMop = true; // BLOQUEIA O JOGADOR
-
-                    // CORREÇÃO AQUI: Esconde o ícone do 'E' enquanto enche a barra
-                    if (interactionIcon != null) interactionIcon.SetActive(false);
-                    if (progressBarObj != null) progressBarObj.SetActive(true);
+                    StartInteraction();
                 }
 
                 holdTimer += Time.deltaTime;
-                if (progressMaterial != null) progressMaterial.SetFloat(percentageProperty, (holdTimer / timeToInteract) * 100f);
+                UpdateProgressBar();
 
                 if (holdTimer >= timeToInteract)
                 {
-                    isInteracting = false;
-                    isInteractingWithMop = false; // LIBERTA O JOGADOR
-
-                    if (canPickUp)
-                    {
-                        CleaningEventController.instance.isMopEquipped = true;
-                        SetMopAlpha(0f); // Fica invisível (Alpha 0)
-
-                        if (ObjectiveFeedback.instance != null)
-                        {
-                            // Remove o objetivo antigo e mete o novo
-                            ObjectiveFeedback.instance.RemoveSpecificObjective("Pick up the mop.");
-                            ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
-                        }
-                    }
-                    else if (canPutAway)
-                    {
-                        CleaningEventController.instance.isMopEquipped = false;
-                        SetMopAlpha(1f); // Volta a ficar visível (Alpha 1)
-
-                        // IMPEDE QUE A MOP SEJA APANHADA OUTRA VEZ: Desliga o colisor
-                        Collider2D col = GetComponent<Collider2D>();
-                        if (col != null) col.enabled = false;
-
-                        if (ObjectiveFeedback.instance != null)
-                        {
-                            // NOVO: Aplica a força nuclear e apaga TUDO do ecrã!
-                            ObjectiveFeedback.instance.ForceClearAll();
-                        }
-                    }
-                    ResetInteraction();
+                    FinishInteraction(canPickUp, canPutAway);
                 }
             }
-            else if (isInteracting) ResetInteraction();
+            else if (isInteracting)
+            {
+                ResetInteraction(); // Soltou a tecla antes da hora
+            }
         }
+    }
+
+    private void StartInteraction()
+    {
+        isInteracting = true;
+        isInteractingWithMop = true; // Bloqueia Jogador
+
+        if (interactionIcon != null) interactionIcon.SetActive(false);
+        if (progressBarObj != null) progressBarObj.SetActive(true);
+    }
+
+    private void FinishInteraction(bool isPickingUp, bool isPuttingAway)
+    {
+        isInteracting = false;
+        isInteractingWithMop = false; // Libera Jogador
+
+        if (isPickingUp)
+        {
+            // --- PEGAR O MOP ---
+            CleaningEventController.instance.isMopEquipped = true;
+            SetMopAlpha(0f); // Esconde o mop do cenário
+
+            // Atualiza objetivos se o sistema existir
+            if (ObjectiveFeedback.instance != null)
+            {
+                ObjectiveFeedback.instance.RemoveSpecificObjective("Pick up the mop.");
+                // Adiciona o objetivo de limpar apenas se ainda não tiver limpado tudo
+                if (!CleaningEventController.instance.IsTaskReadyToFinish())
+                {
+                    ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
+                }
+            }
+        }
+        else if (isPuttingAway)
+        {
+            // --- GUARDAR O MOP ---
+            CleaningEventController.instance.isMopEquipped = false;
+            SetMopAlpha(1f); // Mostra o mop no cenário novamente
+
+            // Só finaliza a Quest "oficialmente" se as sujeiras estiverem limpas
+            if (CleaningEventController.instance.IsTaskReadyToFinish())
+            {
+                // Desliga o colisor apenas se completou tudo (fim da task)
+                Collider2D col = GetComponent<Collider2D>();
+                if (col != null) col.enabled = false;
+
+                if (ObjectiveFeedback.instance != null)
+                {
+                    ObjectiveFeedback.instance.ForceClearAll();
+                }
+            }
+            // Se não terminou de limpar, o jogador apenas guardou o mop, mas pode pegar de novo depois.
+        }
+
+        ResetInteraction();
     }
 
     private void ResetInteraction()
     {
         isInteracting = false;
-        isInteractingWithMop = false; // Garante que liberta o jogador se ele largar o 'E' a meio
-        holdTimer = 0f;
+        isInteractingWithMop = false;
+        holdTimer = 0f;
+
         if (progressMaterial != null) progressMaterial.SetFloat(percentageProperty, 0f);
         if (progressBarObj != null) progressBarObj.SetActive(false);
 
-        if (inRange && (!CleaningEventController.instance.isMopEquipped || CleaningEventController.instance.IsTaskReadyToFinish()))
-            if (interactionIcon != null) interactionIcon.SetActive(true);
+        if (inRange) UpdateIconVisibility();
     }
 
-    // Função que altera apenas a transparência do SpriteRenderer
-    private void SetMopAlpha(float alpha)
+    private void UpdateIconVisibility()
+    {
+        if (interactionIcon == null) return;
+
+        // Lógica simples: Se estou no alcance e não estou interagindo, mostre o ícone.
+        // O jogador sempre pode interagir (pegar ou guardar)
+        interactionIcon.SetActive(true);
+    }
+
+    private void UpdateProgressBar()
+    {
+        if (progressMaterial != null)
+            progressMaterial.SetFloat(percentageProperty, (holdTimer / timeToInteract) * 100f);
+    }
+
+    private void SetMopAlpha(float alpha)
     {
         if (mopVisuals != null)
         {

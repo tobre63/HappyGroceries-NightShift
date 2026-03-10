@@ -36,21 +36,26 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // VERIFICAÇÃO DE BLOQUEIO ATUALIZADA
+        // Agora checa tanto o sistema antigo (DirtZoneInteractable) quanto o novo (CleaningEventController)
         bool isBlocked = NPCInteraction.isPlayerTalking
                || BoxInteractable.isPickingUpBox
                || ShelfInteractable.isPlacingBox
                || MopInteractable.isInteractingWithMop
-               || DirtZoneInteractable.isCleaningDirt
+               || DirtZoneInteractable.isCleaningDirt  // MANTIDO (Sistema Antigo)
+               || (CleaningEventController.instance != null && CleaningEventController.instance.isCleaningDirt) // ADICIONADO (Sistema Novo)
                || BottleInteractable.isPickingUpBottle
                || CocaColaSpillEvent.isSpillEventActive;
 
         if (isBlocked)
         {
-            input = Vector2.zero; // Garante que o FixedUpdate também para
-            anim.speed = 1;
+            input = Vector2.zero; // Garante que para o movimento
+            anim.speed = 1;
             anim.SetBool("isMoving", false);
-            anim.SetFloat("moveX", lastDirection.x); // Mantém a direção que estava
-            anim.SetFloat("moveY", lastDirection.y);
+
+            // Mantém a direção que estava olhando
+            anim.SetFloat("moveX", lastDirection.x);
+            anim.SetFloat("moveY", lastDirection.y);
             return;
         }
 
@@ -64,11 +69,13 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        // Leitura de Input (WASD / Setas)
         bool pressLeft = k.aKey.isPressed;
         bool pressRight = k.dKey.isPressed;
         bool pressUp = k.wKey.isPressed;
         bool pressDown = k.sKey.isPressed;
 
+        // Lógica de prioridade de eixo (evita andar na diagonal se não quiser)
         if (input.x != 0 && ((input.x < 0 && pressLeft) || (input.x > 0 && pressRight)))
         {
             input.y = 0;
@@ -105,10 +112,11 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Como input é zerado no Update quando bloqueado, isto para automaticamente
-        rb.linearVelocity = input * speed;
+        // Aplica o movimento na física
+        rb.linearVelocity = input * speed;
     }
 
+    // Toca o som de passos baseado no chão (Tile ou Carpete)
     public void PlayFootstep()
     {
         if (input != Vector2.zero)

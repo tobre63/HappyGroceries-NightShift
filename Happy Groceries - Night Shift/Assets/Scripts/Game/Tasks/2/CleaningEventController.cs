@@ -10,6 +10,11 @@ public class CleaningEventController : MonoBehaviour
     public bool isBottlePickedUp = false;
     public int dirtZonesCleaned = 0;
 
+    
+    [Header("Player State")]
+    [Tooltip("Se verdadeiro, o jogador não deve se mover.")]
+    public bool isCleaningDirt = false;
+   
     [Header("Settings")]
     public int totalDirtZones = 3;
 
@@ -25,7 +30,6 @@ public class CleaningEventController : MonoBehaviour
         {
             if (ObjectiveFeedback.instance != null)
             {
-                // Remove o objetivo antigo e mete o novo
                 ObjectiveFeedback.instance.RemoveSpecificObjective("Clean the scene.");
                 ObjectiveFeedback.instance.SetObjective("Put the mop back.", true);
             }
