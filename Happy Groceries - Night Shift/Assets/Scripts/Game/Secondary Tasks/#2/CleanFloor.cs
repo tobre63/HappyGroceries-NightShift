@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class CleanFloor : MonoBehaviour
 {
+    // ... [Mantém todas as tuas variáveis iniciais e Start/Update/etc. igual] ...
+
     [Header("Configurações")]
     public float timeToClean = 2.0f;
 
@@ -29,7 +31,6 @@ public class CleanFloor : MonoBehaviour
     {
         if (!isPlayerInside) return;
 
-        // Verifica se tem o Mop equipado
         bool hasMop = CleaningEventController.instance.isMopEquipped;
 
         if (!hasMop)
@@ -88,9 +89,15 @@ public class CleanFloor : MonoBehaviour
 
     private void CleanDirt()
     {
-        // Liberta o jogador e destrói a sujidade (apenas tarefa secundária)
         if (CleaningEventController.instance != null)
             CleaningEventController.instance.isCleaningDirt = false;
+
+        // AVISA O TASK CONTROLLER DA MISSÃO SECUNDÁRIA!
+        if (MopTaskController.instance != null && MopTaskController.instance.isQuestActive)
+        {
+            MopTaskController.instance.dirtCleanedCount++;
+            MopTaskController.instance.CheckProgress();
+        }
 
         Destroy(gameObject);
     }

@@ -11,7 +11,6 @@ public class ClothInteractable : MonoBehaviour
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // Vari�vel est�tica para o script do Jogador ler
     public static bool isInteractingWithCloth = false;
 
     private bool inRange = false;
@@ -20,7 +19,6 @@ public class ClothInteractable : MonoBehaviour
     private Material progressMaterial;
     private SpriteRenderer spriteRenderer;
 
-    // Refer�ncia para parar fisicamente o jogador
     private Rigidbody2D playerRb;
 
     private void Start()
@@ -42,7 +40,7 @@ public class ClothInteractable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = true;
-            playerRb = collision.GetComponent<Rigidbody2D>(); // Guarda o Rigidbody do jogador
+            playerRb = collision.GetComponent<Rigidbody2D>();
             CheckInteractionIcon();
         }
     }
@@ -52,7 +50,7 @@ public class ClothInteractable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = false;
-            playerRb = null; // Limpa a refer�ncia
+            playerRb = null;
             if (interactionIcon != null) interactionIcon.SetActive(false);
             ResetInteraction();
         }
@@ -101,9 +99,8 @@ public class ClothInteractable : MonoBehaviour
     private void StartInteraction()
     {
         isInteracting = true;
-        isInteractingWithCloth = true; // Bloqueia o input no player
+        isInteractingWithCloth = true;
 
-        // Para o jogador fisicamente no momento em que aperta o E
         if (playerRb != null)
         {
             playerRb.linearVelocity = Vector2.zero;
@@ -116,12 +113,19 @@ public class ClothInteractable : MonoBehaviour
     private void FinishInteraction(bool pickingUp, bool puttingAway)
     {
         isInteracting = false;
-        isInteractingWithCloth = false; // Liberta o player
+        isInteractingWithCloth = false;
 
         if (pickingUp)
         {
             TaskManager.instance.hasCloth = true;
             SetVisuals(false);
+
+            // AVISA O TASK CONTROLLER
+            if (ClothTaskController.instance != null)
+            {
+                ClothTaskController.instance.isClothPickedUp = true;
+                ClothTaskController.instance.CheckProgress();
+            }
         }
         else if (puttingAway)
         {
@@ -130,6 +134,13 @@ public class ClothInteractable : MonoBehaviour
 
             Collider2D col = GetComponent<Collider2D>();
             if (col != null) col.enabled = false;
+
+            // AVISA O TASK CONTROLLER
+            if (ClothTaskController.instance != null)
+            {
+                ClothTaskController.instance.isClothPickedUp = false;
+                ClothTaskController.instance.CheckProgress();
+            }
         }
 
         if (progressBarObj != null) progressBarObj.SetActive(false);
@@ -141,7 +152,7 @@ public class ClothInteractable : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            isInteractingWithCloth = false; // Liberta o player se ele soltar o E
+            isInteractingWithCloth = false;
             holdTimer = 0f;
             SetProgress(0f);
 

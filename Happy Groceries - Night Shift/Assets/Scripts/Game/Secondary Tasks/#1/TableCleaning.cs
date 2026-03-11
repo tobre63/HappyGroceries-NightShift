@@ -14,7 +14,6 @@ public class TableCleaningInteractable : MonoBehaviour
     public GameObject playerFloatingTextObj;
     public TMP_Text progressText;
 
-    // Vari�veis de Controle para o script do Jogador ler
     public static bool isCleaningTable = false;
     public static bool isTableClean = false;
 
@@ -24,7 +23,6 @@ public class TableCleaningInteractable : MonoBehaviour
     private int itemsCleaned = 0;
     private bool isCompletelyClean = false;
 
-    // Refer�ncia para parar fisicamente o jogador
     private Rigidbody2D playerRb;
 
     private void Start()
@@ -47,7 +45,7 @@ public class TableCleaningInteractable : MonoBehaviour
         if (collision.CompareTag("Player") && TaskManager.instance.hasCloth)
         {
             inRange = true;
-            playerRb = collision.GetComponent<Rigidbody2D>(); // Guarda o Rigidbody do jogador
+            playerRb = collision.GetComponent<Rigidbody2D>();
 
             if (interactionIcon != null) interactionIcon.SetActive(true);
             UpdateProgressText();
@@ -59,7 +57,7 @@ public class TableCleaningInteractable : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             inRange = false;
-            playerRb = null; // Limpa a refer�ncia
+            playerRb = null;
 
             if (interactionIcon != null) interactionIcon.SetActive(false);
             ResetInteraction();
@@ -96,9 +94,8 @@ public class TableCleaningInteractable : MonoBehaviour
     private void StartCleaning()
     {
         isInteracting = true;
-        isCleaningTable = true; // Bloqueia o input no player
+        isCleaningTable = true;
 
-        // Para o jogador fisicamente no momento em que aperta o E
         if (playerRb != null)
         {
             playerRb.linearVelocity = Vector2.zero;
@@ -133,10 +130,17 @@ public class TableCleaningInteractable : MonoBehaviour
         isTableClean = true;
 
         isInteracting = false;
-        isCleaningTable = false; // Liberta o player
+        isCleaningTable = false;
 
         if (playerFloatingTextObj != null) playerFloatingTextObj.SetActive(false);
         if (interactionIcon != null) interactionIcon.SetActive(false);
+
+        // AVISA O TASK CONTROLLER
+        if (ClothTaskController.instance != null)
+        {
+            ClothTaskController.instance.isTableCleaned = true;
+            ClothTaskController.instance.CheckProgress();
+        }
     }
 
     private void ResetInteraction()
@@ -144,7 +148,7 @@ public class TableCleaningInteractable : MonoBehaviour
         if (isInteracting)
         {
             isInteracting = false;
-            isCleaningTable = false; // Liberta o player se soltar o E
+            isCleaningTable = false;
             cleanTimer = 0f;
 
             if (playerFloatingTextObj != null) playerFloatingTextObj.SetActive(false);

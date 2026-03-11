@@ -19,11 +19,13 @@ public class MopInteractable : MonoBehaviour
     private float holdTimer = 0f;
     private Material progressMaterial;
 
-    // Para rastrear a transição da missão principal
     private bool wasQuestActive = false;
+    private Collider2D mopCollider;
 
     private void Start()
     {
+        mopCollider = GetComponent<Collider2D>();
+
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(false);
         if (progressBarRenderer != null) progressMaterial = progressBarRenderer.material;
@@ -50,11 +52,19 @@ public class MopInteractable : MonoBehaviour
 
     private void Update()
     {
+        // LÓGICA DO COLLIDER: Só está ativo se alguma das missões (Principal ou Secundária) estiver ativa
+        bool mainActive = CleaningEventController.instance != null && CleaningEventController.instance.isQuestActive;
+        bool secActive = MopTaskController.instance != null && MopTaskController.instance.isQuestActive;
+
+        if (mopCollider != null)
+        {
+            mopCollider.enabled = (mainActive || secActive);
+        }
+
         CheckQuestActivation();
 
-        if (!inRange) return;
+        if (!inRange || !mopCollider.enabled) return;
 
-        // Agora usamos as verificações para ambas as ações
         bool canPickUp = CanPickUpMop();
         bool canPutAway = CanPutMopAway();
 
@@ -79,13 +89,14 @@ public class MopInteractable : MonoBehaviour
             }
             else if (isInteracting)
             {
-                ResetInteraction(); // Cancelou antes de preencher a barra
+                ResetInteraction();
             }
         }
     }
 
     private void CheckQuestActivation()
     {
+        // Mantém a tua lógica original da Main Quest intocável
         if (CleaningEventController.instance.isQuestActive && !wasQuestActive)
         {
             wasQuestActive = true;
@@ -108,52 +119,44 @@ public class MopInteractable : MonoBehaviour
         }
     }
 
-    // NOVO: Verifica se o jogador tem motivos para pegar na esfregona
     private bool CanPickUpMop()
     {
-        // Se já tem a esfregona na mão, não pode pegar
         if (CleaningEventController.instance.isMopEquipped) return false;
 
-        // Verifica se há lixo secundário (CleanFloor) na cena
-        bool hasSecondaryTasks = FindObjectsByType<CleanFloor>(FindObjectsSortMode.None).Length > 0;
+        // A Mop pode ser apanhada se: A main quest precisar dela, OU a sec quest precisar dela
+        bool mainNeedsMop = CleaningEventController.instance.isQuestActive && !CleaningEventController.instance.IsTaskReadyToFinish();
+        bool secNeedsMop = MopTaskController.instance != null && MopTaskController.instance.isQuestActive && MopTaskController.instance.dirtCleanedCount < MopTaskController.instance.totalDirtToClean;
 
-        // Verifica se a missão principal está ativa e ainda NÃO foi terminada
-        bool mainQuestNeedsMop = CleaningEventController.instance.isQuestActive && !CleaningEventController.instance.IsTaskReadyToFinish();
-
-        // Só permite pegar se houver pelo menos uma tarefa por fazer
-        return hasSecondaryTasks || mainQuestNeedsMop;
+        return mainNeedsMop || secNeedsMop;
     }
 
     private bool CanPutMopAway()
     {
         if (!CleaningEventController.instance.isMopEquipped) return false;
 
-        if (CleaningEventController.instance.isQuestActive)
-        {
-            // Quest Principal: Só guarda se a tarefa da Coca-Cola estiver limpa
-            return CleaningEventController.instance.IsTaskReadyToFinish();
-        }
-        else
-        {
-            // Quest Secundária: Só guarda se não houver mais chãos sujos (CleanFloor) na cena
-            return FindObjectsByType<CleanFloor>(FindObjectsSortMode.None).Length == 0;
-        }
+        // Se a Mop ainda for precisa para alguma missão, não deixa pousar
+        bool mainNeedsIt = CleaningEventController.instance.isQuestActive && !CleaningEventController.instance.IsTaskReadyToFinish();
+        bool secNeedsIt = MopTaskController.instance != null && MopTaskController.instance.isQuestActive && MopTaskController.instance.dirtCleanedCount < MopTaskController.instance.totalDirtToClean;
+
+        if (mainNeedsIt || secNeedsIt) return false;
+
+        // Se chegou aqui, já ninguém precisa de limpar. Verifica se alguma missão já terminou a limpeza
+        bool mainDone = CleaningEventController.instance.isQuestActive && CleaningEventController.instance.IsTaskReadyToFinish();
+        bool secDone = MopTaskController.instance != null && MopTaskController.instance.isQuestActive && MopTaskController.instance.dirtCleanedCount >= MopTaskController.instance.totalDirtToClean;
+
+        return mainDone || secDone;
     }
 
     private void CheckIconVisibility()
     {
         if (interactionIcon == null) return;
-
-        bool canPickUp = CanPickUpMop();
-        bool canPutAway = CanPutMopAway();
-
-        interactionIcon.SetActive(canPickUp || canPutAway);
+        interactionIcon.SetActive(CanPickUpMop() || CanPutMopAway());
     }
 
     private void StartInteraction()
     {
         isInteracting = true;
-        isInteractingWithMop = true; // Bloqueia movimento
+        isInteractingWithMop = true;
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(true);
@@ -166,9 +169,11 @@ public class MopInteractable : MonoBehaviour
 
         if (isPickingUp)
         {
+            // O estado global do jogador estar com a Mop é controlado pela Main Quest, usamos essa variável
             CleaningEventController.instance.isMopEquipped = true;
             SetMopAlpha(0f);
 
+            // Avisa a Missão Principal
             if (CleaningEventController.instance.isQuestActive && ObjectiveFeedback.instance != null)
             {
                 ObjectiveFeedback.instance.RemoveSpecificObjective("Pick up the mop.");
@@ -177,20 +182,35 @@ public class MopInteractable : MonoBehaviour
                     ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
                 }
             }
+
+            // Avisa a Missão Secundária
+            if (MopTaskController.instance != null && MopTaskController.instance.isQuestActive)
+            {
+                MopTaskController.instance.isMopPickedUp = true;
+                MopTaskController.instance.CheckProgress();
+            }
         }
         else if (isPuttingAway)
         {
             CleaningEventController.instance.isMopEquipped = false;
             SetMopAlpha(1f);
 
+            // Avisa a Missão Principal
             if (CleaningEventController.instance.isQuestActive && ObjectiveFeedback.instance != null)
             {
                 ObjectiveFeedback.instance.ForceClearAll();
             }
+
+            // Avisa a Missão Secundária
+            if (MopTaskController.instance != null && MopTaskController.instance.isQuestActive)
+            {
+                MopTaskController.instance.isMopPickedUp = false;
+                MopTaskController.instance.CheckProgress();
+            }
         }
 
         ResetInteraction();
-        CheckIconVisibility(); // Atualiza o ícone (agora vai desaparecer se as tasks acabarem)
+        CheckIconVisibility();
     }
 
     private void ResetInteraction()

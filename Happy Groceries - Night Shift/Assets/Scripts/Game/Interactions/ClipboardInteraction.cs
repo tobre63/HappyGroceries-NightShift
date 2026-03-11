@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class ClipboardInteraction : MonoBehaviour
 {
-    // --- SETTINGS ---
+    // --- SETTINGS ---
 
-    [Header("UI References")]
+    [Header("UI References")]
     public GameObject eButtonPrompt;
     public GameObject clipboardMenu;
 
@@ -12,27 +12,33 @@ public class ClipboardInteraction : MonoBehaviour
     public KeyCode interactionKey = KeyCode.E;
     public bool closeMenuOnExit = true;
 
-    // --- VARIÁVEIS INTERNAS ---
+    // --- VARIÁVEIS INTERNAS ---
 
-    private bool isPlayerInRange;
+    private bool isPlayerInRange;
 
     void Start()
     {
-        // Garante que a UI começa toda escondida para evitar bugs visuais ao iniciar a cena
-        if (eButtonPrompt != null) eButtonPrompt.SetActive(false);
+        if (eButtonPrompt != null) eButtonPrompt.SetActive(false);
         if (clipboardMenu != null) clipboardMenu.SetActive(false);
     }
 
     void Update()
     {
-        // Se o jogador estiver na área de alcance e pressionar a tecla de interação (ex: 'E')
-        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
+        // Verifica se a missão secundária está ativa
+        bool isQuestActive = (ClothTaskController.instance != null && ClothTaskController.instance.isQuestActive) || (MopTaskController.instance != null && MopTaskController.instance.isQuestActive);
+
+        if (isPlayerInRange && Input.GetKeyDown(interactionKey))
         {
-            ToggleMenu();
+            // Bloqueia ABRIR a clipboard se a quest estiver ativa, mas permite FECHAR se já estiver aberta
+            bool isCurrentlyActive = (clipboardMenu != null && clipboardMenu.activeSelf);
+
+            if (!isQuestActive || isCurrentlyActive)
+            {
+                ToggleMenu();
+            }
         }
 
-        // Permite fechar o menu diretamente pressionando a tecla ESC
-        if (clipboardMenu != null && clipboardMenu.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+        if (clipboardMenu != null && clipboardMenu.activeSelf && Input.GetKeyDown(KeyCode.Escape))
         {
             CloseMenu();
         }
@@ -40,8 +46,7 @@ public class ClipboardInteraction : MonoBehaviour
 
     private void ToggleMenu()
     {
-        // Alterna o estado do menu dependendo se este já se encontra aberto ou fechado
-        if (clipboardMenu != null)
+        if (clipboardMenu != null)
         {
             bool isCurrentlyActive = clipboardMenu.activeSelf;
 
@@ -60,65 +65,65 @@ public class ClipboardInteraction : MonoBehaviour
     {
         if (clipboardMenu != null)
         {
-            // Mostra o menu do clipboard no ecrã
-            clipboardMenu.SetActive(true);
+            clipboardMenu.SetActive(true);
 
-            // Esconde a indicação visual da tecla de interação para não poluir o ecrã durante a leitura
-            if (eButtonPrompt != null)
+            if (eButtonPrompt != null)
             {
                 eButtonPrompt.SetActive(false);
             }
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
-    private void CloseMenu()
+    // Mudei para PUBLIC para o ClothTaskController conseguir fechar o menu
+    public void CloseMenu()
     {
         if (clipboardMenu != null)
         {
-            // Esconde o menu do clipboard
-            clipboardMenu.SetActive(false);
+            clipboardMenu.SetActive(false);
 
-            // Volta a exibir a indicação visual da tecla caso o jogador ainda se encontre perto da mesa/objeto
-            if (eButtonPrompt != null && isPlayerInRange)
+            if (eButtonPrompt != null && isPlayerInRange)
             {
                 eButtonPrompt.SetActive(true);
             }
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
-    // --- FÍSICA E COLISÕES (2D) ---
+    // --- FÍSICA E COLISÕES (2D) ---
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Valida se a colisão foi feita pelo Jogador usando a Tag e o Nome exato do GameObject
-        // Esta dupla verificação ajuda a prevenir bugs com colisores invisíveis ou "filhos" do jogador (ex: áreas de ataque ou de deteção do jogador)
-        if (collision.CompareTag("Player") && collision.gameObject.name == "Player")
+        if (collision.CompareTag("Player") && collision.gameObject.name == "Player")
         {
             isPlayerInRange = true;
 
-            // Mostra o botão de interação apenas se o menu principal ainda não estiver aberto
-            if (eButtonPrompt != null && (clipboardMenu == null || !clipboardMenu.activeSelf))
+            if (eButtonPrompt != null && (clipboardMenu == null || !clipboardMenu.activeSelf))
             {
-                eButtonPrompt.SetActive(true);
+                // Só mostra o botão E se não houver missão ativa
+                bool isQuestActive = (ClothTaskController.instance != null && ClothTaskController.instance.isQuestActive);
+                if (!isQuestActive)
+                {
+                    eButtonPrompt.SetActive(true);
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        // Valida novamente a saída do Jogador com a Tag e o Nome exato
-        if (collision.CompareTag("Player") && collision.gameObject.name == "Player")
+        if (collision.CompareTag("Player") && collision.gameObject.name == "Player")
         {
             isPlayerInRange = false;
 
-            // Esconde imediatamente a indicação visual da tecla de interação
-            if (eButtonPrompt != null)
+            if (eButtonPrompt != null)
             {
                 eButtonPrompt.SetActive(false);
             }
 
-            // Se a opção estiver ativa, fecha o menu de forma automática quando o jogador se afasta
-            if (closeMenuOnExit && clipboardMenu != null)
+            if (closeMenuOnExit && clipboardMenu != null)
             {
                 clipboardMenu.SetActive(false);
             }

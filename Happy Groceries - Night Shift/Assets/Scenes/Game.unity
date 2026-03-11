@@ -1304,7 +1304,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 28798419}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 229679173}
+        m_TargetAssemblyTypeName: MopTaskController, Assembly-CSharp
+        m_MethodName: StartMopTask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &38924969
 GameObject:
   m_ObjectHideFlags: 0
@@ -7067,8 +7079,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1544841500}
-  - {fileID: 507851150}
+  - {fileID: 718037975}
   - {fileID: 561562205}
   - {fileID: 51923034}
   - {fileID: 863809602}
@@ -7465,7 +7476,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207616907}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 229679171}
+        m_TargetAssemblyTypeName: ClothTaskController, Assembly-CSharp
+        m_MethodName: StartClothTask
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &214185283
 GameObject:
   m_ObjectHideFlags: 0
@@ -7800,6 +7823,9 @@ GameObject:
   - component: {fileID: 229679168}
   - component: {fileID: 229679169}
   - component: {fileID: 229679170}
+  - component: {fileID: 229679171}
+  - component: {fileID: 229679172}
+  - component: {fileID: 229679173}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -7987,6 +8013,56 @@ MonoBehaviour:
   dirtZonesCleaned: 0
   isCleaningDirt: 0
   totalDirtZones: 3
+--- !u!114 &229679171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229679163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff45a9c5b70ec46a47beaf3f0bbf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SecondaryTaskManager
+  isQuestActive: 0
+  isClothPickedUp: 0
+  isTableCleaned: 0
+  clothCollider: {fileID: 1544841502}
+  taskButton: {fileID: 207616909}
+  taskText: {fileID: 207616907}
+--- !u!114 &229679172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229679163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a21fc9fff798144cb8254d9a11fb5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SecondaryObjectiveFeedback
+  secondaryObjectiveText: {fileID: 694226878}
+  fadeDuration: 0.3
+--- !u!114 &229679173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229679163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068596ff72090c84e8e92d43041c2fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MopTaskController
+  isQuestActive: 0
+  isMopPickedUp: 0
+  dirtCleanedCount: 0
+  totalDirtToClean: 10
+  taskButton: {fileID: 28798421}
+  taskText: {fileID: 28798419}
 --- !u!1 &231869509
 GameObject:
   m_ObjectHideFlags: 0
@@ -10419,7 +10495,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '- Put out the trash.'
+  m_text: '
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 87517ca67bba77d418da30123ad36a6a, type: 2}
   m_sharedMaterial: {fileID: -6755059722266319230, guid: 87517ca67bba77d418da30123ad36a6a, type: 2}
@@ -11494,7 +11572,7 @@ GameObject:
   - component: {fileID: 507851152}
   - component: {fileID: 507851151}
   m_Layer: 7
-  m_Name: 2TaskClearCounter
+  m_Name: ClearCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11523,7 +11601,7 @@ Transform:
   - {fileID: 162911276}
   - {fileID: 2101724019}
   - {fileID: 27639830}
-  m_Father: {fileID: 197586374}
+  m_Father: {fileID: 718037975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &507851151
 MonoBehaviour:
@@ -15544,6 +15622,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 709416504}
   m_CullTransparentMesh: 1
+--- !u!1 &718037974
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 718037975}
+  m_Layer: 0
+  m_Name: ClothTask
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &718037975
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 718037974}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1544841500}
+  - {fileID: 507851150}
+  m_Father: {fileID: 197586374}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &725153330
 GameObject:
   m_ObjectHideFlags: 0
@@ -25268,11 +25379,11 @@ Transform:
   m_GameObject: {fileID: 1544841499}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9, y: 0.9, z: 0}
+  m_LocalPosition: {x: 0.9, y: 0.9000001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 197586374}
+  m_Father: {fileID: 718037975}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1544841501
 MonoBehaviour:
