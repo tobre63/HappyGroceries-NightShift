@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 96c61d052861aea4997fca2f23b20f35
+guid: 8383f77085b3a95409b8594b3f4ad0ed
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6327218972949892195
-    second: Task2.2_0
+      213: 8820929716330158269
+    second: Trash1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +100,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Task2.2_0
+      name: Trash1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 15
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d93b53dfdd33138a0800000000000000
-      internalID: -6327218972949892195
+      spriteID: db8db8a77dc3a6a70800000000000000
+      internalID: 8820929716330158269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Trash1_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eab68d96137e5eb43b484274d7a8da5e
+      internalID: 1259312533
       vertices: []
       indices: 
       edges: []
@@ -125,7 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 3cb31b57a022e6f4c99625a28e3fad3e
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +155,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":21.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.30000001192092898},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Task2.2_0: -6327218972949892195
+      Trash1_0: 8820929716330158269
+      Trash1_1: 1259312533
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
