@@ -6,19 +6,21 @@ public class MopInteractable : MonoBehaviour
     public float timeToInteract = 1.5f;
 
     [Header("Referências Visuais")]
-    public GameObject mopVisuals; // Sprite do Mop no chão/parede
+    public GameObject mopVisuals;
     public GameObject interactionIcon;
     public GameObject progressBarObj;
     public Renderer progressBarRenderer;
     public string percentageProperty = "_Percentage";
 
-    // VARIÁVEL GLOBAL PARA PARAR O MOVIMENTO DO JOGADOR
     public static bool isInteractingWithMop = false;
 
     private bool inRange = false;
     private bool isInteracting = false;
     private float holdTimer = 0f;
     private Material progressMaterial;
+
+    // Para rastrear a transição da missão principal
+    private bool wasQuestActive = false;
 
     private void Start()
     {
@@ -29,12 +31,10 @@ public class MopInteractable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // REMOVIDO: if (!CleaningEventController.instance.isQuestActive) return;
-
         if (collision.CompareTag("Player"))
         {
             inRange = true;
-            UpdateIconVisibility();
+            CheckIconVisibility();
         }
     }
 
@@ -50,27 +50,24 @@ public class MopInteractable : MonoBehaviour
 
     private void Update()
     {
-        // REMOVIDO: if (!CleaningEventController.instance.isQuestActive) ...
+        CheckQuestActivation();
+
         if (!inRange) return;
 
-        // LÓGICA ATUALIZADA:
-        // Pode pegar se não tiver equipado.
-        bool canPickUp = !CleaningEventController.instance.isMopEquipped;
+        // Agora usamos as verificações para ambas as ações
+        bool canPickUp = CanPickUpMop();
+        bool canPutAway = CanPutMopAway();
 
-        // Pode guardar se tiver equipado (removemos a restrição de IsTaskReadyToFinish aqui para não travar o jogador)
-        bool canPutAway = CleaningEventController.instance.isMopEquipped;
-
-        // Atualiza ícone dinamicamente caso o estado mude enquanto o jogador está parado dentro do trigger
-        if (!isInteracting) UpdateIconVisibility();
+        if (!isInteracting)
+        {
+            CheckIconVisibility();
+        }
 
         if (canPickUp || canPutAway)
         {
             if (Input.GetKey(KeyCode.E))
             {
-                if (!isInteracting)
-                {
-                    StartInteraction();
-                }
+                if (!isInteracting) StartInteraction();
 
                 holdTimer += Time.deltaTime;
                 UpdateProgressBar();
@@ -82,15 +79,81 @@ public class MopInteractable : MonoBehaviour
             }
             else if (isInteracting)
             {
-                ResetInteraction(); // Soltou a tecla antes da hora
+                ResetInteraction(); // Cancelou antes de preencher a barra
             }
         }
+    }
+
+    private void CheckQuestActivation()
+    {
+        if (CleaningEventController.instance.isQuestActive && !wasQuestActive)
+        {
+            wasQuestActive = true;
+
+            if (CleaningEventController.instance.isMopEquipped)
+            {
+                if (ObjectiveFeedback.instance != null)
+                {
+                    ObjectiveFeedback.instance.RemoveSpecificObjective("Pick up the mop.");
+                    if (!CleaningEventController.instance.IsTaskReadyToFinish())
+                    {
+                        ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
+                    }
+                }
+            }
+        }
+        else if (!CleaningEventController.instance.isQuestActive && wasQuestActive)
+        {
+            wasQuestActive = false;
+        }
+    }
+
+    // NOVO: Verifica se o jogador tem motivos para pegar na esfregona
+    private bool CanPickUpMop()
+    {
+        // Se já tem a esfregona na mão, não pode pegar
+        if (CleaningEventController.instance.isMopEquipped) return false;
+
+        // Verifica se há lixo secundário (CleanFloor) na cena
+        bool hasSecondaryTasks = FindObjectsByType<CleanFloor>(FindObjectsSortMode.None).Length > 0;
+
+        // Verifica se a missão principal está ativa e ainda NÃO foi terminada
+        bool mainQuestNeedsMop = CleaningEventController.instance.isQuestActive && !CleaningEventController.instance.IsTaskReadyToFinish();
+
+        // Só permite pegar se houver pelo menos uma tarefa por fazer
+        return hasSecondaryTasks || mainQuestNeedsMop;
+    }
+
+    private bool CanPutMopAway()
+    {
+        if (!CleaningEventController.instance.isMopEquipped) return false;
+
+        if (CleaningEventController.instance.isQuestActive)
+        {
+            // Quest Principal: Só guarda se a tarefa da Coca-Cola estiver limpa
+            return CleaningEventController.instance.IsTaskReadyToFinish();
+        }
+        else
+        {
+            // Quest Secundária: Só guarda se não houver mais chãos sujos (CleanFloor) na cena
+            return FindObjectsByType<CleanFloor>(FindObjectsSortMode.None).Length == 0;
+        }
+    }
+
+    private void CheckIconVisibility()
+    {
+        if (interactionIcon == null) return;
+
+        bool canPickUp = CanPickUpMop();
+        bool canPutAway = CanPutMopAway();
+
+        interactionIcon.SetActive(canPickUp || canPutAway);
     }
 
     private void StartInteraction()
     {
         isInteracting = true;
-        isInteractingWithMop = true; // Bloqueia Jogador
+        isInteractingWithMop = true; // Bloqueia movimento
 
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(true);
@@ -99,19 +162,16 @@ public class MopInteractable : MonoBehaviour
     private void FinishInteraction(bool isPickingUp, bool isPuttingAway)
     {
         isInteracting = false;
-        isInteractingWithMop = false; // Libera Jogador
+        isInteractingWithMop = false;
 
         if (isPickingUp)
         {
-            // --- PEGAR O MOP ---
             CleaningEventController.instance.isMopEquipped = true;
-            SetMopAlpha(0f); // Esconde o mop do cenário
+            SetMopAlpha(0f);
 
-            // Atualiza objetivos se o sistema existir
-            if (ObjectiveFeedback.instance != null)
+            if (CleaningEventController.instance.isQuestActive && ObjectiveFeedback.instance != null)
             {
                 ObjectiveFeedback.instance.RemoveSpecificObjective("Pick up the mop.");
-                // Adiciona o objetivo de limpar apenas se ainda não tiver limpado tudo
                 if (!CleaningEventController.instance.IsTaskReadyToFinish())
                 {
                     ObjectiveFeedback.instance.SetObjective("Clean the scene.", true);
@@ -120,26 +180,17 @@ public class MopInteractable : MonoBehaviour
         }
         else if (isPuttingAway)
         {
-            // --- GUARDAR O MOP ---
             CleaningEventController.instance.isMopEquipped = false;
-            SetMopAlpha(1f); // Mostra o mop no cenário novamente
+            SetMopAlpha(1f);
 
-            // Só finaliza a Quest "oficialmente" se as sujeiras estiverem limpas
-            if (CleaningEventController.instance.IsTaskReadyToFinish())
+            if (CleaningEventController.instance.isQuestActive && ObjectiveFeedback.instance != null)
             {
-                // Desliga o colisor apenas se completou tudo (fim da task)
-                Collider2D col = GetComponent<Collider2D>();
-                if (col != null) col.enabled = false;
-
-                if (ObjectiveFeedback.instance != null)
-                {
-                    ObjectiveFeedback.instance.ForceClearAll();
-                }
+                ObjectiveFeedback.instance.ForceClearAll();
             }
-            // Se não terminou de limpar, o jogador apenas guardou o mop, mas pode pegar de novo depois.
         }
 
         ResetInteraction();
+        CheckIconVisibility(); // Atualiza o ícone (agora vai desaparecer se as tasks acabarem)
     }
 
     private void ResetInteraction()
@@ -151,16 +202,7 @@ public class MopInteractable : MonoBehaviour
         if (progressMaterial != null) progressMaterial.SetFloat(percentageProperty, 0f);
         if (progressBarObj != null) progressBarObj.SetActive(false);
 
-        if (inRange) UpdateIconVisibility();
-    }
-
-    private void UpdateIconVisibility()
-    {
-        if (interactionIcon == null) return;
-
-        // Lógica simples: Se estou no alcance e não estou interagindo, mostre o ícone.
-        // O jogador sempre pode interagir (pegar ou guardar)
-        interactionIcon.SetActive(true);
+        if (inRange) CheckIconVisibility();
     }
 
     private void UpdateProgressBar()
