@@ -8,6 +8,8 @@ public class TaskManager : MonoBehaviour
     // 1 será a Caixa 1, 2 será a Caixa 2.
     public int currentBoxHeldID = 0;
     public bool hasCloth = false;
+    public bool hasTrash = false;
+
 
     public static TaskManager instance;
 

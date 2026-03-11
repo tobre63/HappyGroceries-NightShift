@@ -3,52 +3,56 @@ using TMPro;
 
 public class NightTimer : MonoBehaviour
 {
+    public static NightTimer instance; // Singleton para acesso global
+
     [Header("UI Settings")]
-    [SerializeField] private TMP_Text timeText;  // Texto onde o tempo vai ser mostrado
+    [SerializeField] private TMP_Text timeText;
 
-    [Header("Night Duration")]
-    [SerializeField] private float nightDurationInSeconds = 60f; // Quanto tempo dura a noite na vida real
+    [Header("Night Duration")]
+    [SerializeField] private float nightDurationInSeconds = 60f;
 
-    [Header("Time Control")]
-    [Range(23f, 29f)] // Slider para facilitar testes
-    public float currentTime = 23f; // Hora atual (22 = 22:00, 24 = 00:00, 25 = 01:00, 30 = 06:00)
+    [Header("Time Control")]
+    [Range(23f, 29f)]
+    public float currentTime = 23f; // 23=23:00, 24=00:00, 30=06:00
 
-    private float timeMultiplier;
-    private const float END_TIME = 29f; // 30 representa 06:00 da manha (24 + 6)
+    private float timeMultiplier;
+    private const float END_TIME = 29f;
 
-    void Start()
+    private void Awake()
     {
-        // Calcula a velocidade do tempo com base na duracao escolhida
-        // Noite vai das 22h as 30h (8 horas de jogo)
-        timeMultiplier = 6f / nightDurationInSeconds;
+        // Cria a instância global
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        timeMultiplier = 6f / nightDurationInSeconds;
     }
 
     void Update()
     {
-        // Avanca o tempo se ainda nao chegou as 06:00
-        if (currentTime < END_TIME)
+        if (currentTime < END_TIME)
         {
             currentTime += Time.deltaTime * timeMultiplier;
         }
         else
         {
-            // Para exatamente as 06:00
-            currentTime = END_TIME;
-            // Aqui podes adicionar codigo para "Victory" ou "End of Night"
-        }
+            currentTime = END_TIME;
+            // Fim da noite
+        }
 
         UpdateClockUI();
     }
 
     void UpdateClockUI()
     {
-        // Faz o "loop" do relogio usando modulo 24
-        float displayHour = currentTime % 24;
+        if (timeText == null) return;
 
+        float displayHour = currentTime % 24;
         int hours = Mathf.FloorToInt(displayHour);
         int minutes = Mathf.FloorToInt((displayHour - hours) * 60);
 
-        // Formata como 00:00
-        timeText.text = string.Format("{0:00}:{1:00}", hours, minutes);
+        timeText.text = string.Format("{0:00}:{1:00}", hours, minutes);
     }
 }
