@@ -71,6 +71,7 @@ public class ClipboardInteraction : MonoBehaviour
             {
                 eButtonPrompt.SetActive(false);
             }
+
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -87,6 +88,7 @@ public class ClipboardInteraction : MonoBehaviour
             {
                 eButtonPrompt.SetActive(true);
             }
+
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }

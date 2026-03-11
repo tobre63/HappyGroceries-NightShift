@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 6203092}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.91, y: -0.8, z: 0}
+  m_LocalPosition: {x: -2.91, y: -1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1305,7 +1305,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 229679173}
+      - m_Target: {fileID: 1605190390}
         m_TargetAssemblyTypeName: MopTaskController, Assembly-CSharp
         m_MethodName: StartMopTask
         m_Mode: 1
@@ -7477,7 +7477,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 229679171}
+      - m_Target: {fileID: 1605190391}
         m_TargetAssemblyTypeName: ClothTaskController, Assembly-CSharp
         m_MethodName: StartClothTask
         m_Mode: 1
@@ -7822,9 +7822,8 @@ GameObject:
   - component: {fileID: 229679164}
   - component: {fileID: 229679168}
   - component: {fileID: 229679169}
-  - component: {fileID: 229679170}
-  - component: {fileID: 229679171}
   - component: {fileID: 229679172}
+  - component: {fileID: 229679170}
   - component: {fileID: 229679173}
   m_Layer: 0
   m_Name: GameManager
@@ -8014,7 +8013,7 @@ MonoBehaviour:
   dirtZonesCleaned: 0
   isCleaningDirt: 0
   totalDirtZones: 3
---- !u!114 &229679171
+--- !u!114 &229679172
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8023,63 +8022,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 229679163}
   m_Enabled: 1
   m_EditorHideFlags: 0
-m_Script: {fileID: 11500000, guid: f4ff45a9c5b70ec46a47beaf3f0bbf33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SecondaryTaskManager
-  isQuestActive: 0
-  isClothPickedUp: 0
-  isTableCleaned: 0
-  clothCollider: {fileID: 1544841502}
-  taskButton: {fileID: 207616909}
-  taskText: {fileID: 207616907}
---- !u!114 &229679172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229679163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a21fc9fff798144cb8254d9a11fb5f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SecondaryObjectiveFeedback
-  secondaryObjectiveText: {fileID: 694226878}
-  fadeDuration: 0.3
+  m_Script: {fileID: 11500000, guid: 8a21fc9fff798144cb8254d9a11fb5f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondaryObjectiveText: {fileID: 694226878}
+  fadeDuration: 0.3
 --- !u!114 &229679173
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229679163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 068596ff72090c84e8e92d43041c2fc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MopTaskController
-  isQuestActive: 0
-  isMopPickedUp: 0
-  dirtCleanedCount: 0
-  totalDirtToClean: 10
-  taskButton: {fileID: 28798421}
-  taskText: {fileID: 28798419}
---- !u!114 &229679174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229679163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95c5a18268867344ab3fb5dbf7d580b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TrashEventController
-  questStartHour: 25
-  totalTrashCans: 2
-  isQuestActive: 0
-  isTaskCompleted: 0
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 229679163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95c5a18268867344ab3fb5dbf7d580b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TrashEventController
+  questStartHour: 26
+  totalTrashCans: 2
+  isQuestActive: 0
+  isTaskCompleted: 0
 --- !u!1 &231869509
 GameObject:
   m_ObjectHideFlags: 0
@@ -16993,7 +16956,7 @@ Transform:
   m_GameObject: {fileID: 855741281}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.5, y: -2.75, z: 0}
+  m_LocalPosition: {x: -0.7, y: -3.25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26732,6 +26695,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1474093350}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1605190388
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1605190389}
+  - component: {fileID: 1605190391}
+  - component: {fileID: 1605190390}
+  m_Layer: 0
+  m_Name: SecondaryTasks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1605190389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605190388}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1816744624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1605190390
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605190388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068596ff72090c84e8e92d43041c2fc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isQuestActive: 0
+  isMopPickedUp: 0
+  dirtCleanedCount: 0
+  totalDirtToClean: 10
+  taskButton: {fileID: 28798421}
+  taskText: {fileID: 28798419}
+--- !u!114 &1605190391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1605190388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4ff45a9c5b70ec46a47beaf3f0bbf33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isQuestActive: 0
+  isClothPickedUp: 0
+  isTableCleaned: 0
+  clothCollider: {fileID: 1544841502}
+  taskButton: {fileID: 207616909}
+  taskText: {fileID: 207616907}
 --- !u!1 &1615479245
 GameObject:
   m_ObjectHideFlags: 0
@@ -29705,6 +29737,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1605190389}
   - {fileID: 229679165}
   - {fileID: 1043156980}
   - {fileID: 299639613}
@@ -34324,7 +34357,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102991164}
   m_Layer: 7
-  m_Name: 2TaskTrash
+  m_Name: TaskTrash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

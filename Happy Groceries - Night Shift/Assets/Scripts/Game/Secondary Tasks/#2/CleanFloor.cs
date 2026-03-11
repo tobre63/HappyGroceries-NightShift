@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class CleanFloor : MonoBehaviour
 {
-    // ... [Mantém todas as tuas variáveis iniciais e Start/Update/etc. igual] ...
-
     [Header("Configurações")]
     public float timeToClean = 2.0f;
 
@@ -31,9 +29,14 @@ public class CleanFloor : MonoBehaviour
     {
         if (!isPlayerInside) return;
 
+        // Verifica se tem o Mop equipado através do controller principal
         bool hasMop = CleaningEventController.instance.isMopEquipped;
 
-        if (!hasMop)
+        // Verifica se a missão secundária está ativa
+        bool isSecQuestActive = MopTaskController.instance != null && MopTaskController.instance.isQuestActive;
+
+        // Se não tiver a mop OU se a missão secundária ainda não começou, não faz nada
+        if (!hasMop || !isSecQuestActive)
         {
             if (isInteracting) ResetInteraction();
             if (interactionIcon != null) interactionIcon.SetActive(false);
@@ -71,6 +74,7 @@ public class CleanFloor : MonoBehaviour
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(true);
 
+        // Bloqueia o jogador
         if (CleaningEventController.instance != null)
             CleaningEventController.instance.isCleaningDirt = true;
     }
@@ -83,12 +87,14 @@ public class CleanFloor : MonoBehaviour
         if (progressBarObj != null) progressBarObj.SetActive(false);
         if (progressMaterial != null) progressMaterial.SetFloat(percentageProperty, 0f);
 
+        // Liberta o jogador
         if (CleaningEventController.instance != null)
             CleaningEventController.instance.isCleaningDirt = false;
     }
 
     private void CleanDirt()
     {
+        // Liberta o jogador 
         if (CleaningEventController.instance != null)
             CleaningEventController.instance.isCleaningDirt = false;
 
@@ -99,6 +105,7 @@ public class CleanFloor : MonoBehaviour
             MopTaskController.instance.CheckProgress();
         }
 
+        // Destrói a sujidade
         Destroy(gameObject);
     }
 
