@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
@@ -36,18 +35,19 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // VERIFICAÇÃO DE BLOQUEIO ATUALIZADA
-        // Agora checa tanto o sistema antigo (DirtZoneInteractable) quanto o novo (CleaningEventController)
+        // VERIFICAÇÃO DE BLOQUEIO ATUALIZADA - Adicionado o TrashInteractable
         bool isBlocked = NPCInteraction.isPlayerTalking
                || BoxInteractable.isPickingUpBox
                || ShelfInteractable.isPlacingBox
                || MopInteractable.isInteractingWithMop
-               || DirtZoneInteractable.isCleaningDirt  // MANTIDO (Sistema Antigo)
-               || (CleaningEventController.instance != null && CleaningEventController.instance.isCleaningDirt) // ADICIONADO (Sistema Novo)
+               || DirtZoneInteractable.isCleaningDirt
+               || (CleaningEventController.instance != null && CleaningEventController.instance.isCleaningDirt)
                || BottleInteractable.isPickingUpBottle
                || CocaColaSpillEvent.isSpillEventActive
                || ClothInteractable.isInteractingWithCloth
-               || TableCleaningInteractable.isCleaningTable;
+               || TableCleaningInteractable.isCleaningTable
+               || TrashInteractable.isInteractingWithTrash
+               || (TrashEventController.instance != null && TrashEventController.instance.isKillerEventActive);// NOVA FLAG AQUI
 
         if (isBlocked)
         {
@@ -62,7 +62,6 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.speed = 1;
-
         var k = Keyboard.current;
 
         if (k == null)
@@ -71,13 +70,11 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Leitura de Input (WASD / Setas)
         bool pressLeft = k.aKey.isPressed;
         bool pressRight = k.dKey.isPressed;
         bool pressUp = k.wKey.isPressed;
         bool pressDown = k.sKey.isPressed;
 
-        // Lógica de prioridade de eixo (evita andar na diagonal se não quiser)
         if (input.x != 0 && ((input.x < 0 && pressLeft) || (input.x > 0 && pressRight)))
         {
             input.y = 0;
@@ -89,7 +86,6 @@ public class PlayerController : MonoBehaviour
         else
         {
             input = Vector2.zero;
-
             if (pressLeft) input.x = -1;
             else if (pressRight) input.x = 1;
             else if (pressDown) input.y = -1;
@@ -114,25 +110,20 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Aplica o movimento na física
         rb.linearVelocity = input * speed;
     }
 
-    // Toca o som de passos baseado no chão (Tile ou Carpete)
     public void PlayFootstep()
     {
         if (input != Vector2.zero)
         {
             Collider2D hit = Physics2D.OverlapCircle(transform.position, 0.2f, floorLayer);
-
             AudioClip clipToPlay = defaultFootstep;
 
             if (hit != null)
             {
-                if (hit.CompareTag("Carpet"))
-                    clipToPlay = carpetFootstep;
-                else if (hit.CompareTag("Tiles"))
-                    clipToPlay = tilesFootstep;
+                if (hit.CompareTag("Carpet")) clipToPlay = carpetFootstep;
+                else if (hit.CompareTag("Tiles")) clipToPlay = tilesFootstep;
             }
 
             audioSource.pitch = Random.Range(0.9f, 1.1f);

@@ -1,13 +1,14 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(AudioSource))]
+// Removi o [RequireComponent(typeof(AudioSource))] porque vamos usar o GameObject externo!
 public class CocaColaSpillEvent : MonoBehaviour
 {
     [Header("Visuals & Audio")]
     public GameObject[] spillObjects;
-    public AudioClip jumpscareSound;
-    private AudioSource audioSource;
+
+    [Tooltip("Arrasta para aqui o teu GameObject Vazio com o AudioSource 2D do Jumpscare")]
+    public AudioSource jumpscareAudioSource; // <-- A nova variável para o teu GameObject 2D!
 
     [Header("Camera Focus Settings")]
     public Camera mainCamera;
@@ -15,8 +16,8 @@ public class CocaColaSpillEvent : MonoBehaviour
     public float zoomDuration = 0.15f;
     public Vector2 focusOffset = new Vector2(0f, 0.5f);
 
-    // NOVO: A força do tremor da câmara durante o susto!
-    [Header("Screen Shake Settings")]
+    // NOVO: A força do tremor da câmara durante o susto!
+    [Header("Screen Shake Settings")]
     public float shakeMagnitude = 0.3f;
 
     [Header("Creepy Dialogue")]
@@ -31,7 +32,7 @@ public class CocaColaSpillEvent : MonoBehaviour
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        // Já não precisamos de ir buscar o AudioSource local aqui
         npcInteraction = GetComponent<NPCInteraction>();
 
         if (mainCamera == null) mainCamera = Camera.main;
@@ -67,10 +68,14 @@ public class CocaColaSpillEvent : MonoBehaviour
             originalCameraPosition = mainCamera.transform.position;
         }
 
-        if (jumpscareSound != null)
+        // --- TOCA O SOM DE JUMPSCARE 2D AQUI ---
+        if (jumpscareAudioSource != null)
         {
-            audioSource.pitch = 1f;
-            audioSource.PlayOneShot(jumpscareSound);
+            jumpscareAudioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Falta arrastar o GameObject do Jumpscare da Coca-Cola no Inspector!");
         }
 
         NPCController npcCtrl = GetComponent<NPCController>();
@@ -95,8 +100,8 @@ public class CocaColaSpillEvent : MonoBehaviour
             float t = 0f;
             Vector3 targetPosition = new Vector3(transform.position.x + focusOffset.x, transform.position.y + focusOffset.y, originalCameraPosition.z);
 
-            // 1. FAZ O ZOOM IN SUPER RÁPIDO (Sem tremer, para ser preciso)
-            while (t < zoomDuration)
+            // 1. FAZ O ZOOM IN SUPER RÁPIDO (Sem tremer, para ser preciso)
+            while (t < zoomDuration)
             {
                 t += Time.deltaTime;
                 float normalizedTime = t / zoomDuration;
@@ -105,32 +110,30 @@ public class CocaColaSpillEvent : MonoBehaviour
                 yield return null;
             }
 
-            // Garante que a câmara chegou ao destino exato
-            mainCamera.orthographicSize = zoomInSize;
+            // Garante que a câmara chegou ao destino exato
+            mainCamera.orthographicSize = zoomInSize;
             mainCamera.transform.position = targetPosition;
 
-            // 2. NOVO: O TERRAMOTO! Treme violentamente durante 0.5 segundos (ou mais)
-            float shakeDuration = 0.5f;
+            // 2. NOVO: O TERRAMOTO! Treme violentamente durante 0.5 segundos (ou mais)
+            float shakeDuration = 0.5f;
             float shakeTimer = 0f;
 
             while (shakeTimer < shakeDuration)
             {
                 shakeTimer += Time.deltaTime;
 
-                // Cria uma posição caótica baseada no targetPosition
-                Vector2 randomShake = Random.insideUnitCircle * shakeMagnitude;
+                // Cria uma posição caótica baseada no targetPosition
+                Vector2 randomShake = Random.insideUnitCircle * shakeMagnitude;
                 mainCamera.transform.position = new Vector3(targetPosition.x + randomShake.x, targetPosition.y + randomShake.y, targetPosition.z);
 
                 yield return null;
             }
 
-            // 3. Fim do tremor: volta a estabilizar a câmara antes de o NPC falar
-            mainCamera.transform.position = targetPosition;
+            // 3. Fim do tremor: volta a estabilizar a câmara antes de o NPC falar
+            mainCamera.transform.position = targetPosition;
         }
 
-        // Já não precisamos do WaitForSeconds(0.5f) solto aqui, porque o tremor já ocupou esse tempo!
-
-        npcInteraction.dialogueNodes = new DialogueNode[] { creepyDialogue };
+        npcInteraction.dialogueNodes = new DialogueNode[] { creepyDialogue };
         npcInteraction.StartDialogue();
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+// Mantemos este RequireComponent porque a casa de banho AINDA precisa de um som 3D local
 [RequireComponent(typeof(AudioSource))]
 public class ChildBathroomEvent : MonoBehaviour
 {
@@ -9,33 +10,35 @@ public class ChildBathroomEvent : MonoBehaviour
 
     [Header("Objective Settings")]
     public float distanciaParaOuvir = 12.5f;
-    public AudioClip somDeRepararNoBarulho;
+
+    // NOVO: A variável para o teu GameObject Vazio em 2D
+    [Tooltip("Arrasta para aqui o teu GameObject Vazio com o AudioSource 2D (Som do UHMMM / Susto)")]
+    public AudioSource somDeRepararAudioSource;
 
     [Header("References")]
     public Collider2D bathroomDoorCollider;
     public GameObject visualsAndTrigger;
 
-    private AudioSource audioSource;
+    // Renomeei para ser mais claro que este é o som ambiente 3D
+    private AudioSource localAudioSource;
     private bool hasAppeared = false;
 
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        // Vai buscar o som 3D da casa de banho
+        localAudioSource = GetComponent<AudioSource>();
 
-        // Se te esqueceres de arrastar o relógio, ele tenta procurar por segurança
         if (nightTimer == null)
         {
             nightTimer = Object.FindFirstObjectByType<NightTimer>();
         }
 
-        // Esconde a criança no início
         if (visualsAndTrigger != null) visualsAndTrigger.SetActive(false);
         if (bathroomDoorCollider != null) bathroomDoorCollider.enabled = false;
     }
 
     void Update()
     {
-        // Só verifica se ainda não apareceu e se o relógio existe
         if (!hasAppeared && nightTimer != null)
         {
             if (nightTimer.currentTime >= appearanceTime)
@@ -50,7 +53,10 @@ public class ChildBathroomEvent : MonoBehaviour
         hasAppeared = true;
 
         if (visualsAndTrigger != null) visualsAndTrigger.SetActive(true);
-        audioSource.Play();
+
+        // Toca o som ambiente da casa de banho (em 3D)
+        localAudioSource.Play();
+
         if (bathroomDoorCollider != null) bathroomDoorCollider.enabled = true;
 
         StartCoroutine(EsperarAteOuvir());
@@ -62,16 +68,19 @@ public class ChildBathroomEvent : MonoBehaviour
 
         if (player != null)
         {
-            // O jogo espera que o jogador se aproxime...
             yield return new WaitUntil(() => Vector2.Distance(transform.position, player.transform.position) <= distanciaParaOuvir);
         }
 
         // --- O JOGADOR ENTROU NO RAIO DE AUDIÇÃO! ---
 
-        // 1. Toca o "UHMMMM" por cima dos barulhos da casa de banho
-        if (somDeRepararNoBarulho != null)
+        // 1. Toca o "UHMMMM" usando o GameObject 2D externo (direto nos ouvidos)
+        if (somDeRepararAudioSource != null)
         {
-            AudioSource.PlayClipAtPoint(somDeRepararNoBarulho, Camera.main.transform.position, 1f);
+            somDeRepararAudioSource.Play();
+        }
+        else
+        {
+            Debug.LogWarning("Esqueceste-te de arrastar o GameObject do som de reação no Inspector!");
         }
 
         // 2. Mostra o objetivo no ecrã
@@ -82,46 +91,40 @@ public class ChildBathroomEvent : MonoBehaviour
     }
 
     [Header("Timer")]
-    public float tempoAteDesaparecer = 1.5f; // Podes mudar isto no Inspector!
+    public float tempoAteDesaparecer = 1.5f;
 
     public void OnDialogueFinished()
     {
-        // Em vez de desligar logo, inicia a contagem de tempo
         StartCoroutine(SequenciaDeFecho());
     }
 
     private System.Collections.IEnumerator SequenciaDeFecho()
     {
-        // 1. Para o som imediatamente (opcional, ou podes deixar tocar enquanto a porta fecha)
-        if (audioSource != null && audioSource.isPlaying)
+        if (localAudioSource != null && localAudioSource.isPlaying)
         {
-            audioSource.Stop();
+            localAudioSource.Stop();
         }
 
-        // 2. Limpa o objetivo
         if (ObjectiveFeedback.instance != null)
         {
             ObjectiveFeedback.instance.HideObjective(true);
         }
 
-        // 3. Desativa o colisor da porta (Se tiveres alguma animação/código que mande a porta fechar, coloca aqui!)
         if (bathroomDoorCollider != null)
         {
             bathroomDoorCollider.enabled = false;
         }
 
-        // 4. O COMPASSO DE ESPERA: O jogo espera o tempo exato da porta fechar
         yield return new WaitForSeconds(tempoAteDesaparecer);
 
-        // 5. Agora sim, com a porta completamente fechada, a criança desaparece em segurança
         gameObject.SetActive(false);
     }
 
     public void StopAudio()
     {
-        if (audioSource != null && audioSource.isPlaying)
+        if (localAudioSource != null && localAudioSource.isPlaying)
         {
-            audioSource.Stop();
+            localAudioSource.Stop();
         }
     }
 }

@@ -5,8 +5,11 @@ public class TrashInteractable : MonoBehaviour
     public enum InteractionType
     {
         Pickup, // Lixeira de dentro
-        Dispose // Lixeira de fora
+        Dispose // Lixeira de fora (Dumpster)
     }
+
+    // Variável global para dizer ao PlayerController que estamos a bloquear o movimento
+    public static bool isInteractingWithTrash = false;
 
     [Header("Configuration")]
     public InteractionType interactionType;
@@ -67,10 +70,14 @@ public class TrashInteractable : MonoBehaviour
     {
         if (!isPlayerInRange) return;
 
+        // NOVO: Se o evento do assassino já disparou, congelamos tudo e saímos. A barra e o jogador ficam como estão.
+        if (TrashEventController.instance != null && TrashEventController.instance.isKillerEventActive)
+            return;
+
         if (!CanInteract())
         {
             if (interactionIcon != null) interactionIcon.SetActive(false);
-            ResetInteraction();
+            if (isInteracting) ResetInteraction();
             return;
         }
 
@@ -80,6 +87,16 @@ public class TrashInteractable : MonoBehaviour
 
             holdTimer += Time.deltaTime;
             UpdateProgressVisual((holdTimer / timeToInteract) * 100f);
+
+            // EVENTO DO ASSASSINO
+            if (interactionType == InteractionType.Dispose &&
+                TrashEventController.instance.trashDisposedCount == 1 &&
+                holdTimer >= timeToInteract * 0.5f)
+            {
+                // Dispara o assassino. REMOVEMOS o "ResetInteraction()" para a UI não desaparecer.
+                TrashEventController.instance.SpawnKillerAndChase(playerRb.transform);
+                return;
+            }
 
             if (holdTimer >= timeToInteract) CompleteTask();
         }
@@ -97,18 +114,13 @@ public class TrashInteractable : MonoBehaviour
         switch (interactionType)
         {
             case InteractionType.Pickup:
-                // MUDANÇA IMPORTANTE:
-                // Agora podemos pegar lixo mesmo que TaskManager.hasTrash seja true.
-                // A única restrição é se ESTA lixeira visualmente ainda está cheia.
+                // Só pode pegar se estiver cheia e se o jogador NÃO tiver lixo na mão
                 bool isThisCanFull = (spriteRenderer != null && spriteRenderer.sprite == fullSprite);
-                return isThisCanFull;
+                return isThisCanFull && !TaskManager.instance.hasTrash;
 
             case InteractionType.Dispose:
-                // Só pode jogar fora se tiver lixo NA MÃO 
-                // E se já tiver pego TODAS as lixeiras internas
-                bool hasTrash = TaskManager.instance.hasTrash;
-                bool allCollected = TrashEventController.instance.AreAllTrashCansCollected();
-                return hasTrash && allCollected;
+                // Só pode jogar no dumpster se TIVER lixo na mão
+                return TaskManager.instance.hasTrash;
         }
         return false;
     }
@@ -116,6 +128,8 @@ public class TrashInteractable : MonoBehaviour
     private void StartInteraction()
     {
         isInteracting = true;
+        isInteractingWithTrash = true; // Bloqueia o player
+
         if (interactionIcon != null) interactionIcon.SetActive(false);
         if (progressBarObj != null) progressBarObj.SetActive(true);
         if (playerRb != null) playerRb.linearVelocity = Vector2.zero;
@@ -125,10 +139,8 @@ public class TrashInteractable : MonoBehaviour
     {
         if (interactionType == InteractionType.Pickup)
         {
-            // Marca que o jogador tem lixo (se pegar 1 ou 10 sacos, continua "tendo lixo")
             TaskManager.instance.hasTrash = true;
 
-            // Esvazia visualmente ESTA lixeira
             if (spriteRenderer != null && emptySprite != null)
                 spriteRenderer.sprite = emptySprite;
 
@@ -136,7 +148,6 @@ public class TrashInteractable : MonoBehaviour
         }
         else if (interactionType == InteractionType.Dispose)
         {
-            // O jogador se livra do lixo
             TaskManager.instance.hasTrash = false;
             TrashEventController.instance.OnTrashDisposed();
         }
@@ -148,6 +159,7 @@ public class TrashInteractable : MonoBehaviour
     private void ResetInteraction()
     {
         isInteracting = false;
+        isInteractingWithTrash = false; // Desbloqueia o player
         holdTimer = 0f;
         UpdateProgressVisual(0f);
         if (progressBarObj != null) progressBarObj.SetActive(false);
