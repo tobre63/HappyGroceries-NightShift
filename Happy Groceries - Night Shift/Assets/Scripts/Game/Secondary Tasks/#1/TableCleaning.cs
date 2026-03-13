@@ -40,15 +40,13 @@ public class TableCleaningInteractable : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isCompletelyClean) return;
-
-        if (collision.CompareTag("Player") && TaskManager.instance.hasCloth)
+        if (collision.CompareTag("Player"))
         {
+            // Registamos SEMPRE que o jogador está na área, com ou sem pano
             inRange = true;
             playerRb = collision.GetComponent<Rigidbody2D>();
-
-            if (interactionIcon != null) interactionIcon.SetActive(true);
-            UpdateProgressText();
+            
+            CheckInteractionIcon();
         }
     }
 
@@ -66,7 +64,13 @@ public class TableCleaningInteractable : MonoBehaviour
 
     private void Update()
     {
-        if (isCompletelyClean || !inRange || !TaskManager.instance.hasCloth) return;
+        if (isCompletelyClean || !inRange) return;
+
+        // Mantém o ícone atualizado (ex: apanha o pano estando já dentro da área da mesa)
+        CheckInteractionIcon();
+
+        // Se não tem pano, não vale a pena fazer o resto do Update
+        if (!TaskManager.instance.hasCloth) return;
 
         if (Input.GetKey(KeyCode.E))
         {
@@ -153,10 +157,22 @@ public class TableCleaningInteractable : MonoBehaviour
 
             if (playerFloatingTextObj != null) playerFloatingTextObj.SetActive(false);
 
-            if (inRange && !isCompletelyClean)
-            {
-                if (interactionIcon != null) interactionIcon.SetActive(true);
-            }
+            CheckInteractionIcon();
+        }
+    }
+
+    // NOVO: Função dedicada para gerir o ícone, igual à que usaste no ClothInteractable
+    private void CheckInteractionIcon()
+    {
+        if (inRange && !isCompletelyClean && TaskManager.instance.hasCloth && !isInteracting)
+        {
+            if (interactionIcon != null && !interactionIcon.activeSelf) 
+                interactionIcon.SetActive(true);
+        }
+        else
+        {
+            if (interactionIcon != null && interactionIcon.activeSelf) 
+                interactionIcon.SetActive(false);
         }
     }
 

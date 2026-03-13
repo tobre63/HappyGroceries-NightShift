@@ -6,7 +6,6 @@ public class TrashEventController : MonoBehaviour
     public static TrashEventController instance;
 
     [Header("Settings")]
-    public float questStartHour = 25f; // 01:00 da manhã
     public string killerSceneName = "KillerScene";
 
     [Header("Killer Event")]
@@ -28,25 +27,18 @@ public class TrashEventController : MonoBehaviour
 
     private void Start()
     {
-        // Garante que o assassino começa desativado invisível
+        // Garante que o assassino comeÃ§a desativado invisÃ­vel
         if (killerGameObject != null)
         {
             killerGameObject.SetActive(false);
         }
     }
 
-    private void Update()
+    // A funÃ§Ã£o agora Ã© chamada apenas pelo Ãºltimo NPC, nÃ£o pelo tempo
+    public void StartTrashQuest()
     {
         if (isTaskCompleted || isQuestActive) return;
 
-        if (NightTimer.instance != null && NightTimer.instance.currentTime >= questStartHour)
-        {
-            StartTrashQuest();
-        }
-    }
-
-    public void StartTrashQuest()
-    {
         isQuestActive = true;
         trashCollectedCount = 0;
         trashDisposedCount = 0;
@@ -82,11 +74,10 @@ public class TrashEventController : MonoBehaviour
         }
     }
 
-    // Nova função para ATIVAR o assassino e fazê-lo correr
-    // Nova função para ATIVAR o assassino e fazê-lo correr
+    // Nova funÃ§Ã£o para ATIVAR o assassino e fazÃª-lo correr
     public void SpawnKillerAndChase(Transform playerTransform)
     {
-        if (isKillerEventActive) return; // Evita chamar múltiplas vezes
+        if (isKillerEventActive) return; // Evita chamar mÃºltiplas vezes
         isKillerEventActive = true; // Bloqueia o jogador definitivamente
 
         if (killerGameObject != null)
@@ -94,7 +85,7 @@ public class TrashEventController : MonoBehaviour
             // ALINHA O ASSASSINO: X igual ao do jogador, Y fixo em 4
             killerGameObject.transform.position = new Vector2(playerTransform.position.x, 4f);
 
-            killerGameObject.SetActive(true); // Fica visível
+            killerGameObject.SetActive(true); // Fica visÃ­vel
 
             KillerController killerScript = killerGameObject.GetComponent<KillerController>();
             if (killerScript != null)
@@ -104,7 +95,7 @@ public class TrashEventController : MonoBehaviour
         }
     }
 
-    // Função que o Assassino chama quando toca no jogador
+    // FunÃ§Ã£o que o Assassino chama quando toca no jogador
     public void TriggerKillerSceneChange()
     {
         isQuestActive = false;

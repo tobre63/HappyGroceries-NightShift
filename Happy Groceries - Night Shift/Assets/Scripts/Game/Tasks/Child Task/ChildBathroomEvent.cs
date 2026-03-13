@@ -11,15 +11,19 @@ public class ChildBathroomEvent : MonoBehaviour
     [Header("Objective Settings")]
     public float distanciaParaOuvir = 12.5f;
 
-    // NOVO: A vari�vel para o teu GameObject Vazio em 2D
+    // A variável para o teu GameObject Vazio em 2D
     [Tooltip("Arrasta para aqui o teu GameObject Vazio com o AudioSource 2D (Som do UHMMM / Susto)")]
     public AudioSource somDeRepararAudioSource;
 
     [Header("References")]
     public Collider2D bathroomDoorCollider;
     public GameObject visualsAndTrigger;
+    
+    // NOVO: A variável para o BoxCollider de interação do NPC
+    [Tooltip("Arrasta o Collider de interação do NPC para aqui")]
+    public Collider2D npcInteractionCollider;
 
-    // Renomeei para ser mais claro que este � o som ambiente 3D
+    // Renomeei para ser mais claro que este é o som ambiente 3D
     private AudioSource localAudioSource;
     private bool hasAppeared = false;
 
@@ -58,6 +62,9 @@ public class ChildBathroomEvent : MonoBehaviour
         localAudioSource.Play();
 
         if (bathroomDoorCollider != null) bathroomDoorCollider.enabled = true;
+        
+        // Garante que a interação está ativa quando o evento começa
+        if (npcInteractionCollider != null) npcInteractionCollider.enabled = true;
 
         StartCoroutine(EsperarAteOuvir());
     }
@@ -71,7 +78,7 @@ public class ChildBathroomEvent : MonoBehaviour
             yield return new WaitUntil(() => Vector2.Distance(transform.position, player.transform.position) <= distanciaParaOuvir);
         }
 
-        // --- O JOGADOR ENTROU NO RAIO DE AUDI��O! ---
+        // --- O JOGADOR ENTROU NO RAIO DE AUDIÇÃO! ---
 
         // 1. Toca o "UHMMMM" usando o GameObject 2D externo (direto nos ouvidos)
         if (somDeRepararAudioSource != null)
@@ -80,10 +87,10 @@ public class ChildBathroomEvent : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Esqueceste-te de arrastar o GameObject do som de rea��o no Inspector!");
+            Debug.LogWarning("Esqueceste-te de arrastar o GameObject do som de reação no Inspector!");
         }
 
-        // 2. Mostra o objetivo no ecr�
+        // 2. Mostra o objetivo no ecrã
         if (ObjectiveFeedback.instance != null)
         {
             ObjectiveFeedback.instance.SetObjective("Investigate the sound.", true);
@@ -95,6 +102,12 @@ public class ChildBathroomEvent : MonoBehaviour
 
     public void OnDialogueFinished()
     {
+        // NOVO: Desativa o collider de interação IMEDIATAMENTE para impedir duplo clique
+        if (npcInteractionCollider != null)
+        {
+            npcInteractionCollider.enabled = false;
+        }
+
         StartCoroutine(SequenciaDeFecho());
     }
 

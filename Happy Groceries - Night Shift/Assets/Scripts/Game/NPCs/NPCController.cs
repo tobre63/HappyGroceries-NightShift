@@ -14,10 +14,10 @@ public class NPCWaypoint
 [RequireComponent(typeof(AudioSource))]
 public class NPCController : MonoBehaviour
 {
-    // --- LÓGICA DE FILA ESTÁTICA (NOVO) ---
-    private static NPCController currentActiveNPC = null; // Quem está na cena agora
-    private static List<NPCController> waitingQueue = new List<NPCController>(); // Fila de espera
-    private bool isQueued = false; // Garante que não entra na fila duas vezes
+    // --- LÓGICA DE FILA ESTÁTICA ---
+    private static NPCController currentActiveNPC = null; 
+    private static List<NPCController> waitingQueue = new List<NPCController>(); 
+    private bool isQueued = false; 
 
     // --- SETTINGS ---
 
@@ -25,6 +25,11 @@ public class NPCController : MonoBehaviour
     [SerializeField] private NightTimer nightTimer;
     public float activationHour = 22f;
     [HideInInspector] public bool isActiveInWorld = false;
+
+    // NOVO: Define se este é o último NPC da noite
+    [Header("Event Triggers")]
+    [Tooltip("Marca esta opção APENAS no último NPC. Quando ele desaparecer, a missão do lixo começa.")]
+    public bool isLastNPC = false;
 
     [Header("Movement Settings")]
     public float moveSpeed = 2f;
@@ -83,7 +88,6 @@ public class NPCController : MonoBehaviour
         rb.freezeRotation = true;
         audioSource.playOnAwake = false;
 
-        // Reset de segurança ao iniciar (caso a Unity mantenha estáticos entre execuções no Editor)
         currentActiveNPC = null;
         waitingQueue.Clear();
     }
@@ -92,21 +96,18 @@ public class NPCController : MonoBehaviour
     {
         if (nightTimer == null) nightTimer = Object.FindFirstObjectByType<NightTimer>();
 
-        // Inicialmente desativado até ser chamado pela fila
         if (spriteRenderer != null) spriteRenderer.enabled = false;
         foreach (var col in colliders) if (col != null) col.enabled = false;
     }
 
     void Update()
     {
-        // Se ainda não está no mundo, verifica se deve entrar na fila
         if (!isActiveInWorld)
         {
             CheckQueueRegistration();
             return;
         }
 
-        // Se está ativo, processa movimento e animação
         if (CanMove() == false)
         {
             StopMovement();
@@ -130,25 +131,18 @@ public class NPCController : MonoBehaviour
         else rb.linearVelocity = Vector2.zero;
     }
 
-    /// <summary>
-    /// Gerencia a entrada na fila e a ativação baseada na disponibilidade da cena.
-    /// </summary>
     void CheckQueueRegistration()
     {
         if (nightTimer == null) return;
 
-        // 1. Verificar se já passou da hora de aparecer
         bool reachedTime = nightTimer.currentTime >= activationHour;
 
-        // 2. Se chegou a hora e ainda não está na fila, entra nela
         if (reachedTime && !isQueued)
         {
             waitingQueue.Add(this);
             isQueued = true;
-            // Debug.Log($"{gameObject.name} entrou na fila de espera.");
         }
 
-        // 3. Se eu estou na fila, verificar se sou o primeiro e se a cena está vazia
         if (isQueued && currentActiveNPC == null)
         {
             if (waitingQueue.Count > 0 && waitingQueue[0] == this)
@@ -161,8 +155,8 @@ public class NPCController : MonoBehaviour
     void ActivateNPC()
     {
         isActiveInWorld = true;
-        currentActiveNPC = this; // Ocupa a vaga
-        waitingQueue.RemoveAt(0); // Remove-se da fila
+        currentActiveNPC = this; 
+        waitingQueue.RemoveAt(0); 
 
         reachedEnd = false;
         isWaitingForInteraction = false;
@@ -182,7 +176,6 @@ public class NPCController : MonoBehaviour
         foreach (var col in colliders) if (col != null) col.enabled = true;
 
         StartCoroutine(FadeInCoroutine());
-        // Debug.Log($"{gameObject.name} começou o FadeIn e ocupou o balcão.");
     }
 
     IEnumerator FadeInCoroutine()
@@ -228,6 +221,13 @@ public class NPCController : MonoBehaviour
         // LIBERAR A VAGA PARA O PRÓXIMO DA FILA
         currentActiveNPC = null;
         isActiveInWorld = false;
+
+        // NOVO: Se for o último NPC, inicia o evento do lixo AGORA!
+        if (isLastNPC && TrashEventController.instance != null)
+        {
+            TrashEventController.instance.StartTrashQuest();
+        }
+
         gameObject.SetActive(false);
     }
 
@@ -278,7 +278,6 @@ public class NPCController : MonoBehaviour
         {
             reachedEnd = true;
             yield return StartCoroutine(FadeOutCoroutine());
-            // O SetActive(false) agora acontece dentro do Coroutine após o FadeOut
         }
         else if (currentWaypointIndex == interactionWaypointIndex)
         {
@@ -316,7 +315,6 @@ public class NPCController : MonoBehaviour
             {
                 if (ObjectiveFeedback.instance != null)
                 {
-                    // NOVO: Remove a frase exata deste NPC
                     ObjectiveFeedback.instance.RemoveSpecificObjective(interactionObjective);
                 }
 
@@ -362,7 +360,6 @@ public class NPCController : MonoBehaviour
         }
     }
 
-    // Limpeza de segurança caso o objeto seja destruído por outro motivo
     private void OnDestroy()
     {
         if (currentActiveNPC == this) currentActiveNPC = null;
