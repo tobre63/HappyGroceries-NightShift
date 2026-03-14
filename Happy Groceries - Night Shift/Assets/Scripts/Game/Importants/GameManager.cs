@@ -56,6 +56,8 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // 1. Lógica do Menu de Pausa
+        if (MicSetupManager.isSetupActive) return;
+
         if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
         {
             HandleEscPress();

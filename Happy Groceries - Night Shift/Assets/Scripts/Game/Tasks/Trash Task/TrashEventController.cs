@@ -16,6 +16,9 @@ public class TrashEventController : MonoBehaviour
     public bool isQuestActive = false;
     public bool isTaskCompleted = false;
 
+    [Header("Transição")]
+    public FadeOutToKiller fader;
+
     [HideInInspector] public int trashCollectedCount = 0;
     [HideInInspector] public int trashDisposedCount = 0;
 
@@ -105,6 +108,14 @@ public class TrashEventController : MonoBehaviour
 
         TrashInteractable.isInteractingWithTrash = false;
 
-        SceneManager.LoadScene(killerSceneName);
+        // Chama o Fade Out em vez de carregar a cena direto
+        if (fader != null)
+        {
+            fader.IniciarFadeE_MudarCena(killerSceneName);
+        }
+        else
+        {
+            SceneManager.LoadScene(killerSceneName); // Prevenção de erros
+        }
     }
 }

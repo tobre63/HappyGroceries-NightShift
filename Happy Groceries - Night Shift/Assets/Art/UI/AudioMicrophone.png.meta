@@ -1,0 +1,238 @@
+fileFormatVersion: 2
+guid: 5bb63d2776f3ab7418bebc1c4cfbed86
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6258216415294978388
+    second: AudioMicrophone_0
+  - first:
+      213: 3140641388525539832
+    second: AudioMicrophone_1
+  - first:
+      213: 4112231753445998240
+    second: AudioMicrophone_2
+  - first:
+      213: -1017025914665883486
+    second: AudioMicrophone_3
+  - first:
+      213: 8350805089421395772
+    second: AudioMicrophone_4
+  - first:
+      213: 6458649718621554910
+    second: AudioMicrophone_5
+  - first:
+      213: -6032803752785197605
+    second: AudioMicrophone_6
+  - first:
+      213: 1705981193374183757
+    second: AudioMicrophone_7
+  - first:
+      213: -4795025803254093174
+    second: AudioMicrophone_8
+  - first:
+      213: -1131155261599744772
+    second: AudioMicrophone_9
+  - first:
+      213: 7941447015847162414
+    second: AudioMicrophone_10
+  - first:
+      213: 6444687321224896926
+    second: AudioMicrophone_11
+  - first:
+      213: -2564114978157436279
+    second: AudioMicrophone_12
+  - first:
+      213: 672372777159692105
+    second: AudioMicrophone_13
+  - first:
+      213: 3442713839848761979
+    second: AudioMicrophone_14
+  - first:
+      213: -6693123317812431915
+    second: AudioMicrophone_15
+  - first:
+      213: 2637773639170237040
+    second: AudioMicrophone_16
+  - first:
+      213: 4262282768810563246
+    second: AudioMicrophone_17
+  - first:
+      213: 7144411696350117910
+    second: AudioMicrophone_18
+  - first:
+      213: 1225340201420864086
+    second: AudioMicrophone_19
+  - first:
+      213: -352506772438536662
+    second: AudioMicrophone_20
+  - first:
+      213: -7816198456449006007
+    second: AudioMicrophone_21
+  - first:
+      213: 4963687647117309755
+    second: AudioMicrophone_22
+  - first:
+      213: 4157347486416878493
+    second: AudioMicrophone_23
+  - first:
+      213: 1054473566311008877
+    second: AudioMicrophone_24
+  - first:
+      213: 8176882935213654173
+    second: AudioMicrophone_25
+  - first:
+      213: 1971880165008471721
+    second: AudioMicrophone_26
+  - first:
+      213: -5734500138844989942
+    second: AudioMicrophone_27
+  - first:
+      213: -852649302196688176
+    second: AudioMicrophone_28
+  - first:
+      213: 2903587640284397793
+    second: AudioMicrophone_29
+  - first:
+      213: 2873443247895577702
+    second: AudioMicrophone_30
+  - first:
+      213: 2394233437343156919
+    second: AudioMicrophone_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 18
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AudioMicrophone_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 860
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca603d6e3595629a0800000000000000
+      internalID: -6258216415294978388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2fc63d3f6482e9b41b68926832b51182
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":860.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      AudioMicrophone_0: -6258216415294978388
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

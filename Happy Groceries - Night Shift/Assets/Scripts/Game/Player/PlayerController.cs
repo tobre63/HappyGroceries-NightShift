@@ -47,7 +47,8 @@ public class PlayerController : MonoBehaviour
                || ClothInteractable.isInteractingWithCloth
                || TableCleaningInteractable.isCleaningTable
                || TrashInteractable.isInteractingWithTrash
-               || (TrashEventController.instance != null && TrashEventController.instance.isKillerEventActive);// NOVA FLAG AQUI
+               || (TrashEventController.instance != null && TrashEventController.instance.isKillerEventActive)
+               || MicSetupManager.isSetupActive;
 
         if (isBlocked)
         {
