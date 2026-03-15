@@ -8218,7 +8218,7 @@ MonoBehaviour:
   flashDuration: 1
   fadeDuration: 0.2
   flashbangAudio: {fileID: 1967282515}
-  maxVolume: 0.7
+  maxVolume: 0.6
 --- !u!1 &231869509
 GameObject:
   m_ObjectHideFlags: 0
