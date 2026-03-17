@@ -7152,7 +7152,7 @@ Camera:
   far clip plane: 1000
   field of view: 35
   orthographic: 1
-  orthographic size: 3
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -7922,6 +7922,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea8916b9f59bfa4f98b587ecdfd6e2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Killer
+  speed: 2
+  waitTime: 5
+  minX: -2.85
+  maxX: 2.85
+  minY: -5.25
+  maxY: -1
+  footstepSound: {fileID: 8300000, guid: dfd12e0f57244034080923634d60eda7, type: 3}
 --- !u!1 &583517232
 GameObject:
   m_ObjectHideFlags: 0
