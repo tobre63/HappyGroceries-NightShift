@@ -87,19 +87,27 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
+
     public void StartGame(string sceneName)
     {
         if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
 
-        // --- CORREÇÃO AQUI ---
-        // Ao iniciar um jogo novo, nós JÁ salvamos qual é a cena atual.
-        // Isso garante que se o jogador sair e voltar, o botão Continue estará ativo.
-        PlayerPrefs.SetString(SAVE_SCENE_KEY, sceneName);
+        // --- RESET TOTAL PARA NOVO JOGO ---
+        // 1. Define que existe um save (para o botão Continue aparecer depois)
+        PlayerPrefs.SetString("SavedScene", sceneName);
+
+        // 2. APAGA dados antigos de posição e tempo
+        PlayerPrefs.DeleteKey("PlayerX");
+        PlayerPrefs.DeleteKey("PlayerY");
+        PlayerPrefs.DeleteKey("PlayerZ");
+        PlayerPrefs.DeleteKey("PlayerRotY");
+        PlayerPrefs.DeleteKey("SavedTime"); // <--- Importante apagar o tempo antigo!
+
         PlayerPrefs.Save();
-        // ---------------------
+        // ----------------------------------
 
         isTransitioning = true;
-        PlaySound(clickSound);
+        PlaySound(clickSound); // Toca som se houver
 
         StartCoroutine(SequenceWithDiary(sceneName));
     }

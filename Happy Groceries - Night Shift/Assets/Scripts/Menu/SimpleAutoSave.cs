@@ -1,39 +1,38 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SimpleAutoSave : MonoBehaviour
 {
-    [Header("Configurações")]
-    // Arraste aqui o objeto que tem o script de Tempo/Dia-Noite
-    [SerializeField] private GameObject timeSystemGameObject;
-
     private void Start()
     {
-        // Tenta carregar os dados com um pequeno atraso para garantir que
-        // o cenário já carregou e o CharacterController não bloqueie o movimento.
+        // Inicia o carregamento com um pequeno atraso para garantir 
+        // que o NightTimer e o cenário já foram carregados
         StartCoroutine(LoadDataRoutine());
     }
 
-    private System.Collections.IEnumerator LoadDataRoutine()
+    private IEnumerator LoadDataRoutine()
     {
-        // Espera 1 frame para garantir que tudo inicializou
+        // Espera 1 frame. Isso é CRUCIAL para garantir que o NightTimer.Start() 
+        // já rodou e não vai sobrescrever nosso load.
         yield return null;
 
+        // -----------------------------------------------------
         // 1. CARREGAR POSIÇÃO
+        // -----------------------------------------------------
         if (PlayerPrefs.HasKey("PlayerX"))
         {
             float x = PlayerPrefs.GetFloat("PlayerX");
             float y = PlayerPrefs.GetFloat("PlayerY");
             float z = PlayerPrefs.GetFloat("PlayerZ");
-            Vector3 targetPos = new Vector3(x, y, z);
 
-            // Desativa o CharacterController momentaneamente para mover (se existir)
+            // Desativa o CharacterController (se houver) para mover sem conflitos
             CharacterController cc = GetComponent<CharacterController>();
             if (cc != null) cc.enabled = false;
 
-            transform.position = targetPos;
+            transform.position = new Vector3(x, y, z);
 
-            // Se tiver rotação salva, restaura também (opcional, mas recomendado)
+            // Carrega rotação (para o player não virar para a parede do nada)
             if (PlayerPrefs.HasKey("PlayerRotY"))
             {
                 float rotY = PlayerPrefs.GetFloat("PlayerRotY");
@@ -41,39 +40,26 @@ public class SimpleAutoSave : MonoBehaviour
             }
 
             if (cc != null) cc.enabled = true;
-            Debug.Log("Posição carregada: " + targetPos);
         }
 
-        // 2. CARREGAR TEMPO
-        if (PlayerPrefs.HasKey("SavedTime") && timeSystemGameObject != null)
+        // -----------------------------------------------------
+        // 2. CARREGAR TEMPO (Conectado ao NightTimer)
+        // -----------------------------------------------------
+        // Verifica se existe save E se o NightTimer está na cena
+        if (PlayerPrefs.HasKey("SavedTime") && NightTimer.instance != null)
         {
             float savedTime = PlayerPrefs.GetFloat("SavedTime");
 
-            // --- ATENÇÃO: ADAPTE AQUI PARA O SEU SCRIPT DE TEMPO ---
-            // Exemplo: Se seu script se chama 'DayNightCycle' e a variável é 'currentTime':
+            // Atualiza a variável do seu script de tempo
+            NightTimer.instance.currentTime = savedTime;
 
-            /*
-            var timeScript = timeSystemGameObject.GetComponent<DayNightCycle>();
-            if (timeScript != null)
-            {
-                timeScript.currentTime = savedTime;
-            }
-            */
-
-            Debug.Log("Tempo carregado: " + savedTime);
+            Debug.Log($"Tempo carregado: {savedTime}");
         }
     }
 
-    // Salva automaticamente ao sair ou mudar de cena
-    private void OnDisable()
-    {
-        SaveGame();
-    }
-
-    private void OnApplicationQuit()
-    {
-        SaveGame();
-    }
+    // Salva automaticamente ao sair, fechar ou mudar de cena
+    private void OnDisable() => SaveGame();
+    private void OnApplicationQuit() => SaveGame();
 
     public void SaveGame()
     {
@@ -83,25 +69,16 @@ public class SimpleAutoSave : MonoBehaviour
         PlayerPrefs.SetFloat("PlayerZ", transform.position.z);
         PlayerPrefs.SetFloat("PlayerRotY", transform.rotation.eulerAngles.y);
 
-        // 2. SALVAR CENA
+        // 2. SALVAR CENA ATUAL (Para o botão Continue funcionar)
         PlayerPrefs.SetString("SavedScene", SceneManager.GetActiveScene().name);
 
-        // 3. SALVAR TEMPO
-        if (timeSystemGameObject != null)
+        // 3. SALVAR TEMPO (Pega direto do NightTimer)
+        if (NightTimer.instance != null)
         {
-            // --- ATENÇÃO: ADAPTE AQUI TAMBÉM ---
-            // Você precisa pegar o valor atual do seu script de tempo
-
-            /*
-            var timeScript = timeSystemGameObject.GetComponent<DayNightCycle>();
-            if (timeScript != null)
-            {
-                PlayerPrefs.SetFloat("SavedTime", timeScript.currentTime);
-            }
-            */
+            PlayerPrefs.SetFloat("SavedTime", NightTimer.instance.currentTime);
         }
 
         PlayerPrefs.Save();
-        Debug.Log("Jogo Salvo (Posição e Tempo)!");
+        Debug.Log("Jogo Salvo: Posição e Tempo (NightTimer) guardados.");
     }
 }
