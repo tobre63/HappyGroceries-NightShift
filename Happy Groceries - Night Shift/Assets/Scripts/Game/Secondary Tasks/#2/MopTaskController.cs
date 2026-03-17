@@ -22,16 +22,31 @@ public class MopTaskController : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    // Chamado pelo Bot�o da Clipboard
+    // Chamado pelo Botão da Clipboard
     public void StartMopTask()
     {
         isQuestActive = true;
         dirtCleanedCount = 0;
 
-        // Atualiza a UI Secund�ria
+        // NOVO: Verifica se o jogador já tem a mop na mão (devido ao evento principal)
+        if (CleaningEventController.instance != null && CleaningEventController.instance.isMopEquipped)
+        {
+            isMopPickedUp = true;
+        }
+
+        // Atualiza a UI Secundária de acordo com o estado
         if (SecondaryObjectiveFeedback.instance != null)
         {
-            SecondaryObjectiveFeedback.instance.SetObjective("Pick up the mop.");
+            if (isMopPickedUp)
+            {
+                // Já tem a mop, pede logo para limpar
+                SecondaryObjectiveFeedback.instance.SetObjective($"Clean the floor ({dirtCleanedCount}/{totalDirtToClean}).");
+            }
+            else
+            {
+                // Não tem a mop, pede para apanhar
+                SecondaryObjectiveFeedback.instance.SetObjective("Pick up the mop.");
+            }
         }
 
         // Fecha a clipboard
@@ -68,13 +83,13 @@ public class MopTaskController : MonoBehaviour
     {
         isQuestActive = false;
 
-        // Esconde o objetivo secund�rio
+        // Esconde o objetivo secundário
         if (SecondaryObjectiveFeedback.instance != null)
         {
             SecondaryObjectiveFeedback.instance.HideObjective();
         }
 
-        // Risca o texto na clipboard e desativa o bot�o
+        // Risca o texto na clipboard e desativa o botão
         if (taskButton != null) taskButton.interactable = false;
         if (taskText != null) taskText.fontStyle = FontStyles.Strikethrough;
     }
