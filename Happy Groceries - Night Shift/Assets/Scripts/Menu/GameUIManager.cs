@@ -15,6 +15,8 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] private GameObject buttonsPanel;
     [SerializeField] private GameObject backgroundPanel;
 
+    [Header("Buttons References")]
+    [SerializeField] private Button continueButton;
     [SerializeField] private GameObject skipButton;
 
     [Header("Story Text Settings")]
@@ -22,8 +24,7 @@ public class GameUIManager : MonoBehaviour
     [TextArea(8, 15)]
     [SerializeField] private string fullText;
     [SerializeField] private float typingSpeed = 0.05f;
-    // NOVO: Tempo de pausa extra após a pontuação (podes ajustar no Inspector!)
-    [SerializeField] private float punctuationPause = 0.15f;
+    [SerializeField] private float punctuationPause = 0.15f;
     [SerializeField] private float waitAfterText = 2.0f;
 
     [Header("Audio Settings")]
@@ -36,6 +37,9 @@ public class GameUIManager : MonoBehaviour
     private CanvasGroup loadingTextGroup;
     private bool isTransitioning = false;
     private bool isSkippingText = false;
+
+    // Chaves para o PlayerPrefs
+    private const string SAVE_SCENE_KEY = "SavedScene";
 
     private void Awake()
     {
@@ -65,16 +69,53 @@ public class GameUIManager : MonoBehaviour
     private void Start()
     {
         StartCoroutine(DoFade(1, 0, 1.5f));
+
+        // Verifica o save logo ao iniciar o Menu
+        CheckSaveGame();
+    }
+
+    private void CheckSaveGame()
+    {
+        if (continueButton != null)
+        {
+            bool hasSaveGame = PlayerPrefs.HasKey(SAVE_SCENE_KEY);
+            continueButton.interactable = hasSaveGame;
+
+            // Opcional: Se quiser que o botão mude de cor ou transparência visualmente
+            // var canvasGroup = continueButton.GetComponent<CanvasGroup>();
+            // if (canvasGroup) canvasGroup.alpha = hasSaveGame ? 1f : 0.5f;
+        }
     }
 
     public void StartGame(string sceneName)
     {
         if (isTransitioning || string.IsNullOrEmpty(sceneName)) return;
 
+        // --- CORREÇÃO AQUI ---
+        // Ao iniciar um jogo novo, nós JÁ salvamos qual é a cena atual.
+        // Isso garante que se o jogador sair e voltar, o botão Continue estará ativo.
+        PlayerPrefs.SetString(SAVE_SCENE_KEY, sceneName);
+        PlayerPrefs.Save();
+        // ---------------------
+
         isTransitioning = true;
         PlaySound(clickSound);
 
         StartCoroutine(SequenceWithDiary(sceneName));
+    }
+
+    public void ContinueGame()
+    {
+        if (isTransitioning) return;
+
+        if (!PlayerPrefs.HasKey(SAVE_SCENE_KEY)) return;
+
+        string savedSceneName = PlayerPrefs.GetString(SAVE_SCENE_KEY);
+
+        isTransitioning = true;
+        PlaySound(clickSound);
+
+        StartCoroutine(SequenceContinueGame(savedSceneName));
     }
 
     public void SkipTextAnimation()
@@ -84,6 +125,20 @@ public class GameUIManager : MonoBehaviour
             isSkippingText = true;
             PlaySound(clickSound);
         }
+    }
+
+    private IEnumerator SequenceContinueGame(string sceneName)
+    {
+        if (musicSource != null)
+        {
+            StartCoroutine(FadeMusic(musicSource, 0f, 1.0f));
+        }
+
+        if (buttonsPanel != null) buttonsPanel.SetActive(false);
+
+        yield return StartCoroutine(DoFade(0, 1, 1.0f));
+
+        SceneManager.LoadScene(sceneName);
     }
 
     private IEnumerator SequenceWithDiary(string sceneName)
@@ -127,8 +182,7 @@ public class GameUIManager : MonoBehaviour
 
                 yield return new WaitForSeconds(typingSpeed);
 
-                // NOVO: Adiciona a pausa extra se for um sinal de pontuação importante
-                if (letter == '.' || letter == '!' || letter == '?')
+                if (letter == '.' || letter == '!' || letter == '?')
                 {
                     yield return new WaitForSeconds(punctuationPause);
                 }
@@ -148,9 +202,9 @@ public class GameUIManager : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    // --- Helper Coroutines (Utilitários) ---
+    // --- Helper Coroutines ---
 
-    private IEnumerator DoFade(float start, float end, float duration)
+    private IEnumerator DoFade(float start, float end, float duration)
     {
         if (fadePanel == null) yield break;
         fadePanel.gameObject.SetActive(true);
@@ -201,9 +255,9 @@ public class GameUIManager : MonoBehaviour
         if (end <= 0f) cg.gameObject.SetActive(false);
     }
 
-    // --- UI & Audio Methods ---
+    // --- UI & Audio Methods ---
 
-    public void OpenSettings()
+    public void OpenSettings()
     {
         if (isTransitioning) return;
         PlaySound(clickSound);

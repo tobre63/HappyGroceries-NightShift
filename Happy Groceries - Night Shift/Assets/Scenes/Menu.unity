@@ -6180,6 +6180,7 @@ MonoBehaviour:
   fadePanel: {fileID: 40006240}
   buttonsPanel: {fileID: 1916479831}
   backgroundPanel: {fileID: 519074741}
+  continueButton: {fileID: 1184027049}
   skipButton: {fileID: 138714559}
   loadingText: {fileID: 601805806}
   fullText: 'June 16th, 1972
