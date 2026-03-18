@@ -15,19 +15,17 @@ public class NightTimer : MonoBehaviour
 
     [Header("Time Control")]
     [Range(23f, 29f)]
-    public float currentTime = 23f; // 23=23:00, 24=00:00, 29=05:00
+    public float currentTime = 23f;
 
     [Header("Transição de Game Over (5:00 AM)")]
-    [Tooltip("Arrasta o painel preto que vai tapar o ecrã")]
     public CanvasGroup gameOverFadeCanvas;
-    [Tooltip("O texto que vai dizer 'Bad Ending'")]
     public TextMeshProUGUI gameOverTextUI;
-    public string gameOverMessage = "Bad Ending. - Thanks for playing.";
+    public string gameOverMessage = "Bad Ending.\nThanks for playing.";
     public float fadeSpeed = 2f;
     public float textReadingTime = 4f;
 
     private float timeMultiplier;
-    private const float END_TIME = 29f; // 05:00 AM
+    private const float END_TIME = 29f;
     private bool isGameOver = false;
 
     private void Awake()
@@ -40,22 +38,17 @@ public class NightTimer : MonoBehaviour
     {
         timeMultiplier = 6f / nightDurationInSeconds;
 
-        // Garante que o painel de Game Over começa invisível
         if (gameOverFadeCanvas != null)
         {
             gameOverFadeCanvas.alpha = 0f;
             gameOverFadeCanvas.blocksRaycasts = false;
         }
 
-        if (gameOverTextUI != null)
-        {
-            gameOverTextUI.text = "";
-        }
+        if (gameOverTextUI != null) gameOverTextUI.text = "";
     }
 
     void Update()
     {
-        // Se o jogo estiver em pausa ou já tiver acabado, o tempo não avança
         if (isGameOver || Time.timeScale == 0f) return;
 
         if (currentTime < END_TIME)
@@ -66,7 +59,6 @@ public class NightTimer : MonoBehaviour
         {
             currentTime = END_TIME;
 
-            // SE BATEU AS 5H DA MANHÃ, DESPOLETA O FINAL MAU!
             if (!isGameOver)
             {
                 TriggerBadEnding();
@@ -95,13 +87,11 @@ public class NightTimer : MonoBehaviour
 
     private IEnumerator BadEndingSequence()
     {
-        // Congela o mundo (o jogador e o assassino param)
+        // 1. Congela o jogo e CORTA TODO O ÁUDIO
         Time.timeScale = 0f;
+        AudioListener.pause = true; // Calo absoluto de todos os SFX e BGM na cena!
 
-        if (gameOverTextUI != null)
-        {
-            gameOverTextUI.text = gameOverMessage;
-        }
+        if (gameOverTextUI != null) gameOverTextUI.text = gameOverMessage;
 
         // FADE IN PARA PRETO
         float t = 0f;
@@ -111,7 +101,7 @@ public class NightTimer : MonoBehaviour
             if (gameOverFadeCanvas != null)
             {
                 gameOverFadeCanvas.alpha = Mathf.Clamp01(t / fadeSpeed);
-                gameOverFadeCanvas.blocksRaycasts = true; // Impede o jogador de clicar noutras coisas
+                gameOverFadeCanvas.blocksRaycasts = true;
             }
             yield return null;
         }
@@ -119,8 +109,10 @@ public class NightTimer : MonoBehaviour
         // DEIXA LER A MENSAGEM
         yield return new WaitForSecondsRealtime(textReadingTime);
 
-        // VAI PARA O MENU PRINCIPAL (Cena 0)
+        // Limpeza antes de sair (despausa o som para o Menu ter som)
+        AudioListener.pause = false;
         Time.timeScale = 1f;
+
         SceneManager.LoadScene(0);
     }
 }

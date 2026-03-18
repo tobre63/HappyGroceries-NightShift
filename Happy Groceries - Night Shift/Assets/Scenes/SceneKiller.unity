@@ -5235,7 +5235,6 @@ GameObject:
   - component: {fileID: 229679165}
   - component: {fileID: 229679167}
   - component: {fileID: 229679164}
-  - component: {fileID: 229679168}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5375,29 +5374,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &229679168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 229679163}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2096d2134988ea5418bd7013f6ae6d61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameEndManager
-  realSecondsPerGameMinute: 1
-  startHour: 0
-  endHour: 5
-  clockText: {fileID: 1773655893}
-  gameOverFadeCanvas: {fileID: 172731105}
-  gameOverText: {fileID: 2078429645}
-  gameOverMessage: '5:00 AM
-
-    You were caught inside...'
-  fadeDuration: 2
-  textReadingTime: 3
 --- !u!1 &231869509
 GameObject:
   m_ObjectHideFlags: 0
@@ -7709,7 +7685,7 @@ Camera:
   far clip plane: 1000
   field of view: 35
   orthographic: 1
-  orthographic size: 3.25
+  orthographic size: 3
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -18227,7 +18203,7 @@ MonoBehaviour:
   gameOverTextUI: {fileID: 126944281}
   gameOverMessage: Bad Ending. - Thanks for playing.
   fadeSpeed: 2
-  textReadingTime: 4
+  textReadingTime: 10
 --- !u!1 &1721846316
 GameObject:
   m_ObjectHideFlags: 0
