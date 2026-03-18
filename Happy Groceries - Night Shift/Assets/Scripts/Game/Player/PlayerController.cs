@@ -48,7 +48,8 @@ public class PlayerController : MonoBehaviour
                || TableCleaningInteractable.isCleaningTable
                || TrashInteractable.isInteractingWithTrash
                || (TrashEventController.instance != null && TrashEventController.instance.isKillerEventActive)
-               || MicSetupManager.isSetupActive;
+               || MicSetupManager.isSetupActive
+               || ExitDoorInteractable.isUnlockingDoor;
 
         if (isBlocked)
         {
@@ -130,5 +131,16 @@ public class PlayerController : MonoBehaviour
             audioSource.pitch = Random.Range(0.9f, 1.1f);
             audioSource.PlayOneShot(clipToPlay);
         }
+    }
+
+    public void ResetDirection()
+    {
+        // Força a variável interna a apontar para baixo
+        lastDirection = Vector2.down;
+
+        // Atualiza logo o Animator
+        anim.SetBool("isMoving", false);
+        anim.SetFloat("moveX", 0f);
+        anim.SetFloat("moveY", -1f);
     }
 }

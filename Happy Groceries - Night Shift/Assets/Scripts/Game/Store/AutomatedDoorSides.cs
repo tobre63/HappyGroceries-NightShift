@@ -8,36 +8,42 @@ public class AutomatedDoorSide : MonoBehaviour
     public string otherBoolName = "triggerRight";
 
     [Header("Audio Settings")]
-    public AudioSource audioSource; // Arrasta o AudioSource (pode ser o da porta pai)
-    public AudioClip doorOpenSound; // O som da porta a abrir
+    public AudioSource audioSource;
+    public AudioClip doorOpenSound;
 
-    private int objectsInside = 0;
+    [Header("Lock System")]
+    [Tooltip("Coloca um 'certo' aqui se esta porta for a porta final que precisa da chave!")]
+    public bool isLockedByAKey = false; // NOVO!
+
+    private int objectsInside = 0;
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // NOVO: Se a porta estiver trancada à chave, não faz absolutamente nada!
+        if (isLockedByAKey) return;
+
         if (ShouldOpen(other))
         {
             objectsInside++;
 
-            // Só tentamos abrir se for o primeiro objeto E se o outro lado não estiver já ativo
-            if (objectsInside == 1)
+            if (objectsInside == 1)
             {
-                // VERIFICAÇÃO CRÍTICA:
-                if (doorAnimator.GetBool(otherBoolName) == true)
+                if (doorAnimator.GetBool(otherBoolName) == true)
                 {
                     return;
                 }
 
                 doorAnimator.SetBool(myBoolName, true);
-
-                // --- TOCA O SOM AQUI ---
-                PlaySound();
+                PlaySound();
             }
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
+        // NOVO: Não processa saídas se a porta estiver trancada, para não bugar a matemática.
+        if (isLockedByAKey) return;
+
         if (ShouldOpen(other))
         {
             objectsInside--;
@@ -46,16 +52,14 @@ public class AutomatedDoorSide : MonoBehaviour
             {
                 objectsInside = 0;
                 doorAnimator.SetBool(myBoolName, false);
-                // Nota: Geralmente não se mete som ao fechar aqui, 
-                // porque a porta pode demorar a reagir à animação. 
-                // Se quiseres som ao fechar, o ideal é usar Animation Events na animação de fechar.
-            }
+            }
         }
     }
 
     bool ShouldOpen(Collider2D collision)
     {
         if (collision.CompareTag("Player")) return true;
+        if (collision.CompareTag("Killer")) return true;
         if (collision.GetComponent<NPCController>() != null) return true;
         return false;
     }
