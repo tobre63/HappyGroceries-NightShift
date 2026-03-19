@@ -5810,8 +5810,8 @@ MonoBehaviour:
     - textoDoBotao: Right. Sorry. Just tired. Nights here can feel strange sometimes.
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Thanks. Fresh donuts make a long night a little easier. Did you notice
-        anything unusual tonight?
+    - frase: "Thanks. Fresh donuts help pass the time on nights like this. But\u2026
+        have you seen anything\u2026 unusual tonight?"
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Why do you ask? Mind your own business and leave.
@@ -5821,14 +5821,15 @@ MonoBehaviour:
     - textoDoBotao: "I\u2026 I do not know. Things feel strange tonight, I guess."
       proximoNode: 3
   - frasesDoNPC:
-    - frase: There is a killer on the loose in this town. Stay alert and be careful
-        tonight.
+    - frase: "There\u2019s a killer out there\u2026 somewhere in this town. Stay
+        alert. Be careful tonight."
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Thank you. I appreciate it. Nights like this are dangerous. Be careful.
+    - frase: "Thank you, I appreciate it. Nights like this can be dangerous\u2026
+        take care."
       vozDaFrase: {fileID: 0}
     escolhas:
     - textoDoBotao: Yeah. Sure. Just leave me alone and do your job.
@@ -33502,8 +33503,8 @@ MonoBehaviour:
   npcName: Daniel Brooks
   dialogueNodes:
   - frasesDoNPC:
-    - frase: "Quite the quiet place, is not it? Makes you wonder what is really going
-        on. Do not worry, it is perfectly safe\u2026 probably."
+    - frase: "Strange how quiet it is, isn\u2019t it? Almost like something\u2019s
+        waiting. Don\u2019t worry\u2026 it\u2019s perfectly safe. Probably."
       vozDaFrase: {fileID: 8300000, guid: cedb1b356ab572346903446932e01057, type: 3}
     escolhas:
     - textoDoBotao: Stop joking around. This is not funny. It will be 10.39$.
