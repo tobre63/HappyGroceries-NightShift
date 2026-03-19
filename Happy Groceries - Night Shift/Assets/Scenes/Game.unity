@@ -24169,7 +24169,7 @@ MonoBehaviour:
   appearanceTime: 25.4
   distanciaParaOuvir: 12.5
   somDeRepararAudioSource: {fileID: 267758837}
-  bathroomDoorCollider: {fileID: 0}
+  bathroomDoorCollider: {fileID: 1749639266}
   visualsAndTrigger: {fileID: 1996220356}
   npcInteractionCollider: {fileID: 1996220359}
   tempoAteDesaparecer: 2
@@ -29822,6 +29822,52 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!61 &1749639266
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749639260}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.25, y: -1}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 3}
+    newSize: {x: 2, y: 3}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 0.5}
+  m_EdgeRadius: 0
 --- !u!1 &1754578246
 GameObject:
   m_ObjectHideFlags: 0
@@ -37151,8 +37197,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 507496251}
     m_Modifications:
     - target: {fileID: 2935555246149669428, guid: 7be3e764aff60d8449d99e5daba1ca19, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.9842
+      objectReference: {fileID: 0}
+    - target: {fileID: 2935555246149669428, guid: 7be3e764aff60d8449d99e5daba1ca19, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.625
+      value: 9.6092
       objectReference: {fileID: 0}
     - target: {fileID: 2935555246149669428, guid: 7be3e764aff60d8449d99e5daba1ca19, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37220,6 +37270,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8421680183905223633, guid: 7be3e764aff60d8449d99e5daba1ca19, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1749639262}
+    - targetCorrespondingSourceObject: {fileID: 8421680183905223633, guid: 7be3e764aff60d8449d99e5daba1ca19, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1749639266}
   m_SourcePrefab: {fileID: 100100000, guid: 7be3e764aff60d8449d99e5daba1ca19, type: 3}
 --- !u!1001 &2362537533493457210
 PrefabInstance:
