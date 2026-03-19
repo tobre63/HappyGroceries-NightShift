@@ -6,14 +6,18 @@ using TMPro;
 [RequireComponent(typeof(BoxCollider2D))]
 public class ExitTrigger : MonoBehaviour
 {
-    [Header("UI da VitÛria")]
+    [Header("UI da Vit√≥ria")]
     public CanvasGroup fadeCanvas;
     public TextMeshProUGUI winTextUI;
     public string winMessage = "Happy Ending! - Thanks for playing.";
 
-    [Header("ConfiguraÁıes de Tempo")]
+    [Header("Configura√ß√µes de Tempo")]
     public float fadeSpeed = 2.0f;
     public float timeToReadText = 4.0f;
+
+    [Header("√Åudio")]
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
 
     private bool hasTriggered = false;
 
@@ -40,9 +44,11 @@ public class ExitTrigger : MonoBehaviour
     {
         hasTriggered = true;
 
-        // 1. Congela o tempo e CORTA TODO O ¡UDIO do jogo!
+        // 1. Congela o tempo e pausa apenas os AudioSources espec√≠ficos
         Time.timeScale = 0f;
-        AudioListener.pause = true; // SilÍncio total!
+        
+        if (musicSource != null) musicSource.Pause();
+        if (sfxSource != null) sfxSource.Pause();
 
         if (winTextUI != null) winTextUI.text = winMessage;
 
@@ -50,16 +56,18 @@ public class ExitTrigger : MonoBehaviour
         float t = 0f;
         while (t < fadeSpeed)
         {
-            t += Time.unscaledDeltaTime;
+            t += Time.unscaledDeltaTime; // unscaledDeltaTime continua rodando mesmo com Time.timeScale = 0
             if (fadeCanvas != null) fadeCanvas.alpha = Mathf.Clamp01(t / fadeSpeed);
             yield return null;
         }
 
-        // 3. LÍ o texto
+        // 3. L√™ o texto
         yield return new WaitForSecondsRealtime(timeToReadText);
 
-        // 4. Repıe o som (para o Menu n„o ficar mudo) e Carrega Menu
-        AudioListener.pause = false;
+        // 4. Retoma os √°udios e carrega o Menu
+        if (musicSource != null) musicSource.UnPause();
+        if (sfxSource != null) sfxSource.UnPause();
+        
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }

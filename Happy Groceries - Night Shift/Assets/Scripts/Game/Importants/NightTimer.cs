@@ -7,7 +7,7 @@ public class NightTimer : MonoBehaviour
 {
     public static NightTimer instance;
 
-    [Header("UI Settings (RelÛgio)")]
+    [Header("UI Settings (Rel√≥gio)")]
     [SerializeField] private TMP_Text timeText;
 
     [Header("Night Duration")]
@@ -17,12 +17,21 @@ public class NightTimer : MonoBehaviour
     [Range(23f, 29f)]
     public float currentTime = 23f;
 
-    [Header("TransiÁ„o de Game Over (5:00 AM)")]
+    [Header("Transi√ß√£o de Game Over (5:00 AM)")]
     public CanvasGroup gameOverFadeCanvas;
     public TextMeshProUGUI gameOverTextUI;
     public string gameOverMessage = "Bad Ending.\nThanks for playing.";
     public float fadeSpeed = 2f;
     public float textReadingTime = 4f;
+
+    [Header("√Åudio")]
+    public AudioSource musicSource;
+    public AudioSource sfxSource;
+    
+    [Header("Aviso de Fim de Tempo")]
+    public AudioSource tickTockSource; // Coloque o AudioSource com o som de tic-tac aqui
+    private bool hasStartedTickTock = false;
+    private const float TICK_TOCK_TIME = 28f + (50f / 60f); // Representa 4:50 AM (28.833f)
 
     private float timeMultiplier;
     private const float END_TIME = 29f;
@@ -54,6 +63,16 @@ public class NightTimer : MonoBehaviour
         if (currentTime < END_TIME)
         {
             currentTime += Time.deltaTime * timeMultiplier;
+            
+            // Verifica se chegou √†s 4:50 AM para tocar o Tic-Tac
+            if (currentTime >= TICK_TOCK_TIME && !hasStartedTickTock)
+            {
+                hasStartedTickTock = true;
+                if (tickTockSource != null)
+                {
+                    tickTockSource.Play();
+                }
+            }
         }
         else
         {
@@ -87,9 +106,12 @@ public class NightTimer : MonoBehaviour
 
     private IEnumerator BadEndingSequence()
     {
-        // 1. Congela o jogo e CORTA TODO O ¡UDIO
+        // 1. Congela o jogo e pausa/para os AudioSources espec√≠ficos
         Time.timeScale = 0f;
-        AudioListener.pause = true; // Calo absoluto de todos os SFX e BGM na cena!
+
+        if (musicSource != null) musicSource.Pause();
+        if (sfxSource != null) sfxSource.Pause();
+        if (tickTockSource != null) tickTockSource.Stop(); // Paramos o tic-tac quando d√° 5:00 AM
 
         if (gameOverTextUI != null) gameOverTextUI.text = gameOverMessage;
 
@@ -97,7 +119,7 @@ public class NightTimer : MonoBehaviour
         float t = 0f;
         while (t < fadeSpeed)
         {
-            t += Time.unscaledDeltaTime;
+            t += Time.unscaledDeltaTime; 
             if (gameOverFadeCanvas != null)
             {
                 gameOverFadeCanvas.alpha = Mathf.Clamp01(t / fadeSpeed);
@@ -109,10 +131,11 @@ public class NightTimer : MonoBehaviour
         // DEIXA LER A MENSAGEM
         yield return new WaitForSecondsRealtime(textReadingTime);
 
-        // Limpeza antes de sair (despausa o som para o Menu ter som)
-        AudioListener.pause = false;
+        // Limpeza antes de sair (despausa o som)
+        if (musicSource != null) musicSource.UnPause();
+        if (sfxSource != null) sfxSource.UnPause();
+        
         Time.timeScale = 1f;
-
         SceneManager.LoadScene(0);
     }
 }
