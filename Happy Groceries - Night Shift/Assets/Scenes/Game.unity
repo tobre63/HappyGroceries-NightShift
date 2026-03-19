@@ -9185,7 +9185,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1148471866473347335, guid: d0984b43c634f3c4faf97dd993c2d0af, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 3bc7fd2209e757b428afe5d4f66c5105, type: 3}
+  m_Resource: {fileID: 8300000, guid: 453bfe183e28ef241be6afa3c73f7388, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.7
   m_Pitch: 1
@@ -10725,8 +10725,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.0002501011, y: -2.4975002, z: 0}
-    m_Extent: {x: 5.00045, y: 6.5035, z: 0}
+    m_Center: {x: -0.0002501011, y: -2.5001001, z: 0}
+    m_Extent: {x: 4.50045, y: 6.5009003, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -10737,10 +10737,10 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 3
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -2, y: -6, z: 0}
-  - {x: 2, y: -6, z: 0}
-  - {x: 2, y: 1, z: 0}
-  - {x: -2, y: 1.0056632, z: 0}
+  - {x: -1.5, y: -6, z: 0}
+  - {x: 1.5, y: -6, z: 0}
+  - {x: 1.5, y: 1, z: 0}
+  - {x: -1.5, y: 1, z: 0}
 --- !u!1 &427240328
 GameObject:
   m_ObjectHideFlags: 0
@@ -14203,7 +14203,7 @@ GameObject:
   - component: {fileID: 606009351}
   - component: {fileID: 606009352}
   m_Layer: 0
-  m_Name: Global Light 2D
+  m_Name: AmbienceLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21302,7 +21302,7 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
     m_Center: {x: -8.00025, y: -5.7501, z: 0}
-    m_Extent: {x: 5.50045, y: 3.7509003, z: 0}
+    m_Extent: {x: 5.00045, y: 3.7509003, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -21313,10 +21313,10 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 3
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -10.5, y: -6.5, z: 0}
-  - {x: -5.5, y: -6.5, z: 0}
-  - {x: -5.5, y: -5, z: 0}
-  - {x: -10.5, y: -5, z: 0}
+  - {x: -10, y: -6.5, z: 0}
+  - {x: -6, y: -6.5, z: 0}
+  - {x: -6, y: -5, z: 0}
+  - {x: -10, y: -5, z: 0}
 --- !u!1 &1148068364
 GameObject:
   m_ObjectHideFlags: 0
@@ -28869,7 +28869,7 @@ MonoBehaviour:
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
     m_Center: {x: 6.99975, y: -5.7501, z: 0}
-    m_Extent: {x: 4.50045, y: 3.7509003, z: 0}
+    m_Extent: {x: 4.00045, y: 3.7509003, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -28880,10 +28880,10 @@ MonoBehaviour:
   m_ShapeLightFalloffSize: 3
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: 5.5, y: -6.5, z: 0}
-  - {x: 8.5, y: -6.5, z: 0}
-  - {x: 8.5, y: -5, z: 0}
-  - {x: 5.5, y: -5, z: 0}
+  - {x: 6, y: -6.5, z: 0}
+  - {x: 8, y: -6.5, z: 0}
+  - {x: 8, y: -5, z: 0}
+  - {x: 6, y: -5, z: 0}
 --- !u!1 &1692028687
 GameObject:
   m_ObjectHideFlags: 0
