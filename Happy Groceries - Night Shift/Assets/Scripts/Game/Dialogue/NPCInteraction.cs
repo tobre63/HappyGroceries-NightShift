@@ -157,6 +157,7 @@ public class NPCInteraction : MonoBehaviour
             if (clipToPlay != null)
             {
                 audioSource.clip = clipToPlay;
+                audioSource.loop = false;
                 audioSource.Play();
             }
         }

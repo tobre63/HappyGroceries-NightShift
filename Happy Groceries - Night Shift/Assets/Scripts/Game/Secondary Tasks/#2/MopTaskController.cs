@@ -50,7 +50,7 @@ public class MopTaskController : MonoBehaviour
         }
 
         // Fecha a clipboard
-        ClipboardInteraction clipboard = FindFirstObjectByType<ClipboardInteraction>();
+        ClipboardInteraction clipboard = FindAnyObjectByType<ClipboardInteraction>();
         if (clipboard != null) clipboard.CloseMenu();
     }
 

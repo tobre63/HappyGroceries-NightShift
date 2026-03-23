@@ -24340,35 +24340,86 @@ MonoBehaviour:
   npcName: Oliver Grant
   dialogueNodes:
   - frasesDoNPC:
-    - frase: Hi! Sorry to disturb you.
-      vozDaFrase: {fileID: 0}
+    - frase: "Oh, hi! Sorry, I laughed so hard\u2026 it was really funny!"
+      vozDaFrase: {fileID: 8300000, guid: 5b90b637b2afb20488f5f2245180687b, type: 3}
     escolhas:
-    - textoDoBotao: You should not be wandering around alone.
+    - textoDoBotao: Hello? Why are you laughing in there?
       proximoNode: 1
-    - textoDoBotao: Hey there, are you playing? It is late for a kid to be out.
+    - textoDoBotao: Hi? Everything okay? Why are you laughing?
       proximoNode: 1
-    - textoDoBotao: "It is really not safe to be here\u2026you should not be here
-        alone."
+    - textoDoBotao: Hello? Are you laughing at me?
       proximoNode: 1
   - frasesDoNPC:
-    - frase: "It is okay\u2026 I am fine here. Are you too?"
-      vozDaFrase: {fileID: 0}
+    - frase: I am sorry, I did not mean to startle you. I was just laughing at something
+        silly. Did I scare you?
+      vozDaFrase: {fileID: 8300000, guid: 360c5102bb751b04cb22b16318f30a5b, type: 3}
     escolhas:
-    - textoDoBotao: Why do you care? Stay out of trouble.
+    - textoDoBotao: No, little kid. Just do not make a habit of laughing like that.
+      proximoNode: 6
+    - textoDoBotao: "Yes, I guess\u2026 but please, keep quiet, or I will have to
+        ask you to leave."
       proximoNode: 2
-    - textoDoBotao: "I\u2026 I am okay, thanks for asking."
-      proximoNode: 2
-    - textoDoBotao: "I guess I am fine\u2026 just\u2026 do not go anywhere strange."
-      proximoNode: 2
+    - textoDoBotao: "Yes\u2026 you scared me. Why are you laughing like that?"
+      proximoNode: 3
   - frasesDoNPC:
-    - frase: I just want to make sure you are safe.
-      vozDaFrase: {fileID: 0}
+    - frase: "Please\u2026 do not let him catch me. He is chasing me."
+      vozDaFrase: {fileID: 8300000, guid: ccad8acd3fbd40045bbbf5046e9bbb71, type: 3}
     escolhas:
-    - textoDoBotao: Weirdo.
+    - textoDoBotao: Who do you think he is? Are you scared of him too?
+      proximoNode: 4
+    - textoDoBotao: "Who is he? I just want to know\u2026"
+      proximoNode: 4
+    - textoDoBotao: Who is chasing you? I just do not want any trouble...
+      proximoNode: 4
+  - frasesDoNPC:
+    - frase: "I am just laughing at him\u2026 he is so funny!"
+      vozDaFrase: {fileID: 8300000, guid: 275823f1f20bd8d4cb14ce5fccecd510, type: 3}
+    escolhas:
+    - textoDoBotao: I did not understand... Is he relative to you?
+      proximoNode: 5
+    - textoDoBotao: "Is he your friend? I just want to know\u2026"
+      proximoNode: 5
+    - textoDoBotao: What are you talking about? It is your friend?
+      proximoNode: 5
+  - frasesDoNPC:
+    - frase: "I do not really know\u2026 but people say he hurts\u2026 he hurts a
+        lot of people."
+      vozDaFrase: {fileID: 8300000, guid: d816ed3d386998e4a8404af264ab4c4a, type: 3}
+    escolhas:
+    - textoDoBotao: "That is not good to hear. Keep quiet\u2026 or get out now."
+      proximoNode: 6
+    - textoDoBotao: "That is not good to hear. Please, just stay quiet\u2026 or leave
+        if you need to."
+      proximoNode: 6
+    - textoDoBotao: "That is not good to hear\u2026 just\u2026 stay quiet, or\u2026
+        maybe you should leave\u2026"
+      proximoNode: 6
+  - frasesDoNPC:
+    - frase: "No\u2026 I just\u2026 I just hear some stories about him. He hurts
+        a lot of people."
+      vozDaFrase: {fileID: 8300000, guid: d816ed3d386998e4a8404af264ab4c4a, type: 3}
+    escolhas:
+    - textoDoBotao: "That is not good to hear. Keep quiet\u2026 or get out now."
+      proximoNode: 6
+    - textoDoBotao: "That is not good to hear. Please, just stay quiet\u2026 or leave
+        if you need to."
+      proximoNode: 6
+    - textoDoBotao: "That is not good to hear\u2026 just\u2026 stay quiet, or\u2026
+        maybe you should leave\u2026"
+      proximoNode: 6
+  - frasesDoNPC:
+    - frase: "Okay\u2026 I will just stay here. Maybe it is safer for me\u2026 since
+        you are here with me\u2026"
+      vozDaFrase: {fileID: 8300000, guid: 7fbb72c4ad502054eb7834aa633d8ca0, type: 3}
+    escolhas:
+    - textoDoBotao: It does not matter if I am here or not. You should not be here.
+        Goodbye.
       proximoNode: -1
-    - textoDoBotao: "Thanks\u2026 I appreciate that."
+    - textoDoBotao: "Thank you\u2026 I am glad to hear that. I have to go now. Goodbye\u2026
+        stay safe."
       proximoNode: -1
-    - textoDoBotao: "I\u2019m not sure\u2026 it is a bit weird here\u2026"
+    - textoDoBotao: "If anyone comes here to hurt\u2026 I do not know how to defend\u2026
+        Goodbye."
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}

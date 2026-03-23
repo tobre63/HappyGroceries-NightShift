@@ -94,7 +94,7 @@ public class NPCController : MonoBehaviour
 
     void Start()
     {
-        if (nightTimer == null) nightTimer = Object.FindFirstObjectByType<NightTimer>();
+        if (nightTimer == null) nightTimer = Object.FindAnyObjectByType<NightTimer>();
 
         if (spriteRenderer != null) spriteRenderer.enabled = false;
         foreach (var col in colliders) if (col != null) col.enabled = false;

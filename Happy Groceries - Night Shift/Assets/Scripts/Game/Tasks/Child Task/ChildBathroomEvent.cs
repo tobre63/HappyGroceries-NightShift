@@ -32,7 +32,7 @@ public class ChildBathroomEvent : MonoBehaviour
 
         if (nightTimer == null)
         {
-            nightTimer = Object.FindFirstObjectByType<NightTimer>();
+            nightTimer = Object.FindAnyObjectByType<NightTimer>();
         }
 
         if (visualsAndTrigger != null) visualsAndTrigger.SetActive(false);

@@ -33,13 +33,13 @@ public class ClothTaskController : MonoBehaviour
 
         if (clothCollider != null) clothCollider.enabled = true;
 
-        // USA AGORA O NOVO SISTEMA SECUNDÁRIO
+        // USA AGORA O NOVO SISTEMA SECUNDï¿½RIO
         if (SecondaryObjectiveFeedback.instance != null)
         {
             SecondaryObjectiveFeedback.instance.SetObjective("Pick up the cloth.");
         }
 
-        ClipboardInteraction clipboard = FindFirstObjectByType<ClipboardInteraction>();
+        ClipboardInteraction clipboard = FindAnyObjectByType<ClipboardInteraction>();
         if (clipboard != null) clipboard.CloseMenu();
     }
 
@@ -71,7 +71,7 @@ public class ClothTaskController : MonoBehaviour
     {
         isQuestActive = false;
 
-        // ESCONDE O OBJETIVO SECUNDÁRIO
+        // ESCONDE O OBJETIVO SECUNDï¿½RIO
         if (SecondaryObjectiveFeedback.instance != null)
         {
             SecondaryObjectiveFeedback.instance.HideObjective();
