@@ -2420,14 +2420,33 @@ MonoBehaviour:
   npcName: Michael Reed
   dialogueNodes:
   - frasesDoNPC:
-    - frase: That is all, thank you.
+    - frase: That will be all for me today. Just a Coca-Cola and a box of donuts,
+        please.
       vozDaFrase: {fileID: 8300000, guid: 8d73ff262a57c834b99d6a05d67ca3ab, type: 3}
     escolhas:
-    - textoDoBotao: Fine, it will be 3.89$
+    - textoDoBotao: Fine. That will be 3.89$. Hand it over and be quick.
+      proximoNode: 1
+    - textoDoBotao: Hello! Hope you are having a good night. That comes to 3.89$.
+      proximoNode: 2
+    - textoDoBotao: Okay that will be 3.89$.
+      proximoNode: 2
+  - frasesDoNPC:
+    - frase: Sure. Do not need to be rude.
+      vozDaFrase: {fileID: 8300000, guid: de460e52170363f40b1a4855c5745c5c, type: 3}
+    escolhas:
+    - textoDoBotao: Stop wasting my time.
       proximoNode: -1
-    - textoDoBotao: Thank you. The total is 3.89$.
-      proximoNode: -1
-    - textoDoBotao: Ok, it will be 3.89$.
+    - textoDoBotao: "I sincerely apologize. I didn\u2019t fully think through what
+        I said."
+      proximoNode: 2
+    - textoDoBotao: Sorry... Please, do not be angry.
+      proximoNode: 2
+  - frasesDoNPC:
+    - frase: Thank you. I hope your night is peaceful and everything goes well for
+        you.
+      vozDaFrase: {fileID: 8300000, guid: d4c1a9fdd1fc9de4fa5969d66a275aae, type: 3}
+    escolhas:
+    - textoDoBotao: ...
       proximoNode: -1
   typingSpeed: 0.05
   typingSound: {fileID: 8300000, guid: 75d2951302e3494489f453697f0c8336, type: 3}
