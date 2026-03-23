@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
-using System.Collections.Generic; // Necessário para usar Listas (Pilhas)
+using System.Collections.Generic;
 
 public class ObjectiveFeedback : MonoBehaviour
 {
@@ -19,6 +19,12 @@ public class ObjectiveFeedback : MonoBehaviour
     [Tooltip("A missão padrão que aparece quando a pilha está vazia.")]
     public string defaultObjective = "Pick up a box.";
 
+    [Header("Audio Settings")]
+    [Tooltip("Arraste o componente AudioSource deste GameObject para cá.")]
+    public AudioSource audioSource;
+    [Tooltip("O som que vai tocar quando uma nova missão aparecer.")]
+    public AudioClip newTaskSound;
+
     // --- A NOSSA "PILHA" DE OBJETIVOS ---
     private List<string> activeObjectives = new List<string>();
     private Coroutine activeCoroutine;
@@ -31,8 +37,8 @@ public class ObjectiveFeedback : MonoBehaviour
 
     private void Start()
     {
-        // Começa com a missão padrão
-        UpdateUI();
+        // Começa com a missão padrão, MAS passa 'false' para não tocar som ao carregar o jogo
+        UpdateUI(false);
     }
 
     // ADICIONA À PILHA
@@ -56,7 +62,8 @@ public class ObjectiveFeedback : MonoBehaviour
             activeObjectives.Insert(0, newText);
         }
 
-        UpdateUI();
+        // Passamos 'true' porque estamos a adicionar uma NOVA task
+        UpdateUI(true);
     }
 
     // REMOVE DA PILHA
@@ -75,7 +82,8 @@ public class ObjectiveFeedback : MonoBehaviour
             activeObjectives.RemoveAt(0);
         }
 
-        UpdateUI();
+        // Passamos 'false' para NÃO tocar som quando voltamos a uma task antiga da pilha
+        UpdateUI(false);
     }
 
     public void RemoveSpecificObjective(string objectiveToRemove)
@@ -83,24 +91,25 @@ public class ObjectiveFeedback : MonoBehaviour
         if (activeObjectives.Contains(objectiveToRemove))
         {
             activeObjectives.Remove(objectiveToRemove);
-            UpdateUI();
+            UpdateUI(false); // Remoção não deve tocar som da nova task revelada
         }
     }
 
     public void ForceClearAll()
     {
-        activeObjectives.Clear(); // Deita fora todos os papéis (incluindo clientes fantasmas)
-        ChangeMainObjective("", true); // Muda o objetivo principal para vazio e desliga a UI
+        activeObjectives.Clear(); // Deita fora todos os papéis
+        ChangeMainObjective("", true, false); // Muda o objetivo principal e não toca som
     }
 
     // LÓGICA DE DECISÃO DO QUE MOSTRAR
-    private void UpdateUI()
+    // Adicionado parâmetro playSound
+    private void UpdateUI(bool playSound = false)
     {
         if (activeObjectives.Count > 0)
         {
             // Lê sempre o que está no TOPO da pilha
             string textToShow = activeObjectives[activeObjectives.Count - 1];
-            UpdateScreenText(textToShow);
+            UpdateScreenText(textToShow, playSound);
         }
         else
         {
@@ -111,22 +120,24 @@ public class ObjectiveFeedback : MonoBehaviour
             }
             else
             {
-                UpdateScreenText(defaultObjective);
+                UpdateScreenText(defaultObjective, playSound);
             }
         }
     }
 
     // ==========================================
-    //  SISTEMA DE ANIMAÇÕES (MANTIDO DO ORIGINAL)
+    //  SISTEMA DE ANIMAÇÕES E ÁUDIO
     // ==========================================
 
-    private void UpdateScreenText(string textToShow)
+    private void UpdateScreenText(string textToShow, bool playSound)
     {
         // Previne que o ecrã pisque se a missão que vai entrar for igual à que já lá está!
         if (objectiveText.text == textToShow && objectiveText.gameObject.activeSelf) return;
 
         if (activeCoroutine != null) StopCoroutine(activeCoroutine);
-        activeCoroutine = StartCoroutine(SetObjectiveRoutine(textToShow));
+
+        // Passamos a permissão de som para a Coroutine
+        activeCoroutine = StartCoroutine(SetObjectiveRoutine(textToShow, playSound));
     }
 
     private void HideScreenText()
@@ -138,12 +149,21 @@ public class ObjectiveFeedback : MonoBehaviour
         activeCoroutine = StartCoroutine(HideRoutine());
     }
 
-    private IEnumerator SetObjectiveRoutine(string newText)
+    private IEnumerator SetObjectiveRoutine(string newText, bool playSound)
     {
         yield return FadeOut();
 
+        // O texto só muda visualmente aqui
         objectiveText.text = newText;
         objectiveText.gameObject.SetActive(true);
+
+        // --- NOVO: TOCAR O SOM ---
+        // Se for permitido tocar som, e tivermos as referências configuradas
+        if (playSound && audioSource != null && newTaskSound != null)
+        {
+            // PlayOneShot é excelente para UI, pois não corta outros sons que o mesmo AudioSource possa estar a tocar
+            audioSource.PlayOneShot(newTaskSound);
+        }
 
         Color c = objectiveText.color;
         c.a = 1f;
@@ -174,10 +194,11 @@ public class ObjectiveFeedback : MonoBehaviour
         objectiveText.color = c;
     }
 
-    public void ChangeMainObjective(string newObjective, bool finishQuest = false)
+    // Adicionado parâmetro playSound
+    public void ChangeMainObjective(string newObjective, bool finishQuest = false, bool playSound = true)
     {
         defaultObjective = newObjective;
         hideUIWhenEmpty = finishQuest; // Se for true, a UI desaparece no fim
-        UpdateUI();
+        UpdateUI(playSound);
     }
 }
