@@ -4458,65 +4458,94 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 1bcbf42e5886ceb46a6eced706825424, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: f58779c8bc3c49341abf73d44157c5f7, type: 2}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 72b4c0841bd01724aa4cdd70d108bbc2, type: 2}
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: 11400000, guid: cd83e62a40894f8439c543485561ab97, type: 2}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: 11400000, guid: a76dddca5b87236428e502e90a8bf1b2, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 0e03f11833214f743a0730931b6fd849, type: 2}
-  - m_RefCount: 8
+  - serializedVersion: 2
+    m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 7ff8abb9091a05c458caee9b990ada1d, type: 2}
-  - m_RefCount: 21
+  - serializedVersion: 2
+    m_RefCount: 21
     m_Data: {fileID: 11400000, guid: d0a09ba39dfceb04d8e6d540912c6fb8, type: 2}
-  - m_RefCount: 35
+  - serializedVersion: 2
+    m_RefCount: 35
     m_Data: {fileID: 11400000, guid: 4785276fc9d349f49ab182a0705509cb, type: 2}
-  - m_RefCount: 21
+  - serializedVersion: 2
+    m_RefCount: 21
     m_Data: {fileID: 11400000, guid: a39f200a88365ce45a5f1d419fceabbd, type: 2}
-  - m_RefCount: 72
+  - serializedVersion: 2
+    m_RefCount: 72
     m_Data: {fileID: 11400000, guid: a0d4a580eb9ec3c41ab61d4115266ef9, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: 4079088530005097146, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 1443644756, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: -1832957906, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: -762121192, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: -110230132, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 1884366898, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 8
+  - serializedVersion: 2
+    m_RefCount: 8
     m_Data: {fileID: 1089591362, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 21
+  - serializedVersion: 2
+    m_RefCount: 21
     m_Data: {fileID: 1487610812, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 35
+  - serializedVersion: 2
+    m_RefCount: 35
     m_Data: {fileID: 8118239694452201403, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 21
+  - serializedVersion: 2
+    m_RefCount: 21
     m_Data: {fileID: -7325714664743288606, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 72
+  - serializedVersion: 2
+    m_RefCount: 72
     m_Data: {fileID: -945600157, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 172
+  - serializedVersion: 2
+    m_RefCount: 172
     m_Data:
       e00: 1
       e01: 0
@@ -4535,27 +4564,38 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 4.5e-44, g: 4.5e-44, b: 4.5e-44, a: 4.5e-44}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 172
+  - serializedVersion: 2
+    m_RefCount: 172
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -10129,6 +10169,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -11596,27 +11637,37 @@ MonoBehaviour:
         I just saw a murder nearby!"
       vozDaFrase: {fileID: 8300000, guid: 946bd95fc578dde4696d4a6258502bea, type: 3}
     escolhas:
-    - textoDoBotao: Calm down. I am not your guide. I bet you are joking.
+    - textoDoBotao: Relax. I am not your guide... and i am pretty sure you are joking.
       proximoNode: 1
-    - textoDoBotao: What? It is just down the street, turn left at the corner.
+    - textoDoBotao: What? it is just down the street. Take a left at the corner.
       proximoNode: 2
-    - textoDoBotao: "Oh\u2026 a murder? I\u2026 I really do not know where it is\u2026"
+    - textoDoBotao: A murder? I ... i dont really know where it is.
       proximoNode: 3
   - frasesDoNPC:
-    - frase: Get lost, man! Hope you die.
-      vozDaFrase: {fileID: 8300000, guid: 135167c22a9136f4aa8acd4afa4a9c6d, type: 3}
+    - frase: Why would I be joking? Do you really think I would lie about this?
+      vozDaFrase: {fileID: 8300000, guid: eae3616684afc9d42b5ae57fb6826be8, type: 3}
+    escolhas:
+    - textoDoBotao: Everything you said is a lie. Just leave.
+      proximoNode: 4
+    - textoDoBotao: It must be a misunderstanding. Please, calm down.
+      proximoNode: 4
+    - textoDoBotao: "Yes... I guess\u2026 I thought it was a joke. I\u2019m sorry."
+      proximoNode: 4
+  - frasesDoNPC:
+    - frase: Thank you so much. Becareful please.
+      vozDaFrase: {fileID: 8300000, guid: fbd6aa872d3970b44bb304468f827eff, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Thank you so much.
+    - frase: Thank you anyways...
       vozDaFrase: {fileID: 8300000, guid: c699349847ce67e46908bf5ea18e4b85, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Thank you anyways.
-      vozDaFrase: {fileID: 8300000, guid: fbd6aa872d3970b44bb304468f827eff, type: 3}
+    - frase: Get lost, man! Hope you die.
+      vozDaFrase: {fileID: 8300000, guid: 135167c22a9136f4aa8acd4afa4a9c6d, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
@@ -12376,33 +12427,46 @@ Tilemap:
   m_Tiles: {}
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileSpriteArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data:
       e00: 1e-45
       e01: 0
@@ -12421,7 +12485,8 @@ Tilemap:
       e32: 4.68e-43
       e33: 4.65e-43
   m_TileColorArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 1.0983819e-34, g: 1.0983819e-34, b: 1.0983819e-34, a: 1.0983819e-34}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -15518,17 +15583,22 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 56
+  - serializedVersion: 2
+    m_RefCount: 56
     m_Data: {fileID: 11400000, guid: f6833d6bc82682944a7810416750ccde, type: 2}
-  - m_RefCount: 8
+  - serializedVersion: 2
+    m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 352da688de9616b48b29b48a2a7e5b39, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 56
+  - serializedVersion: 2
+    m_RefCount: 56
     m_Data: {fileID: -276092907, guid: 7d96f2367d8b6ef49b112e960763af9a, type: 3}
-  - m_RefCount: 8
+  - serializedVersion: 2
+    m_RefCount: 8
     m_Data: {fileID: 543181889924136100, guid: 7d96f2367d8b6ef49b112e960763af9a, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 64
+  - serializedVersion: 2
+    m_RefCount: 64
     m_Data:
       e00: 1
       e01: 0
@@ -15547,7 +15617,8 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 64
+  - serializedVersion: 2
+    m_RefCount: 64
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -22067,6 +22138,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -24785,41 +24857,58 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: abc108c2b452a6a4594f330d532e06fc, type: 2}
-  - m_RefCount: 4
+  - serializedVersion: 2
+    m_RefCount: 4
     m_Data: {fileID: 11400000, guid: c61ed483eeb326f43baeb60e8b5d2e08, type: 2}
-  - m_RefCount: 4
+  - serializedVersion: 2
+    m_RefCount: 4
     m_Data: {fileID: 11400000, guid: f713169554f7b8c41a30f0764a578e36, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: e4c5a37c83e1ccd4ba68c29e79bd1986, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: c730453383d3ccc4b8dc687f34c8981f, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: c13cb2383c2804b46840098a100dd435, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: bd669cb6e2c72ef4abbaaeb426c490a8, type: 2}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 832f666ba33d3344bab2806606c094cd, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 597403004, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 4
+  - serializedVersion: 2
+    m_RefCount: 4
     m_Data: {fileID: -7644597623297819340, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 4
+  - serializedVersion: 2
+    m_RefCount: 4
     m_Data: {fileID: -8911611046186920078, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 2039590696, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: -7850026957550372343, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 614208483, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 1522155289, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
-  - m_RefCount: 2
+  - serializedVersion: 2
+    m_RefCount: 2
     m_Data: {fileID: 1063497366, guid: f5efd88bdc5780c46ad3bb74a0fc51cc, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 15
+  - serializedVersion: 2
+    m_RefCount: 15
     m_Data:
       e00: 1
       e01: 0
@@ -24838,7 +24927,8 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 15
+  - serializedVersion: 2
+    m_RefCount: 15
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -29482,17 +29572,22 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 6
+  - serializedVersion: 2
+    m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 5c296c55fac19624d891915d42d181d0, type: 2}
-  - m_RefCount: 6
+  - serializedVersion: 2
+    m_RefCount: 6
     m_Data: {fileID: 11400000, guid: 5d01bfe4739554742b025dfaadd3bcc6, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 6
+  - serializedVersion: 2
+    m_RefCount: 6
     m_Data: {fileID: 422929380, guid: 7d96f2367d8b6ef49b112e960763af9a, type: 3}
-  - m_RefCount: 6
+  - serializedVersion: 2
+    m_RefCount: 6
     m_Data: {fileID: 1148268342, guid: 7d96f2367d8b6ef49b112e960763af9a, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 12
+  - serializedVersion: 2
+    m_RefCount: 12
     m_Data:
       e00: 1
       e01: 0
@@ -29511,7 +29606,8 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 12
+  - serializedVersion: 2
+    m_RefCount: 12
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -34244,17 +34340,22 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: 11400000, guid: ed10961aa6f4667489ebff7b17708130, type: 2}
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: 11400000, guid: fa05ed379424d5b4bac0d63cb66bae0a, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: -516585366, guid: 7d96f2367d8b6ef49b112e960763af9a, type: 3}
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: 479223136, guid: 7d96f2367d8b6ef49b112e960763af9a, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 14
+  - serializedVersion: 2
+    m_RefCount: 14
     m_Data:
       e00: 1
       e01: 0
@@ -34273,7 +34374,8 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 14
+  - serializedVersion: 2
+    m_RefCount: 14
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -35054,65 +35156,94 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 3
+  - serializedVersion: 2
+    m_RefCount: 3
     m_Data: {fileID: 11400000, guid: cd83e62a40894f8439c543485561ab97, type: 2}
-  - m_RefCount: 5
+  - serializedVersion: 2
+    m_RefCount: 5
     m_Data: {fileID: 11400000, guid: d8d80e618d66f6b479e97c067ce10332, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: b769956bbfdcae94ea5043711865c563, type: 2}
-  - m_RefCount: 20
+  - serializedVersion: 2
+    m_RefCount: 20
     m_Data: {fileID: 11400000, guid: 79313b0cfeda19a40acae79a335b0e83, type: 2}
-  - m_RefCount: 5
+  - serializedVersion: 2
+    m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 4b96dd49830515c448ec1afc27c6df08, type: 2}
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: 11400000, guid: 1bcbf42e5886ceb46a6eced706825424, type: 2}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 90033726bd8a8af42968aefbcb6a2ebc, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 3
+  - serializedVersion: 2
+    m_RefCount: 3
     m_Data: {fileID: -762121192, guid: aa5879ef9eb0f724c8a60f8986e9c22d, type: 3}
-  - m_RefCount: 5
+  - serializedVersion: 2
+    m_RefCount: 5
     m_Data: {fileID: 8476442283793022046, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: -842130746, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
-  - m_RefCount: 20
+  - serializedVersion: 2
+    m_RefCount: 20
     m_Data: {fileID: 2009418697, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
-  - m_RefCount: 5
+  - serializedVersion: 2
+    m_RefCount: 5
     m_Data: {fileID: 37337255, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
-  - m_RefCount: 7
+  - serializedVersion: 2
+    m_RefCount: 7
     m_Data: {fileID: 4079088530005097146, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
-  - m_RefCount: 1
+  - serializedVersion: 2
+    m_RefCount: 1
     m_Data: {fileID: 1634755728302121835, guid: 98ed7190f0b416c44a7f7df0be4f220a, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 42
+  - serializedVersion: 2
+    m_RefCount: 42
     m_Data:
       e00: 1
       e01: 0
@@ -35131,27 +35262,38 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 4.5e-44, g: 4.5e-44, b: 4.5e-44, a: 4.5e-44}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 0
+  - serializedVersion: 2
+    m_RefCount: 0
     m_Data: {r: 6.9053e-41, g: 6.9053e-41, b: 6.9053e-41, a: 6.9053e-41}
-  - m_RefCount: 42
+  - serializedVersion: 2
+    m_RefCount: 42
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -36772,49 +36914,52 @@ MonoBehaviour:
   npcName: Harold Finch
   dialogueNodes:
   - frasesDoNPC:
-    - frase: Good evening. I hope your shift has been treating you well tonight.
-      vozDaFrase: {fileID: 0}
+    - frase: Hello, young man. I hope you are having a pleasant night so far.
+      vozDaFrase: {fileID: 8300000, guid: 191af7eae05e8554584ecc3acec62086, type: 3}
     escolhas:
-    - textoDoBotao: Just tell me what you need. Total is 5.29$.
+    - textoDoBotao: Mind your business. I did not ask. The total is 5.29$.
       proximoNode: 1
-    - textoDoBotao: It has been a quiet night so far. Total is 5.29$.
-      proximoNode: 2
-    - textoDoBotao: It has been fine. Total is 5.29$.
+    - textoDoBotao: Thank you. I hope you are having a good night. It is 5.29$.
+      proximoNode: 3
+    - textoDoBotao: Thank you. The total is 5.29$.
       proximoNode: 3
   - frasesDoNPC:
-    - frase: I see. No need for the attitude, young man. Are you new around here?
-      vozDaFrase: {fileID: 0}
+    - frase: Watch your tone. I asked a simple question. Here is your money.
+      vozDaFrase: {fileID: 8300000, guid: c3a40f279c049384cb5e3e0f9feb028a, type: 3}
     escolhas:
-    - textoDoBotao: New or not, it is none of your concern.
+    - textoDoBotao: Keep talking like that and you will regret it. Take your money
+        and stay quiet.
       proximoNode: -1
-    - textoDoBotao: Yes, I just started. It has been interesting.
+    - textoDoBotao: Sorry, did not mean to upset you. That is all on me.
+      proximoNode: 2
+    - textoDoBotao: I am sorry. I meant no trouble. I did not intend to cause any
+        problems.
+      proximoNode: 2
+  - frasesDoNPC:
+    - frase: No problem. I just came to buy what I need. I will not cause any trouble.
+      vozDaFrase: {fileID: 8300000, guid: 0c28723ef732f0740a685f1f870f5bf3, type: 3}
+    escolhas:
+    - textoDoBotao: Keep it that way. Pay and go.
+      proximoNode: -1
+    - textoDoBotao: No worries. Take your time.
+      proximoNode: 3
+    - textoDoBotao: "Okay\u2026 just be quick, please. I do not want any trouble
+        tonight."
+      proximoNode: 3
+  - frasesDoNPC:
+    - frase: That will be all, thank you. Quiet night, is it not? Not much happening
+        around here tonight.
+      vozDaFrase: {fileID: 8300000, guid: 5eb6a129bf96dbc49a845605da968672, type: 3}
+    escolhas:
+    - textoDoBotao: Yeah. Too quiet.
       proximoNode: 4
-    - textoDoBotao: Yes, I just started. I hope I am doing okay.
+    - textoDoBotao: Yeah, it has been calm tonight. Here you go. Have a good night.
+      proximoNode: 4
+    - textoDoBotao: Yes, very quiet here. Good night.
       proximoNode: 4
   - frasesDoNPC:
-    - frase: That is good to hear. Quiet nights are always nice. Do you enjoy your
-        work here?
-      vozDaFrase: {fileID: 0}
-    escolhas:
-    - textoDoBotao: Enjoy it or not, I still get the job done.
-      proximoNode: -1
-    - textoDoBotao: I am, thank you. The people here are kind.
-      proximoNode: 4
-    - textoDoBotao: I think so. I am still learning.
-      proximoNode: 4
-  - frasesDoNPC:
-    - frase: You seem tense. Long shifts can be tough. Do you manage the stress well?
-      vozDaFrase: {fileID: 0}
-    escolhas:
-    - textoDoBotao: I handle it just fine, thank you.
-      proximoNode: -1
-    - textoDoBotao: I do my best. It is not too bad.
-      proximoNode: 4
-    - textoDoBotao: I try. It can be overwhelming sometimes.
-      proximoNode: 4
-  - frasesDoNPC:
-    - frase: Good to hear. Have a great night.
-      vozDaFrase: {fileID: 0}
+    - frase: Good night. Stay safe out here. It is not a good night to linger.
+      vozDaFrase: {fileID: 8300000, guid: 445b83d63cab5d34ab349beefdfa7b3d, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
