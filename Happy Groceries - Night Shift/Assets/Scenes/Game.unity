@@ -6384,8 +6384,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -9246,7 +9246,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 1148471866473347335, guid: d0984b43c634f3c4faf97dd993c2d0af, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 453bfe183e28ef241be6afa3c73f7388, type: 3}
+  m_Resource: {fileID: 8300000, guid: 93181365415a3b443a22c945759700f3, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.7
   m_Pitch: 1
@@ -10490,8 +10490,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -16997,7 +16997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &750613530
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24440,7 +24440,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ChildBathroomEvent
   nightTimer: {fileID: 1716897022}
-  appearanceTime: 25.4
+  appearanceTime: 25.3
   distanciaParaOuvir: 12.5
   somDeRepararAudioSource: {fileID: 267758837}
   bathroomDoorCollider: {fileID: 1749639266}
@@ -27326,8 +27326,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -33671,39 +33671,76 @@ MonoBehaviour:
   npcName: Daniel Brooks
   dialogueNodes:
   - frasesDoNPC:
-    - frase: "Strange how quiet it is, isn\u2019t it? Almost like something\u2019s
-        waiting. Don\u2019t worry\u2026 it\u2019s perfectly safe. Probably."
+    - frase: "Quiet place, is not it? Makes you wonder what is really going on. Do
+        not worry, it is perfectly safe\u2026 probably."
       vozDaFrase: {fileID: 8300000, guid: cedb1b356ab572346903446932e01057, type: 3}
     escolhas:
-    - textoDoBotao: Stop joking around. This is not funny. It will be 10.39$.
+    - textoDoBotao: If you have got something to say, just say it. I do not like
+        those little jokes.
       proximoNode: 1
-    - textoDoBotao: "Heh\u2026 yeah, it is a bit eerie, but I am okay. The total
-        is 10.39$."
+    - textoDoBotao: Yeah, it does feel peaceful. Sometimes a bit of quiet is exactly
+        what you need.
       proximoNode: 2
-    - textoDoBotao: Why probably? There is are a murder in the town. The price is
-        10.39$.
+    - textoDoBotao: "That does not make me feel safe\u2026 I have got a bad feeling
+        about this place\u2026"
       proximoNode: 3
   - frasesDoNPC:
-    - frase: Godamn! Can you give me a discount?
+    - frase: Fine, I will say it is just to buy these things. No need for that attitude.
+        Sorry, it was just a joke.
       vozDaFrase: {fileID: 8300000, guid: 59333f6548cb6014a989ea6ff37e5566, type: 3}
     escolhas:
-    - textoDoBotao: No, if you will not pay leave.
+    - textoDoBotao: I said I am not in the mood for jokes. Just pay the $10.39.
+      proximoNode: 4
+    - textoDoBotao: My bad, I misunderstood. The total is $10.39.
+      proximoNode: 4
+    - textoDoBotao: "Ah\u2026 sorry, I got it wrong. The total it is $10.39."
       proximoNode: 4
   - frasesDoNPC:
-    - frase: Keep the change.
-      vozDaFrase: {fileID: 8300000, guid: 37c9f354b2b7cf44fab1e30f479d49ee, type: 3}
+    - frase: "Good to hear, sometimes it is better\u2026 but be careful, I have heard
+        some gossip about a killer around here."
+      vozDaFrase: {fileID: 8300000, guid: 59333f6548cb6014a989ea6ff37e5566, type: 3}
     escolhas:
-    - textoDoBotao: ...
-      proximoNode: -1
+    - textoDoBotao: I do not buy those stories. Just pay the $10.39.
+      proximoNode: 4
+    - textoDoBotao: Thanks for the advice! That will be $10.39.
+      proximoNode: 4
+    - textoDoBotao: "Oh\u2026 a killer? I have heard that story too\u2026 It is $10.39."
+      proximoNode: 4
   - frasesDoNPC:
-    - frase: Do not matter. Keep the change, you might need it.
+    - frase: "I would too if I were you\u2026 but I am not, so be careful. Maybe
+        you should just go home."
+      vozDaFrase: {fileID: 8300000, guid: 59333f6548cb6014a989ea6ff37e5566, type: 3}
+    escolhas:
+    - textoDoBotao: No thanks. I have got work to do. Just pay the $10.39.
+      proximoNode: 4
+    - textoDoBotao: "I\u2019ll be careful\u2026 and maybe going home is not a bad
+        idea. It is $10.39."
+      proximoNode: 4
+    - textoDoBotao: "I don\u2019t want to stay here\u2026 maybe I should go home...
+        That will be $10.39."
+      proximoNode: 4
+  - frasesDoNPC:
+    - frase: "Damn, that is too expensive\u2026 maybe I should return the items\u2026
+        just kidding! Here you go."
       vozDaFrase: {fileID: 8300000, guid: 045dc1d3cc0bdb5438fdb4244a006422, type: 3}
     escolhas:
+    - textoDoBotao: Yeah, well, do not waste my time with jokes. Just pay and move
+        on.
+      proximoNode: 5
+    - textoDoBotao: Haha, good one! Thanks for paying, I appreciate it.
+      proximoNode: 6
+    - textoDoBotao: "Wait\u2026 you were just kidding, right? Thanks for paying."
+      proximoNode: 6
+  - frasesDoNPC:
+    - frase: "Sorry again\u2026 it is my fault. I am just like that. Goodbye."
+      vozDaFrase: {fileID: 8300000, guid: 61299bb8eb78a6c4989cf4d987eda956, type: 3}
+    escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Fine... Keep the change. You might need it.
-      vozDaFrase: {fileID: 0}
+    - frase: No problem at all! Thank you so much for your help today. Wishing you
+        the best of luck!
+      vozDaFrase: {fileID: 8300000, guid: 61299bb8eb78a6c4989cf4d987eda956, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
