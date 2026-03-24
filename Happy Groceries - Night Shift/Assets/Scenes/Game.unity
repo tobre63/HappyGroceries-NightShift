@@ -2424,11 +2424,11 @@ MonoBehaviour:
         please.
       vozDaFrase: {fileID: 8300000, guid: 8d73ff262a57c834b99d6a05d67ca3ab, type: 3}
     escolhas:
-    - textoDoBotao: Fine. That will be 3.89$. Hand it over and be quick.
+    - textoDoBotao: Fine. That will be $3.89. Hand it over and be quick.
       proximoNode: 1
-    - textoDoBotao: Hello! Hope you are having a good night. That comes to 3.89$.
+    - textoDoBotao: Hello! Hope you are having a good night. That comes to $3.89.
       proximoNode: 2
-    - textoDoBotao: Okay that will be 3.89$.
+    - textoDoBotao: Okay that will be $3.89.
       proximoNode: 2
   - frasesDoNPC:
     - frase: Sure. Do not need to be rude.
@@ -16997,7 +16997,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &750613530
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27608,26 +27608,48 @@ MonoBehaviour:
   npcName: Blair Whitmore
   dialogueNodes:
   - frasesDoNPC:
-    - frase: Hello. I just need three waters and one cookie please.
-      vozDaFrase: {fileID: 0}
+    - frase: Hello. I would like to buy these, three bottles of water and a pack
+        of biscuits. Thank you.
+      vozDaFrase: {fileID: 8300000, guid: d04e2b12c95cba845a047b0ed358c114, type: 3}
     escolhas:
-    - textoDoBotao: Take your things and leave. I do not want to talk right now.
-        It is 4.19$
-      proximoNode: -1
-    - textoDoBotao: 'Here you go. I hope you enjoy it. The total is 4.19$ '
+    - textoDoBotao: It is $6.49. Just put the money on the counter. Do not waste
+        my time.
       proximoNode: 1
-    - textoDoBotao: "O okay\u2026 here\u2026 I\u2026 I hope nothing bad happens tonight.
-        It is 4.19$"
+    - textoDoBotao: Alright, that will be $6.49. Anything else?
+      proximoNode: 2
+    - textoDoBotao: "Okay\u2026 three waters and a pack of biscuits\u2026That will
+        be $6.49."
       proximoNode: 2
   - frasesDoNPC:
-    - frase: Thank you. I appreciate it. It looks very good.
-      vozDaFrase: {fileID: 0}
+    - frase: "Uh\u2026 right\u2026 sorry. Here is the money. I did not mean to bother
+        you."
+      vozDaFrase: {fileID: 8300000, guid: 71a6f9113b838c548897f981c1b04741, type: 3}
+    escolhas:
+    - textoDoBotao: "Yeah\u2026 whatever. Take your stuff and go."
+      proximoNode: 4
+    - textoDoBotao: It is fine. Here is your change.
+      proximoNode: 3
+    - textoDoBotao: "No, it is okay\u2026 You did not bother me\u2026"
+      proximoNode: 3
+  - frasesDoNPC:
+    - frase: No, that will be all, thank you. Here you go.
+      vozDaFrase: {fileID: 8300000, guid: 71a6f9113b838c548897f981c1b04741, type: 3}
+    escolhas:
+    - textoDoBotao: Finally. Took you long enough.
+      proximoNode: 4
+    - textoDoBotao: Thank you. Here is your change.
+      proximoNode: 3
+    - textoDoBotao: "Okay\u2026 Here is your change\u2026"
+      proximoNode: 3
+  - frasesDoNPC:
+    - frase: Thank you, have a great night.
+      vozDaFrase: {fileID: 8300000, guid: abd0a27147ea8224e9e0df5909362d8d, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Do not worry. Nights are usually quiet here. Just take your time.
-      vozDaFrase: {fileID: 0}
+    - frase: No need to act like that. Relax and have a good night.
+      vozDaFrase: {fileID: 8300000, guid: 4429daabe86f7be46b4f0d07d930e9c1, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
@@ -31390,44 +31412,64 @@ MonoBehaviour:
   npcName: Thomas Hale
   dialogueNodes:
   - frasesDoNPC:
-    - frase: Excuse me, could you spare some food? I am really hungry.
-      vozDaFrase: {fileID: 0}
+    - frase: "Hey\u2026 excuse me\u2026 I am sorry to bother you\u2026 I just need
+        a little food\u2026 Please."
+      vozDaFrase: {fileID: 8300000, guid: 60e35a42cec69d048a86661a2c866f15, type: 3}
     escolhas:
-    - textoDoBotao: No, I cannot give you anything.
+    - textoDoBotao: No, I am not giving you anything.
       proximoNode: 1
-    - textoDoBotao: I wish I could, but I cannot.
+    - textoDoBotao: I wish I could help, but I cannot.
       proximoNode: 2
-    - textoDoBotao: I... I cannot give you anything.
+    - textoDoBotao: "Hello\u2026 I cannot give you any food. I am sorry."
       proximoNode: 2
   - frasesDoNPC:
-    - frase: Please, just a little? I have not eaten all day.
-      vozDaFrase: {fileID: 0}
+    - frase: Alright, no need to be like that. You do not know me, and I do not even
+        know who you are.
+      vozDaFrase: {fileID: 8300000, guid: cebacb96d8a669d43aa410cb4c2595a2, type: 3}
     escolhas:
-    - textoDoBotao: The owner does not allow it.
+    - textoDoBotao: And who are you supposed to be? Look at yourself, you look like
+        a mess.
       proximoNode: 3
-    - textoDoBotao: The owner says I cannot give food.
+    - textoDoBotao: I am sorry, that is my fault. But I still cannot give you any
+        food.
+      proximoNode: 2
+    - textoDoBotao: "I am sorry\u2026 I did not mean anything. I just\u2026 I cannot
+        help you."
+      proximoNode: 2
+  - frasesDoNPC:
+    - frase: "Please, just a little? I have not eaten all day. If you have got anything\u2026
+        even scraps\u2026"
+      vozDaFrase: {fileID: 8300000, guid: 2d5276d166ab3074da1f7b316453415b, type: 3}
+    escolhas:
+    - textoDoBotao: No. I am not giving you anything. Get out.
+      proximoNode: 3
+    - textoDoBotao: I am sorry, I really cannot help.
       proximoNode: 4
-    - textoDoBotao: The owner said no, I am sorry.
+    - textoDoBotao: "I am sorry\u2026 I do not have anything to give. Please do not
+        be upset."
       proximoNode: 4
   - frasesDoNPC:
-    - frase: Come on, just a small piece, I am desperate.
-      vozDaFrase: {fileID: 0}
-    escolhas:
-    - textoDoBotao: I said no.
-      proximoNode: 3
-    - textoDoBotao: I am really sorry, I cannot help.
-      proximoNode: 3
-    - textoDoBotao: I cannot, please understand.
-      proximoNode: 4
-  - frasesDoNPC:
-    - frase: Alright, I will leave. I just hoped someone would help.
-      vozDaFrase: {fileID: 0}
+    - frase: "Alright, man\u2026 relax. If you cannot help, just say it. No need
+        for that."
+      vozDaFrase: {fileID: 8300000, guid: 9343a2659095cbb40bf030188c79fa02, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
   - frasesDoNPC:
-    - frase: Thank you anyway, I will try somewhere else.
-      vozDaFrase: {fileID: 0}
+    - frase: "Please\u2026 man, I do not want to die like this. There has to be something
+        left for me. Please."
+      vozDaFrase: {fileID: 8300000, guid: 59b3a446b056a7a4cafd16deb42e1f3a, type: 3}
+    escolhas:
+    - textoDoBotao: No. Just leave. Do not push me. You do not know me.
+      proximoNode: 3
+    - textoDoBotao: "Please, man\u2026 I cannot. The manager said no. Just leave."
+      proximoNode: 5
+    - textoDoBotao: "I wish I could help\u2026 but the manager said no. Please, leave
+        me alone."
+      proximoNode: 5
+  - frasesDoNPC:
+    - frase: Okay, man. Thanks anyway. I hope one day the world will turn in my favor.
+      vozDaFrase: {fileID: 8300000, guid: 48e89b0acf84aea46ba082dcdf45ef62, type: 3}
     escolhas:
     - textoDoBotao: ...
       proximoNode: -1
@@ -37024,11 +37066,11 @@ MonoBehaviour:
     - frase: Hello, young man. I hope you are having a pleasant night so far.
       vozDaFrase: {fileID: 8300000, guid: 191af7eae05e8554584ecc3acec62086, type: 3}
     escolhas:
-    - textoDoBotao: Mind your business. I did not ask. The total is 5.29$.
+    - textoDoBotao: Mind your business. I did not ask. The total is $5.29.
       proximoNode: 1
-    - textoDoBotao: Thank you. I hope you are having a good night. It is 5.29$.
+    - textoDoBotao: Thank you. I hope you are having a good night. It is $5.29
       proximoNode: 3
-    - textoDoBotao: Thank you. The total is 5.29$.
+    - textoDoBotao: Thank you. The total is $5.29.
       proximoNode: 3
   - frasesDoNPC:
     - frase: Watch your tone. I asked a simple question. Here is your money.
