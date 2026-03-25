@@ -69,6 +69,11 @@ public class ExitTrigger : MonoBehaviour
         if (sfxSource != null) sfxSource.UnPause();
         
         Time.timeScale = 1f;
+
+        // Torna o rato visível e desbloqueado para o Menu Principal
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         SceneManager.LoadScene(0);
     }
 }

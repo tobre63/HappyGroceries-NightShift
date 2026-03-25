@@ -5880,7 +5880,7 @@ MonoBehaviour:
       proximoNode: 4
   - frasesDoNPC:
     - frase: Show some respect when you speak to the police. This is not a playground.
-      vozDaFrase: {fileID: 0}
+      vozDaFrase: {fileID: 8300000, guid: b647889c6a3a357469d0e8a390d6f7bf, type: 3}
     escolhas:
     - textoDoBotao: Respect goes both ways. Do not talk to me like that.
       proximoNode: 5

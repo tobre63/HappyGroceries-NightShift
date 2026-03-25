@@ -6,13 +6,13 @@ using TMPro;
 
 public class SettingsManager : MonoBehaviour
 {
-    [Header("--- ÁUDIO ---")]
+    [Header("Audio Settings")]
     [SerializeField] private AudioMixer myMixer;
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider SFXSlider;
     [SerializeField] private Slider generalSlider;
 
-    [Header("--- TABS ---")]
+    [Header("Tabs")]
     public GameObject[] Tabs;
     public Image[] TabButtons;
     public Color inactiveTabColor = new Color(87f / 255f, 31f / 255f, 31f / 255f, 1f);
@@ -20,12 +20,9 @@ public class SettingsManager : MonoBehaviour
     public Vector2 InactiveTabButtonSize;
     public Vector2 ActiveTabButtonSize;
 
-    [Header("--- GRÁFICOS ---")]
+    [Header("Graphic Settings")]
     public TMP_Dropdown ResDropDown;
-
-    [Tooltip("Arrasta para aqui o teu SliderToggle do Fullscreen")]
     public SliderToggle fullscreenToggle;
-    [Tooltip("Arrasta para aqui o teu SliderToggle do VSync")]
     public SliderToggle vsyncToggle;
 
     Resolution[] AllResolutions;
@@ -34,8 +31,8 @@ public class SettingsManager : MonoBehaviour
 
     void Start()
     {
-        // 1. CARREGAR O ÁUDIO
-        if (PlayerPrefs.HasKey("musicVolume"))
+    // 1. CARREGAR O ï¿½UDIO
+    if (PlayerPrefs.HasKey("musicVolume"))
         {
             LoadVolume();
         }
@@ -46,22 +43,22 @@ public class SettingsManager : MonoBehaviour
             SetGeneralVolume();
         }
 
-        // 2. CONFIGURAR E CARREGAR OS GRÁFICOS
-        SetupResolutions();
+    // 2. CONFIGURAR E CARREGAR OS GRï¿½FICOS
+    SetupResolutions();
         LoadGraphicsSettings();
     }
 
-    // ==========================================
-    //                  ÁUDIO
-    // ==========================================
+    // ==========================================
+    //ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½UDIO
+    // ==========================================
 
-    public void SetMusicVolume()
+    public void SetMusicVolume()
     {
         float volume = musicSlider.value;
         myMixer.SetFloat("music", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("musicVolume", volume);
         PlayerPrefs.Save(); // Adicionado
-    }
+    }
 
     public void SetSFXVolume()
     {
@@ -69,7 +66,7 @@ public class SettingsManager : MonoBehaviour
         myMixer.SetFloat("sfx", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("SFXVolume", volume);
         PlayerPrefs.Save(); // Adicionado
-    }
+    }
 
     public void SetGeneralVolume()
     {
@@ -77,7 +74,7 @@ public class SettingsManager : MonoBehaviour
         myMixer.SetFloat("general", Mathf.Log10(volume) * 20);
         PlayerPrefs.SetFloat("generalVolume", volume);
         PlayerPrefs.Save(); // Adicionado
-    }
+    }
 
     private void LoadVolume()
     {
@@ -90,11 +87,11 @@ public class SettingsManager : MonoBehaviour
         SetGeneralVolume();
     }
 
-    // ==========================================
-    //            TABS (SEPARADORES)
-    // ==========================================
+    // ==========================================
+    //ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ TABS (SEPARADORES)
+    // ==========================================
 
-    public void SwitchToTab(int TabID)
+    public void SwitchToTab(int TabID)
     {
         foreach (GameObject go in Tabs)
         {
@@ -112,21 +109,20 @@ public class SettingsManager : MonoBehaviour
         TabButtons[TabID].rectTransform.sizeDelta = ActiveTabButtonSize;
     }
 
-    // ==========================================
-    //               GRÁFICOS
-    // ==========================================
+    // ==========================================
+    //ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½ ï¿½GRï¿½FICOS
+    // ==========================================
 
-    private void SetupResolutions()
+    private void SetupResolutions()
     {
         AllResolutions = Screen.resolutions;
         ResDropDown.ClearOptions();
 
         List<string> resolutionStringList = new List<string>();
         SelectedResolutionList = new List<Resolution>();
-
-        // SOLUÇÃO 1: Percorrer a lista de trás para a frente.
-        // Assim garantimos que apanhamos sempre a versão com os Hertz (Hz) mais altos para cada resolução!
-        for (int i = AllResolutions.Length - 1; i >= 0; i--)
+        // SOLUï¿½ï¿½O 1: Percorrer a lista de trï¿½s para a frente.
+        // Assim garantimos que apanhamos sempre a versï¿½o com os Hertz (Hz) mais altos para cada resoluï¿½ï¿½o!
+        for (int i = AllResolutions.Length - 1; i >= 0; i--)
         {
             string newRes = AllResolutions[i].width + " x " + AllResolutions[i].height;
 
@@ -137,8 +133,8 @@ public class SettingsManager : MonoBehaviour
             }
         }
 
-        // Inverter as listas para que a apresentação no Dropdown fique natural (da menor resolução para a maior)
-        resolutionStringList.Reverse();
+    // Inverter as listas para que a apresentaï¿½ï¿½o no Dropdown fique natural (da menor resoluï¿½ï¿½o para a maior)
+        resolutionStringList.Reverse();
         SelectedResolutionList.Reverse();
 
         ResDropDown.AddOptions(resolutionStringList);
@@ -146,9 +142,9 @@ public class SettingsManager : MonoBehaviour
 
     public void SetFullscreenOn()
     {
-        // SOLUÇÃO 2: Usar ExclusiveFullScreen. 
-        // Dá controlo absoluto à GPU e evita que o Windows estrague as cores ao redimensionar.
-        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+        // SOLUï¿½ï¿½O 2: Usar ExclusiveFullScreen.ï¿½
+        // Dï¿½ controlo absoluto ï¿½ GPU e evita que o Windows estrague as cores ao redimensionar.
+        Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
         PlayerPrefs.SetInt("isFullscreen", 1);
         PlayerPrefs.Save();
     }
@@ -158,36 +154,36 @@ public class SettingsManager : MonoBehaviour
         Screen.fullScreenMode = FullScreenMode.Windowed;
         PlayerPrefs.SetInt("isFullscreen", 0);
         PlayerPrefs.Save(); // Adicionado
-    }
+    }
 
     public void SetVSyncOn()
     {
         QualitySettings.vSyncCount = 1;
         PlayerPrefs.SetInt("isVSync", 1);
         PlayerPrefs.Save(); // Adicionado
-    }
+    }
 
     public void SetVSyncOff()
     {
         QualitySettings.vSyncCount = 0;
         PlayerPrefs.SetInt("isVSync", 0);
         PlayerPrefs.Save(); // Adicionado
-    }
+    }
 
     public void ChangeResolution()
     {
         SelectedResolution = ResDropDown.value;
         Resolution res = SelectedResolutionList[SelectedResolution];
 
-        // Passamos o fullScreenMode atual diretamente
-        Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
+        // Passamos o fullScreenMode atual diretamente
+        Screen.SetResolution(res.width, res.height, Screen.fullScreenMode);
 
         PlayerPrefs.SetInt("resolutionIndex", SelectedResolution);
         PlayerPrefs.Save();
     }
 
-    // --- A MAGIA DO SAVE DOS GRÁFICOS ---
-    private void LoadGraphicsSettings()
+    // --- A MAGIA DO SAVE DOS GRï¿½FICOS ---
+    private void LoadGraphicsSettings()
     {
         bool isFullscreen = PlayerPrefs.GetInt("isFullscreen", 1) == 1;
         if (isFullscreen) SetFullscreenOn();
@@ -207,8 +203,8 @@ public class SettingsManager : MonoBehaviour
 
             if (savedResIndex >= 0 && savedResIndex < SelectedResolutionList.Count)
             {
-                // Importante: Alterar o valor do dropdown invoca o evento OnValueChanged automaticamente se estiver associado no Inspector!
-                ResDropDown.value = savedResIndex;
+                // Importante: Alterar o valor do dropdown invoca o evento OnValueChanged automaticamente se estiver associado no Inspector!
+                ResDropDown.value = savedResIndex;
                 ChangeResolution();
             }
         }
